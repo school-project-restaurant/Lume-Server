@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using Lume.Application.Prenotations;
+using Lume.Application.Reservations;
 
 namespace Lume.Application.Extensions;
 
@@ -10,6 +10,6 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IPrenotationService, PrenotationService>();
+        services.AddScoped<IReservationService, ReservationService>();
     }
 }

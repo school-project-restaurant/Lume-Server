@@ -11,8 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Clients\" />
-      <Folder Include="Prenotations\Dtos\" />
+      <Folder Include="Reservations\Dtos\" />
       <Folder Include="Tables\" />
     </ItemGroup>
 

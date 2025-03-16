@@ -5,7 +5,7 @@ public class Reservation
     public Guid Id { get; set; }
     public DateTime Date { get; set; }
     public int CustomersCount { get; set; }
-    public Customer Customer { get; set; } = null!;
+    public string CustomerId { get; set; } = string.Empty;
     public Status Status { get; set; }
     
     public string? Notes { get; set; }

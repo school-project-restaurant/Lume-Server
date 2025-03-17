@@ -6,7 +6,6 @@
       "lastName": "Doe",
       "email": "john.doe@example.com",
       "phone": "555-1234",
-      "registeredDate": "2022-01-01",
       "prenotationId": [98]
     },
     {

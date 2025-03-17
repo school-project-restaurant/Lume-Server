@@ -4,19 +4,25 @@
       "id": 98,
       "prenotationTime": "2025-11-17T15:30:00Z",
       "customerCount": 5,
-      "clientId": 1
+      "clientId": 1,
+      "status": "confermato",
+      "notes": ""
     },
     {
       "id": 345,
       "prenotationTime": "2025-03-12T9:20:00Z",
       "customerCount": 10,
-      "clientId": 2
+      "clientId": 2,
+      "status": "confermato",
+      "notes": "Piatti per intolleranti"
     },
     {
       "id": 346,
       "prenotationTime": "2025-10-02T01:00:00Z",
       "customerCount": 2,
-      "clientId": 2
+      "clientId": 2,
+      "status": "in attesa",
+      "notes": "Vorremmo un posto appartato"
     }
   ]
 }

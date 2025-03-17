@@ -1,0 +1,19 @@
+{
+  "tables": [
+    {
+      "id": 1,
+      "prenotationId": 98,
+      "seats": "7"
+    },
+    {
+      "id": 2,
+      "prenotationId": 345,
+      "seats": "10"
+    },
+    {
+      "id": 3,
+      "prenotationId": 346,
+      "seats": "2"
+    }
+  ]
+}

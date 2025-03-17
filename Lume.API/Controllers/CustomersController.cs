@@ -1,5 +1,7 @@
 using Lume.Application.Customers;
 using Lume.Application.Customers.Dtos;
+using Lume.Application.Reservations;
+using Lume.Application.Reservations.Dtos;
 using Lume.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +12,13 @@ namespace Lume.Controllers;
 public class CustomersController(ICustomerService customerService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllUsers()
     {
         var customers = await customerService.GetAll();
         return Ok(customers);
     }
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id)
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
         var customer = await customerService.GetById(id);
         if (customer is null)
@@ -28,14 +30,14 @@ public class CustomersController(ICustomerService customerService) : ControllerB
     public async Task<IActionResult> Post([FromBody] CustomerDto customerDto)
     {
         var customer = CustomerDto.FromDto(customerDto);
-        await customerService.Create(customerDto);
+        await customerService.Create(customer);
             
-        return Created(nameof(GetById), customer);
+        return Created(nameof(GetUserById), customer);
     }
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Patch([FromRoute] int id, [FromBody] CustomerDto customerDto)
+    public async Task<IActionResult> PatchUser([FromRoute] int id, [FromBody] CustomerDto customerDto)
     {
         var customer = await customerService.GetById(id);
         if (customer is null)
@@ -47,7 +49,7 @@ public class CustomersController(ICustomerService customerService) : ControllerB
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
         var customer = await customerService.GetById(id);
         if (customer is null)
@@ -55,5 +57,20 @@ public class CustomersController(ICustomerService customerService) : ControllerB
         
         await customerService.Delete(id);
         return NoContent();
+    }
+    [HttpGet("{id}/reservations")]
+    public async Task<IActionResult> GetClientReservations([FromRoute] int id)
+    {
+        var reservations = await customerService.GetReservations(id);
+        return Ok(reservations);
+    }
+
+    [HttpPost("{id}/reservations")]
+    public async Task<IActionResult> PostReservation([FromRoute] int id, [FromBody] ReservationDto reservationDto)
+    {
+        var reservation = ReservationDto.FromDto(reservationDto);
+        await customerService.CreateReservation(id, reservation);
+        
+        return Created(nameof(GetClientReservations), reservation);
     }
 }

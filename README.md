@@ -1,6 +1,6 @@
-# RestaurantAPI User Guide
+# Lume-Server User Guide
 
-RestaurantAPI is a RESTful API developed as part of a school project to manage restaurant data. This guide helps users understand how to set up and interact with the API.
+Lume-Server is a RESTful API developed as part of a school project to manage restaurant data. This guide helps users understand how to set up and interact with the API.
 
 ## Features
 
@@ -20,7 +20,7 @@ RestaurantAPI is a RESTful API developed as part of a school project to manage r
 
 ### Prerequisites
 
-Before using RestaurantAPI, ensure you have the following installed:
+Before using Lume-Server, ensure you have the following installed:
 
 - [PostgreSQL](https://www.postgresql.org/)
 - [Visual Studio](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/)
@@ -46,14 +46,16 @@ Before using RestaurantAPI, ensure you have the following installed:
 
 ### Available Endpoints
 
-Below is a summary of the core endpoints. For a full reference, see the [API Documentation](./API_DOCUMENTATION.md) (if available).
+Below is a summary of the core endpoints.
 
-#### Restaurants
-- **GET /restaurants** – Fetch all restaurants.
-- **GET /restaurants/{id}** – Retrieve details of a specific restaurant.
-- **POST /restaurants** – Add a new restaurant.
-- **PUT /restaurants/{id}** – Update an existing restaurant.
-- **DELETE /restaurants/{id}** – Remove a restaurant.
+#### Clients
+- **GET /clients** – Fetch all clients.
+- **GET /clients/{id}** – Retrieve details of a specific client.
+- **POST /clients** – Add a new client.
+- **PATCH /clients/{id}** – Update an existing client.
+- **DELETE /clients/{id}** – Remove a client.
+- **GET /clients/{id}/reservations** - Get customer reservations.
+- **POST /clients/{id}/reservations** - Add a new reservations for a customer.
 
 ## Database Schema
 

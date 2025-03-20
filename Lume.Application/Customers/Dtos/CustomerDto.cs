@@ -16,10 +16,8 @@ public class CustomerDto
     {
         return new Customer
         {
-            Id = customerDto.Id,
             Name = customerDto.Name,
             Surname = customerDto.Surname,
-            ReservationsId = customerDto.ReservationsId,
         };
     }
 }

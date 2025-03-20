@@ -1,20 +1,22 @@
 using Lume.Application.Customers;
 using Lume.Application.Customers.Dtos;
+using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Reservations;
 using Lume.Application.Reservations.Dtos;
 using Lume.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CustomersController(ICustomerService customerService) : ControllerBase
+public class CustomersController(ICustomerService customerService, IMediator mediator) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
-        var customers = await customerService.GetAll();
+        var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
     [HttpGet("{id}")]
@@ -26,14 +28,14 @@ public class CustomersController(ICustomerService customerService) : ControllerB
         
         return Ok(customer);
     }
-    [HttpPost]
+    /*[HttpPost]
     public async Task<IActionResult> Post([FromBody] CustomerDto customerDto)
     {
         var customer = CustomerDto.FromDto(customerDto);
         await customerService.Create(customer);
             
         return Created(nameof(GetUserById), customer);
-    }
+    }*/
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

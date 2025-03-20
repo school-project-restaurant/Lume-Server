@@ -1,4 +1,5 @@
 using Lume.Application.Customers;
+using Lume.Application.Customers.Commands.CreateCustomer;
 using Lume.Application.Customers.Dtos;
 using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Customers.Queries.GetCustomerById;
@@ -27,14 +28,12 @@ public class CustomersController(ICustomerService customerService, IMediator med
         
         return Ok(customer);
     }
-    /*[HttpPost]
-    public async Task<IActionResult> Post([FromBody] CustomerDto customerDto)
+    [HttpPost]
+    public async Task<IActionResult> Post(CreateCustomerCommand command)
     {
-        var customer = CustomerDto.FromDto(customerDto);
-        await customerService.Create(customer);
-            
-        return Created(nameof(GetUserById), customer);
-    }*/
+        int id = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetUserById), new { id }, null);
+    }
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

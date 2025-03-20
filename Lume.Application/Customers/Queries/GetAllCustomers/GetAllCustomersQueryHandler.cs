@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Lume.Application.Customers.Queries.GetAllCustomers;
 
-public class GetAllCustomersQueryHandler(ILogger logger, IMapper mapper,
+public class GetAllCustomersQueryHandler(ILogger<GetAllCustomersQueryHandler> logger, IMapper mapper,
     ICustomerRepository customerRepository) : IRequestHandler<GetAllCustomersQuery, IEnumerable<CustomerDto>>
 {
     public async Task<IEnumerable<CustomerDto>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)

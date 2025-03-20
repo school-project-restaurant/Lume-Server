@@ -1,9 +1,8 @@
 using Lume.Application.Customers;
 using Lume.Application.Customers.Dtos;
 using Lume.Application.Customers.Queries.GetAllCustomers;
-using Lume.Application.Reservations;
+using Lume.Application.Customers.Queries.GetCustomerById;
 using Lume.Application.Reservations.Dtos;
-using Lume.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +21,7 @@ public class CustomersController(ICustomerService customerService, IMediator med
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
-        var customer = await customerService.GetById(id);
+        var customer = await mediator.Send(new GetCustomerByIdQuery(id));
         if (customer is null)
             return NotFound("Customer not found");
         

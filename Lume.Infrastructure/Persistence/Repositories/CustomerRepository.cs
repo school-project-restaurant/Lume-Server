@@ -1,0 +1,17 @@
+using Lume.Domain.Entities;
+using Lume.Domain.Repositories;
+
+namespace Lume.Infrastructure.Persistence.Repositories;
+
+public class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepository
+{
+    public Task<IEnumerable<Customer>> GetAllCustomers()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Customer> GetCustomerById(int id)
+    {
+        throw new NotImplementedException();
+    }
+}

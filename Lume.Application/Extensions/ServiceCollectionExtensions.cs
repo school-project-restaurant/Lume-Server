@@ -10,6 +10,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddApplication(this IServiceCollection services)
     {
+        var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
         services.AddScoped<IReservationService, ReservationService>();
+        services.AddAutoMapper(applicationAssembly);
     }
 }

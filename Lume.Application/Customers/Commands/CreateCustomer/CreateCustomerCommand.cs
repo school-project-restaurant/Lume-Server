@@ -8,6 +8,5 @@ public class CreateCustomerCommand : IRequest<int>
     public string Surname { get; set; } = null!;
     public string? Email { get; set; }
     public string PhoneNumber { get; set; } = null!;
-    public List<Guid>? ReservationsId { get; set; }
     public string PasswordHash { get; set; } = null!;
 }

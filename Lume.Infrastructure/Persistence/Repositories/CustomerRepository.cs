@@ -10,12 +10,17 @@ public class CustomerRepository(RestaurantDbContext dbContext) : ICustomerReposi
         throw new NotImplementedException();
     }
 
-    public Task<Customer> GetCustomerById(int id)
+    public Task<Customer?> GetCustomerById(int id)
     {
         throw new NotImplementedException();
     }
 
     public Task<int> CreateCustomer(Customer customer)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteCustomer(Customer customer)
     {
         throw new NotImplementedException();
     }

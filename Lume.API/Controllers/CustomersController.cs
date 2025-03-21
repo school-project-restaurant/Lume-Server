@@ -1,6 +1,7 @@
 using Lume.Application.Customers;
 using Lume.Application.Customers.Commands.CreateCustomer;
 using Lume.Application.Customers.Commands.DeleteCustomer;
+using Lume.Application.Customers.Commands.UpdateCustomer;
 using Lume.Application.Customers.Dtos;
 using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Customers.Queries.GetCustomerById;
@@ -46,20 +47,20 @@ public class CustomersController(ICustomerService customerService, IMediator med
         var isDeleted = await mediator.Send(new DeleteCustomerCommand(id));
         if (isDeleted)
             return NoContent();
-        
+
         return NotFound("Customer not found");
     }
 
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PatchUser([FromRoute] int id, [FromBody] CustomerDto customerDto)
+    public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] UpdateCustomerCommand command)
     {
-        var customer = await customerService.GetById(id);
-        if (customer is null)
+        command.Id = id;
+        var isUpdated = await mediator.Send(command);
+        if (!isUpdated)
             return NotFound("Customer not found");
 
-        await customerService.Update(id, customerDto);
         return NoContent();
     }
 

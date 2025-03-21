@@ -24,4 +24,9 @@ public class CustomerRepository(RestaurantDbContext dbContext) : ICustomerReposi
     {
         throw new NotImplementedException();
     }
+
+    public Task SaveChanges()
+    {
+        throw new NotImplementedException();
+    }
 }

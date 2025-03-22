@@ -8,8 +8,8 @@ This document provides details about the API endpoints available for **Your API 
 
 ---
 
-## **/customer** 
-**Method:** `GET`
+# **/customer** 
+## **Method:** `GET`
 
 #### Description
 Retrieves a list of all customers

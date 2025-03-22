@@ -1,13 +1,15 @@
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lume.Infrastructure.Persistence.Repositories;
 
 internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepository
 {
-    public Task<IEnumerable<Customer>> GetAllCustomers()
+    public async Task<IEnumerable<Customer>> GetAllCustomers()
     {
-        throw new NotImplementedException();
+        var customers = await dbContext.Customers.ToListAsync();
+        return customers;
     }
 
     public Task<Customer?> GetCustomerById(int id)
@@ -15,9 +17,11 @@ internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepo
         throw new NotImplementedException();
     }
 
-    public Task<int> CreateCustomer(Customer customer)
+    public async Task<int> CreateCustomer(Customer customer)
     {
-        throw new NotImplementedException();
+        await dbContext.Customers.AddAsync(customer);
+        await dbContext.SaveChangesAsync();
+        return 4;
     }
 
     public Task DeleteCustomer(Customer customer)

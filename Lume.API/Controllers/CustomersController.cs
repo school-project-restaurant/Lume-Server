@@ -13,17 +13,17 @@ namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CustomersController(ICustomerService customerService, IMediator mediator) : ControllerBase
+public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers()
+    public async Task<IActionResult> GetAllCustomers()
     {
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUserById([FromRoute] int id)
+    public async Task<IActionResult> GetCustomerById([FromRoute] int id)
     {
         var customer = await mediator.Send(new GetCustomerByIdQuery(id));
         if (customer is null)
@@ -36,7 +36,7 @@ public class CustomersController(ICustomerService customerService, IMediator med
     public async Task<IActionResult> Post(CreateCustomerCommand command)
     {
         int id = await mediator.Send(command);
-        return CreatedAtAction(nameof(GetUserById), new { id }, null);
+        return CreatedAtAction(nameof(GetCustomerById), new { id }, null);
     }
 
     [HttpDelete("{id}")]
@@ -64,6 +64,7 @@ public class CustomersController(ICustomerService customerService, IMediator med
         return NoContent();
     }
 
+    /*
     [HttpGet("{id}/reservations")]
     public async Task<IActionResult> GetClientReservations([FromRoute] int id)
     {
@@ -78,5 +79,5 @@ public class CustomersController(ICustomerService customerService, IMediator med
         await customerService.CreateReservation(id, reservation);
 
         return Created(nameof(GetClientReservations), reservation);
-    }
+    }*/
 }

@@ -11,10 +11,10 @@ This document provides details about the API endpoints available for **Your API 
 # **/customer** 
 ## **Method:** `GET`
 
-#### Description
+## Description
 Retrieves a list of all customers
 
-#### Request
+## Request
 ```http
 GET /api/customers HTTP/1.1
 Host: yourapi.domain.com

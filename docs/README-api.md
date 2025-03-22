@@ -68,7 +68,7 @@ Content-Type: application/json
 #### Description
 Add a list of customer to the database, can also be 1
 
-#### Request
+## Request
 ```json
 {
   "customers": [
@@ -111,7 +111,7 @@ Add a list of customer to the database, can also be 1
   ]  
 }
 ```
-#### Sample Response
+## Sample Response
 ```http
 201 Created
 ```

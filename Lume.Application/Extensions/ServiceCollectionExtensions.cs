@@ -12,8 +12,8 @@ public static class ServiceCollectionExtensions
     public static void AddApplication(this IServiceCollection services)
     {
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
+        
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
-        services.AddScoped<IReservationService, ReservationService>(); // ! To remove
         services.AddAutoMapper(applicationAssembly)
             .AddFluentValidationAutoValidation();
         

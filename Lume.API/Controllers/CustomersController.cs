@@ -23,7 +23,7 @@ public class CustomersController(ICustomerService customerService, IMediator med
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUserById([FromRoute] int id)
+    public async Task<IActionResult> GetUserById([FromRoute] Guid id)
     {
         var customer = await mediator.Send(new GetCustomerByIdQuery(id));
         if (customer is null)
@@ -35,14 +35,14 @@ public class CustomersController(ICustomerService customerService, IMediator med
     [HttpPost]
     public async Task<IActionResult> Post(CreateCustomerCommand command)
     {
-        int id = await mediator.Send(command);
+        Guid id = await mediator.Send(command);
         return CreatedAtAction(nameof(GetUserById), new { id }, null);
     }
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteUser([FromRoute] int id)
+    public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
     {
         var isDeleted = await mediator.Send(new DeleteCustomerCommand(id));
         if (isDeleted)
@@ -54,7 +54,7 @@ public class CustomersController(ICustomerService customerService, IMediator med
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] UpdateCustomerCommand command)
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateCustomerCommand command)
     {
         command.Id = id;
         var isUpdated = await mediator.Send(command);
@@ -64,7 +64,7 @@ public class CustomersController(ICustomerService customerService, IMediator med
         return NoContent();
     }
 
-    [HttpGet("{id}/reservations")]
+    /*[HttpGet("{id}/reservations")]
     public async Task<IActionResult> GetClientReservations([FromRoute] int id)
     {
         var reservations = await customerService.GetReservations(id);
@@ -78,5 +78,5 @@ public class CustomersController(ICustomerService customerService, IMediator med
         await customerService.CreateReservation(id, reservation);
 
         return Created(nameof(GetClientReservations), reservation);
-    }
+    }*/
 }

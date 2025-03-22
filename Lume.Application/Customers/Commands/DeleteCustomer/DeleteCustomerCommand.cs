@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Lume.Application.Customers.Commands.DeleteCustomer;
 
-public class DeleteCustomerCommand(int id) : IRequest<bool>
+public class DeleteCustomerCommand(Guid id) : IRequest<bool>
 {
-    public int Id { get; set; } = id;
+    public Guid Id { get; set; } = id;
 }

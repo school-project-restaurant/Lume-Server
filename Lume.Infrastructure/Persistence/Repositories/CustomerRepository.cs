@@ -1,32 +1,38 @@
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lume.Infrastructure.Persistence.Repositories;
 
 internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepository
 {
-    public Task<IEnumerable<Customer>> GetAllCustomers()
+    public async Task<IEnumerable<Customer>> GetAllCustomers()
     {
-        throw new NotImplementedException();
+        var customers = await dbContext.Customers.ToListAsync();
+        return customers;
     }
 
-    public Task<Customer?> GetCustomerById(int id)
+    public async Task<Customer?> GetCustomerById(Guid id)
     {
-        throw new NotImplementedException();
+        var customer = await dbContext.Customers.FirstOrDefaultAsync(c => c.Id == id);
+        return customer;
     }
 
-    public Task<int> CreateCustomer(Customer customer)
+    public async Task<Guid> CreateCustomer(Customer customer)
     {
-        throw new NotImplementedException();
+        dbContext.Customers.Add(customer);
+        await dbContext.SaveChangesAsync();
+        return customer.Id;
     }
 
-    public Task DeleteCustomer(Customer customer)
+    public async Task DeleteCustomer(Customer customer)
     {
-        throw new NotImplementedException();
+        dbContext.Customers.Remove(customer);
+        await dbContext.SaveChangesAsync();
     }
 
-    public Task SaveChanges()
+    public async Task SaveChanges()
     {
-        throw new NotImplementedException();
+        await dbContext.SaveChangesAsync();
     }
 }

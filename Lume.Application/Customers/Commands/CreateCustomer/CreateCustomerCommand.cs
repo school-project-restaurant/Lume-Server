@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Lume.Application.Customers.Commands.CreateCustomer;
 
-public class CreateCustomerCommand : IRequest<int>
+public class CreateCustomerCommand : IRequest<Guid>
 {
     public string Name { get; set; } = null!;
     public string Surname { get; set; } = null!;

@@ -117,4 +117,8 @@ Add a list of customer to the database, can also be 1
 ```http
 201 Created
 ```
+or
+```http
+404 Not found
+```
 

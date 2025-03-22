@@ -8,7 +8,7 @@ This document provides details about the API endpoints available for **Your API 
 
 ---
 
-## **/api/customer** 
+## **/customer** 
 **Method:** `GET`
 
 #### Description

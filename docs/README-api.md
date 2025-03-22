@@ -63,9 +63,7 @@ Content-Type: application/json
   ]  
 }
 ```
-
-## **/customer** 
-**Method:** `POST`
+## **Method:** `GET`
 
 #### Description
 Add a list of customer to the database, can also be 1

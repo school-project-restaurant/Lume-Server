@@ -1,11 +1,8 @@
-using Lume.Application.Customers;
 using Lume.Application.Customers.Commands.CreateCustomer;
 using Lume.Application.Customers.Commands.DeleteCustomer;
 using Lume.Application.Customers.Commands.UpdateCustomer;
-using Lume.Application.Customers.Dtos;
 using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Customers.Queries.GetCustomerById;
-using Lume.Application.Reservations.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +10,7 @@ namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CustomersController(ICustomerService customerService, IMediator mediator) : ControllerBase
+public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()

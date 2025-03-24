@@ -1,5 +1,3 @@
-using Lume.Domain.Entities;
-
 namespace Lume.Application.Customers.Dtos;
 
 public class CustomerDto

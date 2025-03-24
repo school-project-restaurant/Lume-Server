@@ -1,6 +1,5 @@
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using Lume.Application.Reservations;
 
 namespace Lume.Application.Extensions;
 

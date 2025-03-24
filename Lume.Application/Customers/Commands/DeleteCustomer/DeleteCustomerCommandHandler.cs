@@ -1,11 +1,11 @@
-using AutoMapper;
 using Lume.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace Lume.Application.Customers.Commands.DeleteCustomer;
 
-public class DeleteCustomerCommandHandler(ILogger<DeleteCustomerCommandHandler> logger, ICustomerRepository customerRepository) : IRequestHandler<DeleteCustomerCommand, bool>
+public class DeleteCustomerCommandHandler(ILogger<DeleteCustomerCommandHandler> logger, 
+    ICustomerRepository customerRepository) : IRequestHandler<DeleteCustomerCommand, bool>
 {
     public async Task<bool> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {

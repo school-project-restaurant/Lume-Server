@@ -1,64 +1,67 @@
-using Lume.Application.Customers;
-using Lume.Application.Customers.Dtos;
-using Lume.Application.Reservations;
-using Lume.Application.Reservations.Dtos;
-using Lume.Domain.Entities;
+using Lume.Application.Customers.Commands.CreateCustomer;
+using Lume.Application.Customers.Commands.DeleteCustomer;
+using Lume.Application.Customers.Commands.UpdateCustomer;
+using Lume.Application.Customers.Queries.GetAllCustomers;
+using Lume.Application.Customers.Queries.GetCustomerById;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CustomersController(ICustomerService customerService) : ControllerBase
+public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
-        var customers = await customerService.GetAll();
+        var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
+
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUserById([FromRoute] int id)
+    public async Task<IActionResult> GetUserById([FromRoute] Guid id)
     {
-        var customer = await customerService.GetById(id);
+        var customer = await mediator.Send(new GetCustomerByIdQuery(id));
         if (customer is null)
             return NotFound("Customer not found");
-        
+
         return Ok(customer);
     }
+
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CustomerDto customerDto)
+    public async Task<IActionResult> Post(CreateCustomerCommand command)
     {
-        var customer = CustomerDto.FromDto(customerDto);
-        await customerService.Create(customer);
-            
-        return Created(nameof(GetUserById), customer);
+        Guid id = await mediator.Send(command);
+        return CreatedAtAction(nameof(GetUserById), new { id }, null);
     }
-    [HttpPatch("{id}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PatchUser([FromRoute] int id, [FromBody] CustomerDto customerDto)
-    {
-        var customer = await customerService.GetById(id);
-        if (customer is null)
-            return NotFound("Customer not found");
-        
-        await customerService.Update(id, customerDto);
-        return NoContent();
-    }
+
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteUser([FromRoute] int id)
+    public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
     {
-        var customer = await customerService.GetById(id);
-        if (customer is null)
+        var isDeleted = await mediator.Send(new DeleteCustomerCommand(id));
+        if (isDeleted)
+            return NoContent();
+
+        return NotFound("Customer not found");
+    }
+
+    [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateCustomerCommand command)
+    {
+        command.Id = id;
+        var isUpdated = await mediator.Send(command);
+        if (!isUpdated)
             return NotFound("Customer not found");
-        
-        await customerService.Delete(id);
+
         return NoContent();
     }
-    [HttpGet("{id}/reservations")]
+
+    /*[HttpGet("{id}/reservations")]
     public async Task<IActionResult> GetClientReservations([FromRoute] int id)
     {
         var reservations = await customerService.GetReservations(id);
@@ -70,7 +73,7 @@ public class CustomersController(ICustomerService customerService) : ControllerB
     {
         var reservation = ReservationDto.FromDto(reservationDto);
         await customerService.CreateReservation(id, reservation);
-        
+
         return Created(nameof(GetClientReservations), reservation);
-    }
+    }*/
 }

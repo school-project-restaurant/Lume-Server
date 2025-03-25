@@ -1,13 +1,12 @@
-namespace Lume.Application.Customers.Dtos;
+using MediatR;
 
-public class CustomerDto
+namespace Lume.Application.Customers.Commands.CreateCustomer;
+
+public class CreateCustomerCommand : IRequest<Guid>
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = null!;
     public string Surname { get; set; } = null!;
     public string? Email { get; set; }
     public string PhoneNumber { get; set; } = null!;
-    
-    public List<Guid>? ReservationsId { get; set; }
     public string PasswordHash { get; set; } = null!;
 }

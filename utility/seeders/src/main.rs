@@ -36,7 +36,7 @@ struct Table {
 #[derive(Serialize, Deserialize)]
 struct Reservation {
     id: String,
-    customer_id: Vec<String>,
+    customer_id: String,
     date: String,
     table: Vec<i32>,
     guest_count: i32,
@@ -157,7 +157,7 @@ fn main() {
         let reservation_id = Uuid::new_v4().to_string();
         let reservation = Reservation {
             id: reservation_id.clone(),
-            customer_id: vec![customers[customer_index].id.clone()],
+            customer_id: customers[customer_index].id.clone(),
             date: "2023-10-01T19:00:00".to_string(),
             table: vec![tables[table_index].number],
             guest_count: 2,
@@ -166,7 +166,9 @@ fn main() {
         };
 
         // Add the reservation id to the customer's reservations_id list
-        customers[customer_index].reservations_id.push(reservation_id.clone());
+        customers[customer_index]
+            .reservations_id
+            .push(reservation_id.clone());
         // Add the reservation id to the table's reservations_id list
         tables[table_index].reservations_id.push(reservation_id);
 

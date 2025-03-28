@@ -1,6 +1,6 @@
-# Your API Name
+# Lume API
 
-This document provides details about the API endpoints available for **Your API Name**.
+This document provides details about the API endpoints available for **Lume API**.
 
 ## Base URL
 
@@ -17,7 +17,7 @@ Retrieves a list of all customers
 ## Request
 ```http
 GET /api/customers HTTP/1.1
-Host: yourapi.domain.com
+Host: lume.com
 Content-Type: application/json
 ```
 #### Sample Response

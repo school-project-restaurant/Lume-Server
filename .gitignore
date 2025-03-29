@@ -32,3 +32,6 @@ bld/
 # Rider settings
 .idea_modules/
 .idea_modules.xml
+
+# Secret files
+*.env

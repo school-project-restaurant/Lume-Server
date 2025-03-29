@@ -46,19 +46,23 @@ struct Reservation {
 }
 
 fn randomDate() -> String {
-    // Get today's date
+    // Get today's date (without time)
     let today = Utc::now().date_naive();
+    // Convert into a NaiveDateTime set to midnight (00:00:00)
+    let today_midnight = today.and_hms_opt(0, 0, 0)
+        .expect("Invalid time components for midnight");
 
-    // Generate a random number of days to add to today's date
+    // Generate a random number of days to add (0 to 730 days)
     let mut rng = rand::thread_rng();
-    let random_days = rng.gen_range(0..=730); // 0 to 730 days (2 years)
+    let random_days = rng.gen_range(0..=730); // random_days is an i32
 
-    // Calculate the random date
-    let random_date = today + Duration::days(random_days);
+    // Add the random_days as a Duration (cast i32 to i64)
+    let random_date = today_midnight + Duration::days(random_days as i64);
 
-    // Format the date in the c# entity framework format
+    // Format the datetime in the desired format
     random_date.format("%Y-%m-%dT%H:%M:%S").to_string()
 }
+
 
 fn generate_name() -> String {
     let mut name = String::new();

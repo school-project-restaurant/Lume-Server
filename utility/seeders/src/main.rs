@@ -1,8 +1,10 @@
 use chrono::{Duration, Utc};
+use rand::prelude::SliceRandom;
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use sha2::{Digest, Sha256};
+use std::fs;
 use uuid::Uuid;
 
 #[derive(Serialize, Deserialize)]
@@ -39,17 +41,57 @@ struct Reservation {
     id: String,
     customerId: String,
     date: String,
-    tableNumber: Vec<i32>,
+    tableNumber: i32,
     guestCount: i32,
     status: String,
     notes: String,
+}
+
+fn randomNotes() -> String {
+    let mut rng = rand::thread_rng();
+    // Vector of subject phrases
+    let subjects = vec![
+        "I want",
+        "She likes",
+        "We enjoy",
+        "He craves",
+        "They love",
+        "I would like",
+    ];
+
+    // Vector of food items
+    let foods = vec![
+        "pizza",
+        "pasta",
+        "burger",
+        "salad",
+        "sushi",
+        "steak",
+        "ramen",
+        "tacos",
+        "sandwich",
+        "ice cream",
+    ];
+
+    // Choose a random subject and random food item from the vectors
+    let subject = subjects.choose(&mut rng).expect("Subjects vector is empty");
+    let food = foods.choose(&mut rng).expect("Food vector is empty");
+
+    // Generate and print the random note
+    if rng.gen() {
+        format!("{} {}.", subject, food)
+    }
+    else {
+        "".to_string()
+    }
 }
 
 fn randomDate() -> String {
     // Get today's date (without time)
     let today = Utc::now().date_naive();
     // Convert into a NaiveDateTime set to midnight (00:00:00)
-    let today_midnight = today.and_hms_opt(0, 0, 0)
+    let today_midnight = today
+        .and_hms_opt(0, 0, 0)
         .expect("Invalid time components for midnight");
 
     // Generate a random number of days to add (0 to 730 days)
@@ -62,7 +104,6 @@ fn randomDate() -> String {
     // Format the datetime in the desired format
     random_date.format("%Y-%m-%dT%H:%M:%S").to_string()
 }
-
 
 fn generate_name() -> String {
     let mut name = String::new();
@@ -184,10 +225,10 @@ fn main() {
             id: reservation_id.clone(),
             customerId: customers[customer_index].id.clone(),
             date: randomDate(),
-            tableNumber: vec![tables[table_index].number],
-            guestCount: rng.gen_range(1..15),
+            tableNumber: tables[table_index].number,
+            guestCount: tables[table_index].seats - rng.gen_range(0..tables[table_index].seats),
             status: possibleStatus[rng.gen_range(0..3)].clone(),
-            notes: "No special requests".to_string(),
+            notes: randomNotes(),
         };
 
         // Add the reservation id to the customer's reservations_id list
@@ -207,5 +248,9 @@ fn main() {
         "reservations": reservations,
     });
 
-    println!("{}", serde_json::to_string_pretty(&json_output).unwrap());
+    let _ = fs::write(
+        "seeders.json",
+        serde_json::to_string_pretty(&json_output).unwrap(),
+    );
+    // println!("{}", serde_json::to_string_pretty(&json_output).unwrap());
 }

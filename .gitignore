@@ -34,4 +34,4 @@ bld/
 .idea_modules.xml
 
 # Secret files
-*.env
+Lume.API/Secrets.env

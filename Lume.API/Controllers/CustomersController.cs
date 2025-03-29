@@ -13,14 +13,14 @@ namespace Lume.Controllers;
 public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers()
+    public async Task<IActionResult> GetAllCustomers()
     {
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUserById([FromRoute] Guid id)
+    public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
         var customer = await mediator.Send(new GetCustomerByIdQuery(id));
         if (customer is null)
@@ -33,13 +33,13 @@ public class CustomersController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> Post(CreateCustomerCommand command)
     {
         Guid id = await mediator.Send(command);
-        return CreatedAtAction(nameof(GetUserById), new { id }, null);
+        return CreatedAtAction(nameof(GetCustomerById), new { id }, null);
     }
 
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteCustomer([FromRoute] Guid id)
     {
         var isDeleted = await mediator.Send(new DeleteCustomerCommand(id));
         if (isDeleted)
@@ -51,7 +51,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateCustomerCommand command)
+    public async Task<IActionResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerCommand command)
     {
         command.Id = id;
         var isUpdated = await mediator.Send(command);

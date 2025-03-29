@@ -1,6 +1,5 @@
 using Lume.Application.Extensions;
 using Lume.Infrastructure.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -18,8 +18,6 @@ public class ReservationDto
         {
             Id = reservationDto.Id,
             Date = reservationDto.Date,
-            CustomersCount = reservationDto.CustomersCount,
-            CustomerId = reservationDto.CustomerId,
             Status = reservationDto.Status,
             Notes = reservationDto.Notes
         };

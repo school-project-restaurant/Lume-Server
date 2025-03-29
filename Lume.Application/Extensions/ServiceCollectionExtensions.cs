@@ -1,5 +1,5 @@
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using Lume.Application.Reservations;
 
 namespace Lume.Application.Extensions;
 
@@ -10,6 +10,11 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IReservationService, ReservationService>();
+        var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
+        
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
+        services.AddAutoMapper(applicationAssembly)
+            .AddFluentValidationAutoValidation();
+        
     }
 }

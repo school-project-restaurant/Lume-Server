@@ -1,3 +1,7 @@
+using Lume.Domain.Repositories;
+using Lume.Infrastructure.Persistence;
+using Lume.Infrastructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +14,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        
+        services.AddDbContext<RestaurantDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
     }
 }

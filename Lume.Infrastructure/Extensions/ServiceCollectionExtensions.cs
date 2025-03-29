@@ -14,8 +14,17 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")))
+        {
+            string envPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "Lume.API", "Secrets.env");
+            if (File.Exists(envPath))
+            {
+                DotNetEnv.Env.Load(envPath);
+            }
+        }
+        
         services.AddDbContext<RestaurantDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
     }
 }

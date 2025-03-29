@@ -1,0 +1,617 @@
+{
+  "customers": [
+    {
+      "email": "veyucikoqowokivorali@example.com",
+      "id": "96bf405b-8a71-40f7-8b9c-08d53dd0519d",
+      "name": "veyucikoqo",
+      "phoneNumber": "892-576-2856",
+      "reservationsId": [
+        "a199a9f0-9f31-4cf5-bda5-575198e34079",
+        "e1a1042d-798d-486a-bf17-ed7ade5fbfeb"
+      ],
+      "surname": "wokivorali"
+    },
+    {
+      "email": "gipalofivatizakajiro@example.com",
+      "id": "8199ac6b-50e4-4cae-ad19-457ba65714f4",
+      "name": "gipalofiva",
+      "phoneNumber": "108-405-4184",
+      "reservationsId": [
+        "1a08a130-88fa-426a-b610-cd8a2b41ab41"
+      ],
+      "surname": "tizakajiro"
+    },
+    {
+      "email": "liqavijiwejizonexubu@example.com",
+      "id": "1a5406e9-5ce5-4ae5-838a-825aee0f75c3",
+      "name": "liqavijiwe",
+      "phoneNumber": "370-409-1678",
+      "reservationsId": [
+        "c32472fd-6134-4726-bb9e-b7882cc57d72",
+        "c081d44f-838d-4f69-bdd5-7f60fdbd0605",
+        "42aefb30-95ff-4d97-beb1-962b803096d9",
+        "6b235136-de7f-4b19-92a0-b8d82ad4c7e7"
+      ],
+      "surname": "jizonexubu"
+    },
+    {
+      "email": "muwoyivoyelohetomedi@example.com",
+      "id": "6d483dce-6e67-4094-a1da-c86f09ed8222",
+      "name": "muwoyivoye",
+      "phoneNumber": "942-194-7075",
+      "reservationsId": [
+        "7c5363de-7593-45a2-9b68-83804e7346b0",
+        "da81ff01-ed3b-46d5-a21e-7d0a9e8f721f",
+        "8b717625-6fe3-4c22-8b28-17eea05722ed",
+        "e744cb2f-87b4-44cf-99df-113941270d39",
+        "4b4fd7db-fb3c-45b9-a3a9-f645c608d00d"
+      ],
+      "surname": "lohetomedi"
+    },
+    {
+      "email": "quyesimifimojevajobe@example.com",
+      "id": "ef796d7a-ea0b-4968-8528-35cea1bfe2c6",
+      "name": "quyesimifi",
+      "phoneNumber": "432-886-2182",
+      "reservationsId": [
+        "241dbc07-f4dc-462b-b308-d2a1dc91ce2e",
+        "a6d3bf67-ae35-404c-a45b-454a2db78188",
+        "b8292d88-c4a1-4f4f-b91b-6d1d07b8d1d6",
+        "86662b29-d697-4864-be6c-773b2895ed6f"
+      ],
+      "surname": "mojevajobe"
+    },
+    {
+      "email": "bamelugevohijobaboxe@example.com",
+      "id": "f145981d-f3c5-4599-b27f-913222366d1a",
+      "name": "bamelugevo",
+      "phoneNumber": "274-555-8941",
+      "reservationsId": [],
+      "surname": "hijobaboxe"
+    },
+    {
+      "email": "zakewokihugameyetadi@example.com",
+      "id": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "name": "zakewokihu",
+      "phoneNumber": "946-764-8621",
+      "reservationsId": [
+        "1a7835ec-a412-4514-a7fc-02bd4bf8e0be",
+        "57a8e74d-e4e1-45fe-8191-01cc4add22cc",
+        "45f73823-d55e-4ee0-b42d-20b678d587c2",
+        "02db12dc-078f-4585-9486-0a768a4341f8",
+        "23880772-da05-4387-9207-653ffabc9daf",
+        "1ab5b711-60a8-45b6-a1f8-5e437fcd51b4"
+      ],
+      "surname": "gameyetadi"
+    },
+    {
+      "email": "tumehenesokijalijoro@example.com",
+      "id": "717cf8f9-910b-4a1f-88f2-aaecec6cdd77",
+      "name": "tumeheneso",
+      "phoneNumber": "174-248-5207",
+      "reservationsId": [
+        "fda95cee-133a-4bf3-99f1-ff53d33b7251"
+      ],
+      "surname": "kijalijoro"
+    },
+    {
+      "email": "jagubitorawahunetoti@example.com",
+      "id": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "name": "jagubitora",
+      "phoneNumber": "280-218-6719",
+      "reservationsId": [
+        "d83967f9-b6b2-4133-be2c-f1a687770581",
+        "f354a86e-f686-44f2-a641-b897ce0b41ae",
+        "fad44c3b-f74a-442d-aa12-9711308e36a5",
+        "393a080a-a90d-4d32-ac68-a654e625f03d",
+        "0ab7f505-03de-4442-b486-7f9bba2a36cb",
+        "4703d509-385f-47bd-bab8-fcc8448a5e67"
+      ],
+      "surname": "wahunetoti"
+    },
+    {
+      "email": "murofihaxuqiqiqoxege@example.com",
+      "id": "bda8c376-74c2-47e5-86b9-0ad3421b4e8c",
+      "name": "murofihaxu",
+      "phoneNumber": "105-443-6474",
+      "reservationsId": [
+        "2ffbc7da-e806-427c-ab26-7dfeded82736"
+      ],
+      "surname": "qiqiqoxege"
+    }
+  ],
+  "reservations": [
+    {
+      "customerId": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "date": "2025-12-22T00:00:00",
+      "guestCount": 1,
+      "id": "d83967f9-b6b2-4133-be2c-f1a687770581",
+      "notes": "We enjoy tacos.",
+      "status": "confirmed",
+      "tableNumber": 6
+    },
+    {
+      "customerId": "ef796d7a-ea0b-4968-8528-35cea1bfe2c6",
+      "date": "2027-03-08T00:00:00",
+      "guestCount": 7,
+      "id": "241dbc07-f4dc-462b-b308-d2a1dc91ce2e",
+      "notes": "We enjoy sandwich.",
+      "status": "rejected",
+      "tableNumber": 2
+    },
+    {
+      "customerId": "1a5406e9-5ce5-4ae5-838a-825aee0f75c3",
+      "date": "2026-07-29T00:00:00",
+      "guestCount": 3,
+      "id": "c32472fd-6134-4726-bb9e-b7882cc57d72",
+      "notes": "He craves ice cream.",
+      "status": "rejected",
+      "tableNumber": 13
+    },
+    {
+      "customerId": "717cf8f9-910b-4a1f-88f2-aaecec6cdd77",
+      "date": "2025-05-28T00:00:00",
+      "guestCount": 2,
+      "id": "fda95cee-133a-4bf3-99f1-ff53d33b7251",
+      "notes": "",
+      "status": "confirmed",
+      "tableNumber": 6
+    },
+    {
+      "customerId": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "date": "2027-03-17T00:00:00",
+      "guestCount": 3,
+      "id": "f354a86e-f686-44f2-a641-b897ce0b41ae",
+      "notes": "",
+      "status": "rejected",
+      "tableNumber": 13
+    },
+    {
+      "customerId": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "date": "2025-08-25T00:00:00",
+      "guestCount": 5,
+      "id": "fad44c3b-f74a-442d-aa12-9711308e36a5",
+      "notes": "",
+      "status": "confirmed",
+      "tableNumber": 12
+    },
+    {
+      "customerId": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "date": "2025-04-10T00:00:00",
+      "guestCount": 3,
+      "id": "1a7835ec-a412-4514-a7fc-02bd4bf8e0be",
+      "notes": "We enjoy pizza.",
+      "status": "confirmed",
+      "tableNumber": 1
+    },
+    {
+      "customerId": "bda8c376-74c2-47e5-86b9-0ad3421b4e8c",
+      "date": "2026-08-26T00:00:00",
+      "guestCount": 1,
+      "id": "2ffbc7da-e806-427c-ab26-7dfeded82736",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 15
+    },
+    {
+      "customerId": "1a5406e9-5ce5-4ae5-838a-825aee0f75c3",
+      "date": "2025-07-15T00:00:00",
+      "guestCount": 6,
+      "id": "c081d44f-838d-4f69-bdd5-7f60fdbd0605",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 11
+    },
+    {
+      "customerId": "6d483dce-6e67-4094-a1da-c86f09ed8222",
+      "date": "2027-01-11T00:00:00",
+      "guestCount": 3,
+      "id": "7c5363de-7593-45a2-9b68-83804e7346b0",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 5
+    },
+    {
+      "customerId": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "date": "2027-01-30T00:00:00",
+      "guestCount": 1,
+      "id": "57a8e74d-e4e1-45fe-8191-01cc4add22cc",
+      "notes": "",
+      "status": "rejected",
+      "tableNumber": 6
+    },
+    {
+      "customerId": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "date": "2025-11-30T00:00:00",
+      "guestCount": 8,
+      "id": "45f73823-d55e-4ee0-b42d-20b678d587c2",
+      "notes": "",
+      "status": "rejected",
+      "tableNumber": 11
+    },
+    {
+      "customerId": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "date": "2026-06-10T00:00:00",
+      "guestCount": 1,
+      "id": "02db12dc-078f-4585-9486-0a768a4341f8",
+      "notes": "",
+      "status": "confirmed",
+      "tableNumber": 10
+    },
+    {
+      "customerId": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "date": "2026-08-03T00:00:00",
+      "guestCount": 2,
+      "id": "393a080a-a90d-4d32-ac68-a654e625f03d",
+      "notes": "",
+      "status": "confirmed",
+      "tableNumber": 3
+    },
+    {
+      "customerId": "1a5406e9-5ce5-4ae5-838a-825aee0f75c3",
+      "date": "2025-06-14T00:00:00",
+      "guestCount": 4,
+      "id": "42aefb30-95ff-4d97-beb1-962b803096d9",
+      "notes": "I want pizza.",
+      "status": "rejected",
+      "tableNumber": 14
+    },
+    {
+      "customerId": "1a5406e9-5ce5-4ae5-838a-825aee0f75c3",
+      "date": "2026-10-19T00:00:00",
+      "guestCount": 2,
+      "id": "6b235136-de7f-4b19-92a0-b8d82ad4c7e7",
+      "notes": "We enjoy salad.",
+      "status": "confirmed",
+      "tableNumber": 3
+    },
+    {
+      "customerId": "96bf405b-8a71-40f7-8b9c-08d53dd0519d",
+      "date": "2025-05-23T00:00:00",
+      "guestCount": 2,
+      "id": "a199a9f0-9f31-4cf5-bda5-575198e34079",
+      "notes": "I would like salad.",
+      "status": "rejected",
+      "tableNumber": 15
+    },
+    {
+      "customerId": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "date": "2025-09-20T00:00:00",
+      "guestCount": 3,
+      "id": "0ab7f505-03de-4442-b486-7f9bba2a36cb",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 1
+    },
+    {
+      "customerId": "160a8cac-6a6b-4120-ae91-17e21a220cef",
+      "date": "2026-10-21T00:00:00",
+      "guestCount": 1,
+      "id": "4703d509-385f-47bd-bab8-fcc8448a5e67",
+      "notes": "I would like tacos.",
+      "status": "pending",
+      "tableNumber": 15
+    },
+    {
+      "customerId": "6d483dce-6e67-4094-a1da-c86f09ed8222",
+      "date": "2027-01-14T00:00:00",
+      "guestCount": 3,
+      "id": "da81ff01-ed3b-46d5-a21e-7d0a9e8f721f",
+      "notes": "He craves sushi.",
+      "status": "rejected",
+      "tableNumber": 8
+    },
+    {
+      "customerId": "6d483dce-6e67-4094-a1da-c86f09ed8222",
+      "date": "2026-08-12T00:00:00",
+      "guestCount": 6,
+      "id": "8b717625-6fe3-4c22-8b28-17eea05722ed",
+      "notes": "I would like steak.",
+      "status": "rejected",
+      "tableNumber": 13
+    },
+    {
+      "customerId": "6d483dce-6e67-4094-a1da-c86f09ed8222",
+      "date": "2025-07-09T00:00:00",
+      "guestCount": 4,
+      "id": "e744cb2f-87b4-44cf-99df-113941270d39",
+      "notes": "He craves ramen.",
+      "status": "confirmed",
+      "tableNumber": 7
+    },
+    {
+      "customerId": "ef796d7a-ea0b-4968-8528-35cea1bfe2c6",
+      "date": "2026-01-21T00:00:00",
+      "guestCount": 4,
+      "id": "a6d3bf67-ae35-404c-a45b-454a2db78188",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 7
+    },
+    {
+      "customerId": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "date": "2025-09-23T00:00:00",
+      "guestCount": 5,
+      "id": "23880772-da05-4387-9207-653ffabc9daf",
+      "notes": "He craves burger.",
+      "status": "pending",
+      "tableNumber": 13
+    },
+    {
+      "customerId": "6d483dce-6e67-4094-a1da-c86f09ed8222",
+      "date": "2025-12-20T00:00:00",
+      "guestCount": 2,
+      "id": "4b4fd7db-fb3c-45b9-a3a9-f645c608d00d",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 8
+    },
+    {
+      "customerId": "96bf405b-8a71-40f7-8b9c-08d53dd0519d",
+      "date": "2025-04-18T00:00:00",
+      "guestCount": 4,
+      "id": "e1a1042d-798d-486a-bf17-ed7ade5fbfeb",
+      "notes": "",
+      "status": "confirmed",
+      "tableNumber": 1
+    },
+    {
+      "customerId": "ef796d7a-ea0b-4968-8528-35cea1bfe2c6",
+      "date": "2025-07-04T00:00:00",
+      "guestCount": 5,
+      "id": "b8292d88-c4a1-4f4f-b91b-6d1d07b8d1d6",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 8
+    },
+    {
+      "customerId": "8199ac6b-50e4-4cae-ad19-457ba65714f4",
+      "date": "2027-03-28T00:00:00",
+      "guestCount": 1,
+      "id": "1a08a130-88fa-426a-b610-cd8a2b41ab41",
+      "notes": "",
+      "status": "rejected",
+      "tableNumber": 10
+    },
+    {
+      "customerId": "770d2314-f826-45d6-9bf9-55811cdae0dd",
+      "date": "2026-01-26T00:00:00",
+      "guestCount": 6,
+      "id": "1ab5b711-60a8-45b6-a1f8-5e437fcd51b4",
+      "notes": "",
+      "status": "pending",
+      "tableNumber": 8
+    },
+    {
+      "customerId": "ef796d7a-ea0b-4968-8528-35cea1bfe2c6",
+      "date": "2025-04-30T00:00:00",
+      "guestCount": 1,
+      "id": "86662b29-d697-4864-be6c-773b2895ed6f",
+      "notes": "I want salad.",
+      "status": "confirmed",
+      "tableNumber": 14
+    }
+  ],
+  "staff": [
+    {
+      "id": "0bade675-482d-4c7b-a56e-4cd51da13fa8",
+      "isActive": false,
+      "monthHours": 110,
+      "name": "nixadibuke",
+      "passwordHash": "e63131717f005c000a72cbc0bc0384071b1f6558e09fd99dc638b3bf1ab82025",
+      "phoneNumber": "908-747-4043",
+      "salary": 1370,
+      "surname": "timumibedi"
+    },
+    {
+      "id": "97215c8f-09ec-4932-a808-0d76163b1d72",
+      "isActive": false,
+      "monthHours": 150,
+      "name": "hobeqeqeya",
+      "passwordHash": "b2b07faff9d82de3a80095d8dcad3b0c20dca7bd68e51414d78c22cca97c3760",
+      "phoneNumber": "659-415-3716",
+      "salary": 1290,
+      "surname": "vuyokeciya"
+    },
+    {
+      "id": "5e55b5bf-3c40-4ee7-bc67-275445f50440",
+      "isActive": false,
+      "monthHours": 120,
+      "name": "jetetetehi",
+      "passwordHash": "718dd0c8108a8d4fe06cd9bb26027d1eb5696ebdbbb6e24bd4eab9d7aa28d4f8",
+      "phoneNumber": "103-690-5417",
+      "salary": 1520,
+      "surname": "wutalotaco"
+    },
+    {
+      "id": "c81606bd-53c3-4b69-a416-a942f7269bc2",
+      "isActive": false,
+      "monthHours": 160,
+      "name": "lisipugika",
+      "passwordHash": "32b7a615f841ac33e0340d1c8066207a9b9e22a7ff5240d88037d36cfcae1c42",
+      "phoneNumber": "190-235-5232",
+      "salary": 1130,
+      "surname": "mavoyezato"
+    },
+    {
+      "id": "edb94e1b-7c16-4da9-b526-5664f679cddb",
+      "isActive": false,
+      "monthHours": 120,
+      "name": "jufapifaqa",
+      "passwordHash": "1defb2fd8f4fc51e17666d54297b0df205ca1f4aaa3360392e3e28f687275005",
+      "phoneNumber": "787-730-5532",
+      "salary": 1360,
+      "surname": "widomuqowu"
+    },
+    {
+      "id": "29cfe40d-a46c-462f-bb2f-db868dd9be12",
+      "isActive": true,
+      "monthHours": 110,
+      "name": "lihaxaloqo",
+      "passwordHash": "3828de19c5c13d37e6e6a2f28d3bece1abe552fbd521a6aa6d8ca4b2f09d6ac1",
+      "phoneNumber": "436-502-3955",
+      "salary": 1690,
+      "surname": "yidokomiki"
+    },
+    {
+      "id": "bc027db2-b602-41ac-89b2-3f650bd68f58",
+      "isActive": false,
+      "monthHours": 150,
+      "name": "yasokixavo",
+      "passwordHash": "3077aebba4431e9a8d58a81174c425bf1f29bd54a8d97885d5998ef8ba7c2227",
+      "phoneNumber": "189-232-8534",
+      "salary": 1610,
+      "surname": "lebuxasite"
+    },
+    {
+      "id": "7ac34472-0c52-4a17-8a7d-90ddb1cb137e",
+      "isActive": true,
+      "monthHours": 130,
+      "name": "fowafuxozu",
+      "passwordHash": "85b15884e98ea0ad686a0828c6bbbfcfa55ed5f6dd82138c4cd4c077c2e780cc",
+      "phoneNumber": "297-101-1882",
+      "salary": 1180,
+      "surname": "pewoponize"
+    },
+    {
+      "id": "face3362-2541-43b6-87b8-a3e9de8bf306",
+      "isActive": false,
+      "monthHours": 120,
+      "name": "tiyaxejizi",
+      "passwordHash": "9c696ed3287962d316b88fd56310ef6ce611ba12e8a00e7333427bbf227a18ad",
+      "phoneNumber": "533-719-7379",
+      "salary": 1500,
+      "surname": "lugubirope"
+    },
+    {
+      "id": "848c2923-e71e-441a-bdbb-1cc92fcdbcf1",
+      "isActive": false,
+      "monthHours": 110,
+      "name": "yuvixizadu",
+      "passwordHash": "16a4e546dc46f28b77b23cfb8ffb83b6904f2f02673d94b9a173cf1ad4c07277",
+      "phoneNumber": "111-836-8242",
+      "salary": 1470,
+      "surname": "sukoqikige"
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "reservationsId": [
+        "1a7835ec-a412-4514-a7fc-02bd4bf8e0be",
+        "0ab7f505-03de-4442-b486-7f9bba2a36cb",
+        "e1a1042d-798d-486a-bf17-ed7ade5fbfeb"
+      ],
+      "seats": 7
+    },
+    {
+      "number": 2,
+      "reservationsId": [
+        "241dbc07-f4dc-462b-b308-d2a1dc91ce2e"
+      ],
+      "seats": 8
+    },
+    {
+      "number": 3,
+      "reservationsId": [
+        "393a080a-a90d-4d32-ac68-a654e625f03d",
+        "6b235136-de7f-4b19-92a0-b8d82ad4c7e7"
+      ],
+      "seats": 2
+    },
+    {
+      "number": 4,
+      "reservationsId": [],
+      "seats": 6
+    },
+    {
+      "number": 5,
+      "reservationsId": [
+        "7c5363de-7593-45a2-9b68-83804e7346b0"
+      ],
+      "seats": 8
+    },
+    {
+      "number": 6,
+      "reservationsId": [
+        "d83967f9-b6b2-4133-be2c-f1a687770581",
+        "fda95cee-133a-4bf3-99f1-ff53d33b7251",
+        "57a8e74d-e4e1-45fe-8191-01cc4add22cc"
+      ],
+      "seats": 2
+    },
+    {
+      "number": 7,
+      "reservationsId": [
+        "e744cb2f-87b4-44cf-99df-113941270d39",
+        "a6d3bf67-ae35-404c-a45b-454a2db78188"
+      ],
+      "seats": 5
+    },
+    {
+      "number": 8,
+      "reservationsId": [
+        "da81ff01-ed3b-46d5-a21e-7d0a9e8f721f",
+        "4b4fd7db-fb3c-45b9-a3a9-f645c608d00d",
+        "b8292d88-c4a1-4f4f-b91b-6d1d07b8d1d6",
+        "1ab5b711-60a8-45b6-a1f8-5e437fcd51b4"
+      ],
+      "seats": 6
+    },
+    {
+      "number": 9,
+      "reservationsId": [],
+      "seats": 3
+    },
+    {
+      "number": 10,
+      "reservationsId": [
+        "02db12dc-078f-4585-9486-0a768a4341f8",
+        "1a08a130-88fa-426a-b610-cd8a2b41ab41"
+      ],
+      "seats": 2
+    },
+    {
+      "number": 11,
+      "reservationsId": [
+        "c081d44f-838d-4f69-bdd5-7f60fdbd0605",
+        "45f73823-d55e-4ee0-b42d-20b678d587c2"
+      ],
+      "seats": 8
+    },
+    {
+      "number": 12,
+      "reservationsId": [
+        "fad44c3b-f74a-442d-aa12-9711308e36a5"
+      ],
+      "seats": 9
+    },
+    {
+      "number": 13,
+      "reservationsId": [
+        "c32472fd-6134-4726-bb9e-b7882cc57d72",
+        "f354a86e-f686-44f2-a641-b897ce0b41ae",
+        "8b717625-6fe3-4c22-8b28-17eea05722ed",
+        "23880772-da05-4387-9207-653ffabc9daf"
+      ],
+      "seats": 6
+    },
+    {
+      "number": 14,
+      "reservationsId": [
+        "42aefb30-95ff-4d97-beb1-962b803096d9",
+        "86662b29-d697-4864-be6c-773b2895ed6f"
+      ],
+      "seats": 4
+    },
+    {
+      "number": 15,
+      "reservationsId": [
+        "2ffbc7da-e806-427c-ab26-7dfeded82736",
+        "a199a9f0-9f31-4cf5-bda5-575198e34079",
+        "4703d509-385f-47bd-bab8-fcc8448a5e67"
+      ],
+      "seats": 2
+    }
+  ]
+}

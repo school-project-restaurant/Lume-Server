@@ -1,14 +1,10 @@
-using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lume.Domain.Entities;
 
-public class Customer : IdentityUser<Guid>
+public class Customer : ApplicationUser
 {
-    public override Guid Id { get; set; }
-    public string Name { get; set; } = null!;
-    public string Surname { get; set; } = null!;
+    [Required]
     public override string? Email { get; set; }
-    public override string PhoneNumber { get; set; } = null!;
     public List<Guid>? ReservationsId { get; set; }
-    public override string PasswordHash { get; set; } = null!;
 }

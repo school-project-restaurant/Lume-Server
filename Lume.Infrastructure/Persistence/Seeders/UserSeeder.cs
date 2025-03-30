@@ -1,12 +1,15 @@
 using System.Text.Json;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Lume.Domain.Entities;
+using Lume.Infrastructure.Persistence.Seeders.Models;
 
 namespace Lume.Infrastructure.Persistence.Seeders;
 
 internal class UserSeeder(
     UserManager<Customer> customerManager,
     UserManager<Staff> staffManager,
+    IMapper mapper,
     RestaurantDbContext dbContext)
     : BaseSeeder, IUserSeeder
 {
@@ -21,18 +24,7 @@ internal class UserSeeder(
 
             foreach (var customerData in seedData.Customers)
             {
-                var customer = new Customer
-                {
-                    Id = customerData.Id,
-                    Email = customerData.Email,
-                    UserName = customerData.Email,
-                    PhoneNumber = customerData.PhoneNumber,
-                    Name = customerData.Name,
-                    Surname = customerData.Surname,
-                    ReservationsId = customerData.ReservationsId.ToList(),
-                    UserType = "Customer"
-                };
-
+                var customer = mapper.Map<Customer>(customerData);
                 var result = await customerManager.CreateAsync(customer, defaultPassword);
 
                 if (!result.Succeeded)
@@ -44,18 +36,7 @@ internal class UserSeeder(
 
             foreach (var staffData in seedData.Staff)
             {
-                var staff = new Staff
-                {
-                    Id = staffData.Id,
-                    PhoneNumber = staffData.PhoneNumber,
-                    UserName = staffData.PhoneNumber,
-                    Name = staffData.Name,
-                    Surname = staffData.Surname,
-                    Salary = staffData.Salary,
-                    IsActive = staffData.IsActive,
-                    MonthHours = staffData.MonthHours,
-                    UserType = "Staff"
-                };
+                var staff = mapper.Map<Staff>(staffData);
 
                 var result = await staffManager.CreateAsync(staff, defaultPassword);
 
@@ -68,32 +49,5 @@ internal class UserSeeder(
 
             await dbContext.SaveChangesAsync();
         }
-    }
-
-    private class SeedData
-    {
-        public IEnumerable<CustomerSeedDataModel> Customers { get; init; } = Array.Empty<CustomerSeedDataModel>();
-        public IEnumerable<StaffSeedDataModel> Staff { get; init; } = Array.Empty<StaffSeedDataModel>();
-    }
-
-    private class BaseSeedDataModel
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Surname { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-    }
-
-    private class CustomerSeedDataModel : BaseSeedDataModel
-    {
-        public string Email { get; set; } = string.Empty;
-        public IEnumerable<Guid> ReservationsId { get; set; } = [];
-    }
-
-    private class StaffSeedDataModel : BaseSeedDataModel
-    {
-        public int Salary { get; set; }
-        public bool IsActive { get; set; }
-        public int MonthHours { get; set; }
     }
 }

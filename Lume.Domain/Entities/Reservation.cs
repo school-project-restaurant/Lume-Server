@@ -7,13 +7,19 @@ public class Reservation
     public DateTime Date { get; set; }
     public int TableNumber { get; set; }
     public int GuestCount { get; set; }
-    public Status Status { get; set; }
+    public string Status { get; set; } = ReservationStatus.Pending;
     public string? Notes { get; set; }
 }
 
-public enum Status
+public static class ReservationStatus
 {
-    Confirmed,
-    Rejected,
-    Pending
+    public const string Confirmed = "Confirmed";
+    public const string Rejected = "Rejected";
+    public const string Pending = "Pending";
+
+    private static readonly IReadOnlyCollection<string> AllStatuses = 
+        new[] { Confirmed, Rejected, Pending };
+        
+    public static bool IsValid(string status) => 
+        AllStatuses.Contains(status, StringComparer.OrdinalIgnoreCase);
 }

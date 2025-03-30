@@ -8,7 +8,7 @@ public class ReservationDto
     public DateTime Date { get; set; }
     public int CustomersCount { get; set; }
     public string CustomerId { get; set; } = null!;
-    public Status Status { get; set; }
+    public string Status { get; set; }
     
     public string? Notes { get; set; }
 

@@ -1,9 +1,12 @@
 using System.Text.Json;
+using AutoMapper;
 using Lume.Domain.Entities;
+using Lume.Infrastructure.Persistence.Seeders.Models;
 
 namespace Lume.Infrastructure.Persistence.Seeders;
 
-internal class TableSeeder(RestaurantDbContext dbContext) : BaseSeeder, ITableSeeder
+internal class TableSeeder(RestaurantDbContext dbContext,
+    IMapper mapper) : BaseSeeder, ITableSeeder
 {
     public async Task SeedAsync()
     {
@@ -13,12 +16,7 @@ internal class TableSeeder(RestaurantDbContext dbContext) : BaseSeeder, ITableSe
         {
             foreach (var tableData in seedData.Tables)
             {
-                var table = new Table
-                {
-                    Number = tableData.Number,
-                    ReservationsId = tableData.ReservationsId,
-                    Seats = tableData.Seats
-                };
+                var table = mapper.Map<Table>(tableData);
 
                 dbContext.Tables.Add(table);
             }
@@ -26,17 +24,5 @@ internal class TableSeeder(RestaurantDbContext dbContext) : BaseSeeder, ITableSe
             await dbContext.SaveChangesAsync();
         }
             
-    }
-    
-    private class SeedData
-    {
-        public IEnumerable<TableSeedDataModel> Tables { get; set; } = [];
-    }
-
-    private class TableSeedDataModel
-    {
-        public int Number { get; set; }
-        public IEnumerable<string> ReservationsId { get; set; } = [];
-        public int Seats { get; set; }
     }
 }

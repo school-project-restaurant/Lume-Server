@@ -11,7 +11,7 @@ internal class UserSeeder(
     UserManager<Staff> staffManager,
     IMapper mapper,
     RestaurantDbContext dbContext)
-    : BaseSeeder, IUserSeeder
+    : BaseSeeder, ISeeder
 {
 
     public async Task SeedAsync()

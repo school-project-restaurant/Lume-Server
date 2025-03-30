@@ -33,9 +33,9 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         
-        services.AddScoped<IUserSeeder, UserSeeder>();
-        services.AddScoped<ITableSeeder, TableSeeder>();
-        services.AddScoped<IReservationSeeder, ReservationSeeder>();
+        services.AddScoped<ISeeder, UserSeeder>();
+        services.AddScoped<ISeeder, TableSeeder>();
+        services.AddScoped<ISeeder, ReservationSeeder>();
         
         services.AddIdentity<Customer, IdentityRole<Guid>>()
             .AddEntityFrameworkStores<RestaurantDbContext>()

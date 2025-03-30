@@ -8,7 +8,7 @@ namespace Lume.Infrastructure.Persistence.Seeders;
 
 internal class ReservationSeeder(
     RestaurantDbContext dbContext,
-    IMapper mapper) : BaseSeeder, IReservationSeeder
+    IMapper mapper) : BaseSeeder, ISeeder
 {
     public async Task SeedAsync()
     {

@@ -6,7 +6,7 @@ using Lume.Infrastructure.Persistence.Seeders.Models;
 namespace Lume.Infrastructure.Persistence.Seeders;
 
 internal class TableSeeder(RestaurantDbContext dbContext,
-    IMapper mapper) : BaseSeeder, ITableSeeder
+    IMapper mapper) : BaseSeeder, ISeeder
 {
     public async Task SeedAsync()
     {

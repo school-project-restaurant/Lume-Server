@@ -1,6 +1,6 @@
 namespace Lume.Infrastructure.Persistence.Seeders;
 
-public interface ITableSeeder
+public interface ISeeder
 {
     Task SeedAsync();
 }

@@ -13,7 +13,11 @@ public class SeedDataProfile : Profile
                 opt.MapFrom(src => 
                 src.Date.Kind == DateTimeKind.Unspecified 
                     ? DateTime.SpecifyKind(src.Date, DateTimeKind.Utc)
-                    : src.Date.ToUniversalTime()));
+                    : src.Date.ToUniversalTime()))
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => 
+                string.IsNullOrEmpty(src.Status) 
+                    ? "Pending" 
+                    : char.ToUpper(src.Status[0]) + src.Status.Substring(1)));;
 
         CreateMap<TableSeedDataModel, Table>();
 

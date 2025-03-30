@@ -1,7 +1,9 @@
+using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
 using Lume.Infrastructure.Persistence.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,5 +32,13 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IUserSeeder, UserSeeder>();
+        
+        services.AddIdentity<Customer, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<RestaurantDbContext>()
+            .AddDefaultTokenProviders();
+
+        services.AddIdentityCore<Staff>()
+            .AddEntityFrameworkStores<RestaurantDbContext>()
+            .AddDefaultTokenProviders();
     }
 }

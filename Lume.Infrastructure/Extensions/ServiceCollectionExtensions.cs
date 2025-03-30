@@ -34,6 +34,7 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped<IUserSeeder, UserSeeder>();
         services.AddScoped<ITableSeeder, TableSeeder>();
+        services.AddScoped<IReservationSeeder, ReservationSeeder>();
         
         services.AddIdentity<Customer, IdentityRole<Guid>>()
             .AddEntityFrameworkStores<RestaurantDbContext>()

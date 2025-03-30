@@ -15,13 +15,8 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var userSeeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
-    var tableSeeder = scope.ServiceProvider.GetRequiredService<ITableSeeder>();
-    var reservationSeeder = scope.ServiceProvider.GetRequiredService<IReservationSeeder>();
-
-    await userSeeder.SeedAsync();
-    await tableSeeder.SeedAsync();
-    await reservationSeeder.SeedAsync();
+    var orchestrator = scope.ServiceProvider.GetRequiredService<ISeederOrchestrator>();
+    await orchestrator.SeedAllAsync();
 }
 
 // Configure the HTTP request pipeline.

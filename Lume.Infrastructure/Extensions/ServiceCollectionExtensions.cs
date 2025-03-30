@@ -3,6 +3,7 @@ using Lume.Domain.Repositories;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
 using Lume.Infrastructure.Persistence.Seeders;
+using Lume.Infrastructure.Persistence.Seeders.Profiles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -43,5 +44,7 @@ public static class ServiceCollectionExtensions
         services.AddIdentityCore<Staff>()
             .AddEntityFrameworkStores<RestaurantDbContext>()
             .AddDefaultTokenProviders();
+        
+        services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
     }
 }

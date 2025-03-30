@@ -4,27 +4,15 @@ using Lume.Domain.Entities;
 
 namespace Lume.Infrastructure.Persistence.Seeders;
 
-internal class ReservationSeeder(RestaurantDbContext dbContext) : IReservationSeeder
+internal class ReservationSeeder(RestaurantDbContext dbContext) : BaseSeeder, IReservationSeeder
 {
-    private static readonly string SeedDataPath = Path.Combine(
-        AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "utility", "seeders.json");
-
     public async Task SeedAsync()
     {
-        var absolutePath = Path.GetFullPath(SeedDataPath);
-        if (!File.Exists(absolutePath))
-        {
-            throw new FileNotFoundException($"File not found: {absolutePath}. " +
-                                            $"Make sure to create 'utility/seeders.json' in Lume project root.");
-        }
-
-        var jsonContent = await File.ReadAllTextAsync(absolutePath);
-        var options = new JsonSerializerOptions
+        var seedData = await LoadSeedDataAsync<SeedData>(new JsonSerializerOptions 
         {
             PropertyNameCaseInsensitive = true,
             Converters = { new StatusEnumConverter() }
-        };
-        var seedData = JsonSerializer.Deserialize<SeedData>(jsonContent, options)!;
+        });
 
         if (await dbContext.Database.CanConnectAsync() && !dbContext.Reservations.Any())
         {

@@ -1,8 +1,10 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using Lume.Domain.Entities;
 using Lume.Infrastructure.Persistence.Seeders.Models;
 
-namespace Lume.Infrastructure.Persistence.Seeders.ReservationSeeders;
+namespace Lume.Infrastructure.Persistence.Seeders;
 
 internal class ReservationSeeder(
     RestaurantDbContext dbContext,

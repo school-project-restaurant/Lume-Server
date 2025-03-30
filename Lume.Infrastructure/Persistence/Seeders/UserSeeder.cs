@@ -1,9 +1,10 @@
+using System.Text.Json;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Lume.Domain.Entities;
 using Lume.Infrastructure.Persistence.Seeders.Models;
-using Microsoft.AspNetCore.Identity;
 
-namespace Lume.Infrastructure.Persistence.Seeders.UserSeeders;
+namespace Lume.Infrastructure.Persistence.Seeders;
 
 internal class UserSeeder(
     UserManager<Customer> customerManager,

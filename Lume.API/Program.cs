@@ -17,9 +17,11 @@ using (var scope = app.Services.CreateScope())
 {
     var userSeeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
     var tableSeeder = scope.ServiceProvider.GetRequiredService<ITableSeeder>();
+    var reservationSeeder = scope.ServiceProvider.GetRequiredService<IReservationSeeder>();
 
     await userSeeder.SeedAsync();
     await tableSeeder.SeedAsync();
+    await reservationSeeder.SeedAsync();
 }
 
 // Configure the HTTP request pipeline.

@@ -1,9 +1,8 @@
-using System.Text.Json;
 using AutoMapper;
 using Lume.Domain.Entities;
 using Lume.Infrastructure.Persistence.Seeders.Models;
 
-namespace Lume.Infrastructure.Persistence.Seeders;
+namespace Lume.Infrastructure.Persistence.Seeders.TableSeeders;
 
 internal class TableSeeder(RestaurantDbContext dbContext,
     IMapper mapper) : BaseSeeder, ITableSeeder

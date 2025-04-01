@@ -14,20 +14,21 @@ public class SeedDataProfile : Profile
                 src.Date.Kind == DateTimeKind.Unspecified 
                     ? DateTime.SpecifyKind(src.Date, DateTimeKind.Utc)
                     : src.Date.ToUniversalTime()))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => 
+            .ForMember(dest => dest.Status, opt => 
+                opt.MapFrom(src => 
                 string.IsNullOrEmpty(src.Status) 
                     ? "Pending" 
                     : char.ToUpper(src.Status[0]) + src.Status.Substring(1)));;
 
         CreateMap<TableSeedDataModel, Table>();
 
-        CreateMap<CustomerSeedDataModel, Customer>()
+        CreateMap<CustomerSeedDataModel, ApplicationUser>()
             .ForMember(dest => dest.UserName, opt => 
                 opt.MapFrom(src => src.Email))
             .ForMember(dest => dest.UserType, opt => 
                 opt.MapFrom(_ => "Customer"));
 
-        CreateMap<StaffSeedDataModel, Staff>()
+        CreateMap<StaffSeedDataModel, ApplicationUser>()
             .ForMember(dest => dest.UserName, opt => 
                 opt.MapFrom(src => src.PhoneNumber))
             .ForMember(dest => dest.UserType, opt => 

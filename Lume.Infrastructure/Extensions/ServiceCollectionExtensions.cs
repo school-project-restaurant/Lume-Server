@@ -34,21 +34,15 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         
-        services.AddIdentityApiEndpoints<ApplicationUser>()
-            .AddEntityFrameworkStores<RestaurantDbContext>();
-        
         services.AddTransient<ISeeder, UserSeeder>();
         services.AddTransient<ISeeder, TableSeeder>();
         services.AddTransient<ISeeder, ReservationSeeder>();
+        services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeederOrchestrator, SeederOrchestrator>();
-        
-        services.AddIdentity<Customer, IdentityRole<Guid>>()
-            .AddEntityFrameworkStores<RestaurantDbContext>()
-            .AddDefaultTokenProviders();
 
-        services.AddIdentityCore<Staff>()
-            .AddEntityFrameworkStores<RestaurantDbContext>()
-            .AddDefaultTokenProviders();
+        services.AddIdentityApiEndpoints<ApplicationUser>()
+            .AddRoles<IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<RestaurantDbContext>();
         
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
     }

@@ -4,12 +4,14 @@ using Lume.Application.Customers.Commands.UpdateCustomer;
 using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Customers.Queries.GetCustomerById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin,Staff")]
 public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

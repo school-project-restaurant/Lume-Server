@@ -3,7 +3,6 @@ use rand::prelude::SliceRandom;
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use sha2::{Digest, Sha256};
 use std::fs;
 use uuid::Uuid;
 
@@ -15,6 +14,7 @@ struct Customer {
     email: String,
     phoneNumber: String,
     reservationsId: Vec<String>,
+    passwordHash: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -147,9 +147,7 @@ fn generate_phone_number() -> String {
 }
 
 fn generate_password_hash(password: &str) -> String {
-    let mut hasher = Sha256::new();
-    hasher.update(password);
-    format!("{:x}", hasher.finalize())
+    blake3::hash(password.as_bytes()).to_string()
 }
 
 fn main() {
@@ -173,6 +171,7 @@ fn main() {
             email: customer_email,
             phoneNumber: customer_phone,
             reservationsId: Vec::new(),
+            passwordHash: generate_password_hash(&random_string())
         };
 
         customers.push(customer);

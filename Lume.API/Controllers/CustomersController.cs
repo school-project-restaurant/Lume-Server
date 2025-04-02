@@ -1,6 +1,7 @@
 using Lume.Application.Customers.Commands.CreateCustomer;
 using Lume.Application.Customers.Commands.DeleteCustomer;
 using Lume.Application.Customers.Commands.UpdateCustomer;
+using Lume.Application.Customers.Dtos;
 using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Customers.Queries.GetCustomerById;
 using MediatR;
@@ -15,7 +16,8 @@ namespace Lume.Controllers;
 public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllCustomers()
+    [AllowAnonymous]
+    public async Task<ActionResult<CustomerDto>> GetAllCustomers()
     {
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);

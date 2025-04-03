@@ -1,6 +1,10 @@
+using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
+using Lume.Infrastructure.Persistence.Seeders;
+using Lume.Infrastructure.Persistence.Seeders.Profiles;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,5 +32,20 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<RestaurantDbContext>(options =>
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        
+        services.AddTransient<ISeeder, UserSeeder>();
+        services.AddTransient<ISeeder, TableSeeder>();
+        services.AddTransient<ISeeder, ReservationSeeder>();
+        services.AddTransient<ISeederOrchestrator, SeederOrchestrator>();
+        
+        services.AddIdentity<Customer, IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<RestaurantDbContext>()
+            .AddDefaultTokenProviders();
+
+        services.AddIdentityCore<Staff>()
+            .AddEntityFrameworkStores<RestaurantDbContext>()
+            .AddDefaultTokenProviders();
+        
+        services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
     }
 }

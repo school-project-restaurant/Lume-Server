@@ -13,4 +13,8 @@ public class ApplicationUser : IdentityUser<Guid>
     [Required]
     public override string? PhoneNumber { get; set; }
     public string UserType { get; set; } = null!;
+    public int Salary { get; set; }
+    public bool IsActive { get; set; }
+    public int MonthHours { get; set; }
+    public List<Guid>? ReservationsId { get; set; }
 }

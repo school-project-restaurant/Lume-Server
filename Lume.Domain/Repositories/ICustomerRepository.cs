@@ -4,9 +4,9 @@ namespace Lume.Domain.Repositories;
 
 public interface ICustomerRepository
 {
-    Task<IEnumerable<Customer>> GetAllCustomers();
-    Task<Customer?> GetCustomerById(Guid id);
-    Task<Guid> CreateCustomer(Customer customer);
-    Task DeleteCustomer(Customer customer);
+    Task<IEnumerable<ApplicationUser>> GetAllCustomers();
+    Task<ApplicationUser?> GetCustomerById(Guid id);
+    Task<Guid> CreateCustomer(ApplicationUser customer);
+    Task DeleteCustomer(ApplicationUser customer);
     Task SaveChanges();
 }

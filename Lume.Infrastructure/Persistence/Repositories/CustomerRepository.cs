@@ -6,28 +6,28 @@ namespace Lume.Infrastructure.Persistence.Repositories;
 
 internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepository
 {
-    public async Task<IEnumerable<Customer>> GetAllCustomers()
+    public async Task<IEnumerable<ApplicationUser>> GetAllCustomers()
     {
-        var customers = await dbContext.Customers.ToListAsync();
+        var customers = await dbContext.Users.ToListAsync();
         return customers;
     }
 
-    public async Task<Customer?> GetCustomerById(Guid id)
+    public async Task<ApplicationUser?> GetCustomerById(Guid id)
     {
-        var customer = await dbContext.Customers.FirstOrDefaultAsync(c => c.Id == id);
+        var customer = await dbContext.Users.FirstOrDefaultAsync(c => c.Id == id);
         return customer;
     }
 
-    public async Task<Guid> CreateCustomer(Customer customer)
+    public async Task<Guid> CreateCustomer(ApplicationUser customer)
     {
-        dbContext.Customers.Add(customer);
+        dbContext.Users.Add(customer);
         await dbContext.SaveChangesAsync();
         return customer.Id;
     }
 
-    public async Task DeleteCustomer(Customer customer)
+    public async Task DeleteCustomer(ApplicationUser customer)
     {
-        dbContext.Customers.Remove(customer);
+        dbContext.Users.Remove(customer);
         await dbContext.SaveChangesAsync();
     }
 

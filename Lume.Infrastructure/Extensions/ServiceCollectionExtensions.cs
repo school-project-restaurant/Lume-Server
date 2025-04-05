@@ -2,6 +2,7 @@ using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Lume.Infrastructure.Persistence.Seeders;
 using Lume.Infrastructure.Persistence.Seeders.Profiles;
 using Microsoft.AspNetCore.Identity;
@@ -36,15 +37,12 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ISeeder, UserSeeder>();
         services.AddTransient<ISeeder, TableSeeder>();
         services.AddTransient<ISeeder, ReservationSeeder>();
+        services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeederOrchestrator, SeederOrchestrator>();
-        
-        services.AddIdentity<Customer, IdentityRole<Guid>>()
-            .AddEntityFrameworkStores<RestaurantDbContext>()
-            .AddDefaultTokenProviders();
 
-        services.AddIdentityCore<Staff>()
-            .AddEntityFrameworkStores<RestaurantDbContext>()
-            .AddDefaultTokenProviders();
+        services.AddIdentityApiEndpoints<ApplicationUser>()
+            .AddRoles<IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<RestaurantDbContext>();
         
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
     }

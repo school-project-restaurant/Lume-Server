@@ -12,9 +12,9 @@ Lume-Server is a RESTful API developed as part of a school project to manage res
 ## Technologies Used
 
 - **Backend**: C# with ASP.NET Core
-- **Database**: PostgreSQL
+- **Database**: PostgreSQL hosted on [neon.tech](https://neon.tech)
 - **Authentication**: JSON Web Tokens (JWT)
-- **Development Tools**: Visual Studio, JetBrains Rider
+- **Development Tools**: Visual Studio, JetBrains Rider, Zeditor, Cargo
 
 ## Getting Started
 
@@ -22,8 +22,7 @@ Lume-Server is a RESTful API developed as part of a school project to manage res
 
 Before using Lume-Server, ensure you have the following installed:
 
-- [PostgreSQL](https://www.postgresql.org/)
-- [Visual Studio](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/)
+- [Visual Studio](https://visualstudio.microsoft.com/), [JetBrains Rider](https://www.jetbrains.com/rider/) or [Zeditor](https://zeditor.dev/)
 
 ### Installation
 
@@ -32,9 +31,12 @@ Before using Lume-Server, ensure you have the following installed:
    git clone https://github.com/school-project-restaurant/Lume-Server.git
    cd Lume-Server
    ```
-2. **Configure the database:**
-   - Ensure PostgreSQL is running.
-   - Update the `appsettings.json` file with your database connection details.
+2. **Configure the database:**ù 
+   - Create a `.env` file in the root directory and add your database connection string:
+      ```dotenv
+      DB_CONNECTION_STRING=postgres://username:password@host:port/database
+      ``` 
+   - Replace `username`, `password`, `host`, `port`, and `database` with your PostgreSQL credentials.
 3. **Build and run the project:**
    ```bash
    dotnet build
@@ -62,10 +64,10 @@ Below is a summary of the core endpoints.
 The database structure is outlined in the diagram below:
 
 <p>
-   <img src="assets/database-model.png">
+   <img src="assets/database-model.png" alt="">
 </p>
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL3 License. See the [LICENSE](LICENSE) file for details.
 

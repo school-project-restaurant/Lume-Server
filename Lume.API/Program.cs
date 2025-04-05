@@ -64,6 +64,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.Map("/", () => Results.Redirect("/swagger"));
 }
 
 app.MapGroup("api/identity")

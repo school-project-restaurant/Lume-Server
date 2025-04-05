@@ -1,176 +1,159 @@
-# Developer Guide - Lume-Server
+# 🚀 Developer Guide - Lume-Server
 
-This document provides instructions and guidelines for developers contributing to the **Lume-Server** project.
+This guide provides comprehensive instructions and best practices for developers contributing to the **Lume-Server** project.
 
-## 1. Project Structure
+---
 
-```markdown
-/Lume.API              # Handles API endpoints and request routing
-│── /Controllers       # API controllers managing requests and responses
-│── Program.cs         # Main entry point of the application
-│── appsettings.json   # Configuration file for the API settings
-│── Lume.http          # Collection of mock HTTP requests for testing
+## 📂 Project Structure
 
-/Lume.Application      # Contains business logic, use cases, and service interfaces
-│── /Prenotations      # Manages prenotation services and related DTOs
-│   │── IPrenotationService.cs  # Interface defining prenotation service methods
-│   │── PrenotationService.cs  # Implementation of prenotation services
-│── /Extensions        # Application-level extensions for dependency injection
-│   │── ServiceCollectionExtensions.cs  # Service registrations and configurations
-
-/Lume.Domain           # Core domain models and business rules
-│── /Repositories      # Defines repository interfaces for database interactions
-│   │── IPrenotationRepository.cs  # Interface for prenotation data access
-
-/Lume.Infrastructure   # Implementation of data persistence and external service integrations
-│── /Extensions        # Infrastructure-level extensions
-│   │── ServiceCollectionExtensions.cs  # Registers infrastructure services
-│── /Persistence       # Database access and repository implementations
-│   │── /Repositories  # Implements repository interfaces
-│   │   │── PrenotationRepository.cs  # Concrete repository for prenotations
-│   │── RestaurantDbContext.cs  # Database context handling entity mappings
+```
+📦 Lume-Server
+├── 📁 Lume.API               # Handles API endpoints and request routing
+│   ├── 📁 Controllers        # API controllers for handling requests and responses
+│   ├── 📄 Program.cs         # Application entry point
+│   ├── 📄 appsettings.json   # Configuration settings
+│   └── 📄 Lume.http          # Mock HTTP requests for testing
+│
+├── 📁 Lume.Application       # Business logic, use cases, and service interfaces
+│   ├── 📁 Prenotations
+│   │   ├── 📄 IPrenotationService.cs  # Interface for prenotation services
+│   │   └── 📄 PrenotationService.cs   # Implementation of prenotation services
+│   └── 📁 Extensions
+│       └── 📄 ServiceCollectionExtensions.cs  # Dependency injection configurations
+│
+├── 📁 Lume.Domain            # Domain models and business rules
+│   └── 📁 Repositories
+│       └── 📄 IPrenotationRepository.cs  # Interface for prenotation data access
+│
+└── 📁 Lume.Infrastructure    # Data persistence and external integrations
+    ├── 📁 Extensions
+    │   └── 📄 ServiceCollectionExtensions.cs  # Infrastructure service registrations
+    └── 📁 Persistence
+        ├── 📁 Repositories
+        │   └── 📄 PrenotationRepository.cs    # Repository implementation for prenotations
+        └── 📄 RestaurantDbContext.cs         # Database context
 ```
 
-## 2. Getting Started
+---
 
-### Prerequisites
+## 🛠️ Getting Started
 
-- **.NET SDK 9.0+** - [Download](https://dotnet.microsoft.com/download)
-- **Visual Studio / JetBrains Rider / Zeditor**
+### 📌 Prerequisites
 
-### Setup Instructions
+- [.NET SDK 9.0+](https://dotnet.microsoft.com/download)
+- Visual Studio, JetBrains Rider, or Zeditor
+
+### 🚧 Setup Instructions
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/school-project-restaurant/Lume-Server.git
-   cd Lume-Server
-   ```
+```bash
+git clone https://github.com/school-project-restaurant/Lume-Server.git
+cd Lume-Server
+```
 
 2. **Start the API:**
 
-   ```bash
-   cd Lume.API
-   dotnet run
-   ```
-   The API will be running on **[http://localhost:5155](http://localhost:5155)**
+```bash
+cd Lume.API
+dotnet run
+```
 
+API available at: [http://localhost:5155](http://localhost:5155)
 
-## 3. Architecture and Patterns
+---
 
-### CQRS Core Components:
+## 🧩 Architecture and Patterns
 
-1. **Commands**
-   - Represent requests that modify system state
-   - Implement MediatR's `IRequest` interface
-   - Example: `AssignUserRoleCommand` defines parameters needed to assign a role
+### 🔄 CQRS Core Components
 
-2. **Command Handlers**
-   - Implement `IRequestHandler<TCommand>`
-   - Contain the actual business logic
-   - Receive dependencies via DI in constructor
-   - Example: `AssignUserRoleCommandHandler` contains logic to find user/role and associate them
+- **Commands** 📥
+   - Modify system state
+   - Implement `IRequest` from MediatR
+   - Example: `AssignUserRoleCommand`
 
-3. **Queries (To be implemented)**
-   - Will represent requests that read data without modifying state
-   - Will implement `IRequest<TResponse>` where TResponse is the return type
+- **Command Handlers** 🛠️
+   - Execute business logic
+   - Dependencies injected via constructor
+   - Example: `AssignUserRoleCommandHandler`
 
-4. **Mediator**
-   - Used in controllers via injected `IMediator`
-   - Decouples request sender from handler
-   - Example: `await mediator.Send(command)` sends command to its appropriate handler
+- **Queries** (To be implemented) 📤
+   - Retrieve data without modifying state
 
-### 4. Identity Management System Implementation:
+- **Mediator** 🎯
+   - Decouples controllers from handlers
+   - Example: `await mediator.Send(command)`
 
-1. **Core Entities**
-   - `ApplicationUser`: Extends IdentityUser<Guid> to add custom properties
-   - `IdentityRole<Guid>`: Used to define roles in the system
+### 🔑 Identity Management
 
-2. **Core Services**
-   - `UserManager<ApplicationUser>`: Manages CRUD operations on users
-   - `RoleManager<IdentityRole<Guid>>`: Manages CRUD operations on roles
-   - `SignInManager`: Manages authentication (login/logout)
+- **Entities**
+   - `ApplicationUser` (extends `IdentityUser<Guid>`)
+   - `IdentityRole<Guid>`
 
-3. **Role Assignment Flow**
-   - Controller receives HTTP request and creates a command
-   - MediatR routes command to its handler
-   - Handler uses UserManager and RoleManager to find and associate user and role
+- **Services**
+   - `UserManager<ApplicationUser>`
+   - `RoleManager<IdentityRole<Guid>>`
+   - `SignInManager`
 
-### 5. Data Flow in the Application with Request-Response Flow:
+- **Role Assignment Flow**
+   - HTTP Request ➡️ Command ➡️ Mediator ➡️ Handler ➡️ Services
 
-1. **API Request**
-   - HTTP client sends request to controller
-   - Example: POST to `/api/identity/userRole` with user/role data
+### 📥 Data Flow
+- **Request** ➡️ **Controller** ➡️ **Command Handler** ➡️ **Persistence** ➡️ **Response**
 
-2. **Controller**
-   - Creates appropriate command from request data
-   - Sends command to mediator with `mediator.Send(command)`
+---
 
-3. **Command Handler**
-   - Receives command and executes business logic
-   - Uses services (e.g., UserManager) to interact with domain
+## 📜 Code Conventions
 
-4. **Data Persistence**
-   - Handler modifies state via domain services or repositories
-   - Changes saved to database
+- **Dependency Injection** 🪛
+   - Use primary constructors (C# 12+)
 
-5. **Response**
-   - Controller returns appropriate HTTP response
-   - Example: 204 NoContent for successful operations with no data to return
-### 6. Project-specific code conventions:
+  ```csharp
+  public class IdentityController(IMediator mediator) : ControllerBase
+  ```
 
-1. **Dependency Injection**
-   - Use constructors with primary constructor syntax (C# 12+)
-   - Example: `public class IdentityController(IMediator mediator) : ControllerBase`
-
-2. **CQRS Naming**
+- **CQRS Naming** 📛
    - Commands: `VerbNounCommand` (e.g., `AssignUserRoleCommand`)
-   - Command Handlers: `CommandNameHandler` (e.g., `AssignUserRoleCommandHandler`)
-   - Queries: `VerbNounQuery` (e.g., `GetUserRolesQuery`)
-   - Query Handlers: `QueryNameHandler` (e.g., `GetUserRolesQueryHandler`)
+   - Command Handlers: `CommandNameHandler`
+   - Queries: `VerbNounQuery`
+   - Query Handlers: `QueryNameHandler`
 
-3. **Logging**
-   - Use injected ILogger<T> for structured logging
-   - Use templates with objects for detailed logging
-   - Example: `logger.LogInformation("Assigning user role: {@Request}", request)`
+- **Logging** 📊
+   - Structured logging using `ILogger<T>`
 
+  ```csharp
+  logger.LogInformation("Assigning user role: {@Request}", request);
+  ```
 
+---
 
+## 🎯 API Development Guidelines
 
+### ✅ Coding Standards
+- Follow **C# naming conventions**
+- Use **dependency injection** consistently
+- Clearly separate **business logic** and **data access**
+- Always return **DTOs**, not database models
 
+### 📖 API Documentation
+- Swagger UI: `/swagger` or `/`
 
+### 🚨 Error Handling
+- Implement middleware for global exception handling
+- Return suitable HTTP status codes (🟠 <span style="color:orange;">400</span>, 🔴 <span style="color:red;">500</span>, etc.)
 
-## 7. API Development Guidelines
+---
 
-### Coding Standards
+## 🤝 Contributing
 
-- Follow **C# naming conventions**.
-- Use **dependency injection** instead of static classes.
-- Separate **business logic (Services)** from **data access (Repositories)**.
-- Always return **DTOs** instead of direct database models.
-
-### API Documentation
-
-- **Swagger UI** is available at **`/swagger`** or at **`/`** with a redirect.
-
-### Error Handling
-
-- Use **middleware** for **global exception handling**.
-- Return appropriate **HTTP status codes** (e.g., `400 Bad Request`, `500 Internal Server Error`).
-
-## 8. Contributing
-
-### Branching Strategy
-
+### 🌿 Branching Strategy
 - `master` → Production-ready code
-- `dev` → Ongoing development
+- `dev` → Development
 - `feature/{feature-name}` → New features
 - `bugfix/{issue-name}` → Bug fixes
-- `docs` → Documentation
+- `docs` → Documentation updates
 
-### 9. Commit Message Convention
-
-Follow this format:
+### 📝 Commit Messages
 
 ```bash
 feature: Add reservation endpoint
@@ -178,12 +161,12 @@ fix: Correct SQL query in restaurant service
 refactor: Optimize authentication logic
 ```
 
-### 10. Pull Requests
+### 🔄 Pull Requests
+- Create a dedicated branch for each issue
+- Ensure proper formatting and passing tests
 
-- **Create a new branch** before working on an issue.
-- Ensure **code is formatted** and **unit tests pass**.
+---
 
-## 5. Testing (TODO)
+## 🧪 Testing *(TODO)*
 
-## 6. Deployment (TODO)
-
+## 🚀 Deployment *(TODO)*

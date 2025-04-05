@@ -3,6 +3,7 @@ using Lume.Domain.Entities;
 using Lume.Infrastructure.Extensions;
 using Microsoft.OpenApi.Models;
 using Lume.Infrastructure.Persistence.Seeders;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
+
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApplication();
@@ -50,6 +57,8 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {

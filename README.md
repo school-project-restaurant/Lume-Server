@@ -65,6 +65,33 @@ The database structure is outlined in the diagram below:
    <img src="assets/database-model.png">
 </p>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project README</title>
+</head>
+<body>
+
+    <!-- Image -->
+    <img src="path/to/your/image.jpg" alt="Project Image" width="100" />
+
+    <!-- Title -->
+    <h1>*** Project Title ***</h1>
+
+    <!-- Version -->
+    <h2>Version: 1.0.0</h2>
+
+    <!-- Description -->
+    <p>
+        This is a brief description of the project. It explains what the project does, its purpose, and any other relevant information that users or contributors might need to know.
+    </p>
+
+</body>
+</html>
+
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

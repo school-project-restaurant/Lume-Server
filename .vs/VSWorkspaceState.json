@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Lume.API",
+    "\\Lume.API\\Controllers",
+    "\\Lume.Application",
+    "\\Lume.Application\\Customers\\Queries\\GetAllCustomers",
+    "\\Lume.Application\\Staff",
+    "\\Lume.Application\\Staff\\Queries",
+    "\\Lume.Application\\Staff\\Queries\\GetAllStaff"
+  ],
+  "SelectedNode": "\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs",
+  "PreviewInSolutionExplorer": false
+}

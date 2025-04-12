@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\gianl\\Lume-Server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQueryHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQueryHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Dtos\\StaffDtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Lume.Application\\Staff\\Dtos\\StaffDtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GetAllStaffQueryHandler.cs",
+              "DocumentMoniker": "C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQueryHandler.cs",
+              "RelativeDocumentMoniker": "Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQueryHandler.cs",
+              "ToolTip": "C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQueryHandler.cs",
+              "RelativeToolTip": "Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQueryHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T07:37:34.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GetAllStaffQuery.cs",
+              "DocumentMoniker": "C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs",
+              "RelativeDocumentMoniker": "Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs",
+              "ToolTip": "C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs",
+              "RelativeToolTip": "Lume.Application\\Staff\\Queries\\GetAllStaff\\GetAllStaffQuery.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T07:37:31.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StaffDtos.cs",
+              "DocumentMoniker": "C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Dtos\\StaffDtos.cs",
+              "RelativeDocumentMoniker": "Lume.Application\\Staff\\Dtos\\StaffDtos.cs",
+              "ToolTip": "C:\\Users\\gianl\\Lume-Server\\Lume.Application\\Staff\\Dtos\\StaffDtos.cs",
+              "RelativeToolTip": "Lume.Application\\Staff\\Dtos\\StaffDtos.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T07:37:21.878Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

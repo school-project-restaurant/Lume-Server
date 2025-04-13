@@ -18,20 +18,18 @@ internal class UserSeeder(
 
         if (await dbContext.Database.CanConnectAsync() && !userManager.Users.Any())
         {
-            const string defaultPassword = "DefaultPassword123!";
-
             foreach (var customerData in seedData.Customers)
             {
                 var customer = mapper.Map<ApplicationUser>(customerData);
                 // Set the discriminator or role for customer
-                await CreateUserWithRole(customer, defaultPassword, "Customer");
+                await CreateUserWithRole(customer, customer.PasswordHash!, "Customer");
             }
 
             foreach (var staffData in seedData.Staff)
             {
                 var staff = mapper.Map<ApplicationUser>(staffData);
                 // Set the discriminator or role for staff
-                await CreateUserWithRole(staff, defaultPassword, "Staff");
+                await CreateUserWithRole(staff, staff.PasswordHash!, "Staff");
             }
 
             await dbContext.SaveChangesAsync();

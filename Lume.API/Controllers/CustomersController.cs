@@ -17,7 +17,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<CustomerDto>> GetAllCustomers()
+    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllCustomers()
     {
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);

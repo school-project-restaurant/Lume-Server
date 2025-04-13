@@ -18,7 +18,7 @@ public class SeedDataProfile : Profile
                 opt.MapFrom(src => 
                 string.IsNullOrEmpty(src.Status) 
                     ? "Pending" 
-                    : char.ToUpper(src.Status[0]) + src.Status.Substring(1)));;
+                    : char.ToUpper(src.Status[0]) + src.Status.Substring(1)));
 
         CreateMap<TableSeedDataModel, Table>();
 

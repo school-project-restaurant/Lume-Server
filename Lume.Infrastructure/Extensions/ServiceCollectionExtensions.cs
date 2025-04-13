@@ -33,17 +33,25 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<RestaurantDbContext>(options =>
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
-        
+
         services.AddTransient<ISeeder, UserSeeder>();
         services.AddTransient<ISeeder, TableSeeder>();
         services.AddTransient<ISeeder, ReservationSeeder>();
         services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeederOrchestrator, SeederOrchestrator>();
-
+        
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+        });
+        
         services.AddIdentityApiEndpoints<ApplicationUser>()
             .AddRoles<IdentityRole<Guid>>()
             .AddEntityFrameworkStores<RestaurantDbContext>();
-        
+
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
     }
 }

@@ -19,21 +19,21 @@ internal class RolesSeeder(RestaurantDbContext dbContext) : ISeeder
     {
         List<IdentityRole<Guid>> roles =
         [
-            new(UserRoels.Customer)
+            new(UserRoles.Customer)
             {
-                NormalizedName = UserRoels.Customer.ToUpper()
+                NormalizedName = UserRoles.Customer.ToUpper()
             },
-            new(UserRoels.Admin)
+            new(UserRoles.Admin)
             {
-                NormalizedName = UserRoels.Admin.ToUpper()
+                NormalizedName = UserRoles.Admin.ToUpper()
             },
-            new(UserRoels.Staff)
+            new(UserRoles.Staff)
             {
-                NormalizedName = UserRoels.Staff.ToUpper()
+                NormalizedName = UserRoles.Staff.ToUpper()
             },
-            new(UserRoels.Chef)
+            new(UserRoles.Chef)
             {
-                NormalizedName = UserRoels.Chef.ToUpper()
+                NormalizedName = UserRoles.Chef.ToUpper()
             }
         ];
         return roles;

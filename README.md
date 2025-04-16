@@ -95,13 +95,11 @@ or any other software you like
 Below is a summary of the core endpoints.
 
 #### Clients
-- **GET /clients** – Fetch all clients.
-- **GET /clients/{id}** – Retrieve details of a specific client.
-- **POST /clients** – Add a new client.
-- **PATCH /clients/{id}** – Update an existing client.
-- **DELETE /clients/{id}** – Remove a client.
-- **GET /clients/{id}/reservations** - Get customer reservations.
-- **POST /clients/{id}/reservations** - Add a new reservations for a customer.
+- **GET /customers** – Fetch all clients.
+- **GET /customers/{id}** – Retrieve details of a specific client.
+- **POST /customers** – Add a new client.
+- **PATCH /customers/{id}** – Update an existing client.
+- **DELETE /customers/{id}** – Remove a client.
 
 ## Database Schema
 

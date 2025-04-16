@@ -108,7 +108,7 @@ Below is a summary of the core endpoints.
 The database structure is outlined in the diagram below:
 
 <p>
-   <img src="assets/database-model.png">
+   <img src="assets/DB.png">
 </p>
 
 ## License

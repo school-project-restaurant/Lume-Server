@@ -111,33 +111,6 @@ The database structure is outlined in the diagram below:
    <img src="assets/database-model.png">
 </p>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project README</title>
-</head>
-<body>
-
-    <!-- Image -->
-    <img src="path/to/your/image.jpg" alt="Project Image" width="100" />
-
-    <!-- Title -->
-    <h1>Lume web</h1>
-
-    <!-- Version -->
-    <h2>Version: 1.0.0</h2>
-
-    <!-- Description -->
-    <p>
-       Lume-Server is a RESTful API developed as part of a school project to manage restaurant data. This guide helps users understand how to set up and interact with the API.
-    </p>
-
-</body>
-</html>
-
-
 ## License
 
 This project is licensed under the GNU3 License. See the [LICENSE](LICENSE) file for details.

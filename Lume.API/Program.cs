@@ -3,6 +3,7 @@ using Lume.Domain.Entities;
 using Lume.Infrastructure.Extensions;
 using Microsoft.OpenApi.Models;
 using Lume.Infrastructure.Persistence.Seeders;
+using Lume.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +45,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -51,6 +54,8 @@ using (var scope = app.Services.CreateScope())
     var orchestrator = scope.ServiceProvider.GetRequiredService<ISeederOrchestrator>();
     await orchestrator.SeedAllAsync();
 }
+
+app.UseMiddleware<RequestTimeLoggingMiddleware>();
 
 // Configure the HTTP request pipeline.
 

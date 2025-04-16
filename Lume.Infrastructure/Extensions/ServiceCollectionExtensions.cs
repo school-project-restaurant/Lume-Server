@@ -34,10 +34,10 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
 
+        services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeeder, UserSeeder>();
         services.AddTransient<ISeeder, TableSeeder>();
         services.AddTransient<ISeeder, ReservationSeeder>();
-        services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeederOrchestrator, SeederOrchestrator>();
         
         services.Configure<IdentityOptions>(options =>

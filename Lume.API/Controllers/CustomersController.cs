@@ -12,7 +12,7 @@ namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,Staff")]
+[Authorize(Roles = "Admin,Staff,Customer")]
 public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

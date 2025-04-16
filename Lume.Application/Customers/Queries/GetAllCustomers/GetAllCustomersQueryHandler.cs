@@ -11,7 +11,7 @@ public class GetAllCustomersQueryHandler(ILogger<GetAllCustomersQueryHandler> lo
 {
     public async Task<IEnumerable<CustomerDto>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Get all customers");
+        logger.LogInformation("Getting all customers from repository {OperationName}", nameof(customerRepository.GetAllCustomers));
         var customers = await customerRepository.GetAllCustomers();
         
         var customersDtos = mapper.Map<IEnumerable<CustomerDto>>(customers);

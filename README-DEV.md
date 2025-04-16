@@ -34,6 +34,100 @@ This guide provides comprehensive instructions and best practices for developers
         └── 📄 RestaurantDbContext.cs         # Database context
 ```
 
+
+## Technology Choices and Rationale
+
+### 🛠️ Clean Architecture
+
+Why Clean Architecture?
+Clean Architecture promotes separation of concerns, enhancing maintainability, testability, and scalability by ensuring that business logic remains independent from external systems like databases or frameworks.
+
+- How it works:
+
+    - Defines clear layers (Domain, Application, Infrastructure, API) with strict dependency rules.
+
+    - Business logic and entities reside at the core, unaffected by external changes.
+
+    - Infrastructure and external dependencies are abstracted through interfaces, making them easily replaceable.
+
+### 🛠️ MediatR
+
+Why MediatR?
+MediatR provides an in-process messaging system that promotes loose coupling between components. It simplifies request-response and command-query responsibilities.
+
+- How it works:
+
+    - Separates request handling logic from controllers.
+
+    - Commands and Queries are handled by specific handlers, keeping controllers thin and business logic isolated.
+
+### 🛠️ Entity Framework Core (EF Core)
+
+Why EF Core?
+EF Core is a robust Object-Relational Mapper (ORM) simplifying database interactions, reducing boilerplate code, and facilitating database schema migrations.
+
+- How it works:
+
+    - Maps database tables to domain entities, enabling easy CRUD operations.
+
+    - Provides migration tools to manage database schema changes.
+
+### 🛠️ Swagger
+
+Why Swagger?
+Swagger auto-generates interactive API documentation, significantly improving API discoverability and developer experience.
+
+- How it works:
+
+    - Automatically generates UI-based documentation of endpoints.
+
+    - Facilitates testing APIs directly via the Swagger interface.
+
+### 🛠️ AutoMapper
+
+Why AutoMapper?
+AutoMapper efficiently handles object-object mapping, significantly reducing manual mapping errors and improving code readability.
+
+- How it works:
+
+    - Automatically maps properties between different object types, like entities and DTOs.
+
+    - Configurable mapping profiles simplify data transfer operations.
+
+### 🛠️ FluentValidation
+
+Why FluentValidation?
+FluentValidation enables clear, maintainable validation logic, improving reliability and readability of input validation code.
+
+- How it works:
+
+    - Uses a fluent API to define validation rules for request models.
+
+    - Easily integrates with ASP.NET Core pipeline to validate inputs before processing requests.
+
+### 🛠️ Serilog
+
+Why Serilog?
+Serilog offers structured logging, facilitating easier debugging, monitoring, and analytics.
+
+- How it works:
+
+    - Records logs in a structured format (e.g., JSON), allowing complex querying and analysis.
+
+    - Supports multiple sinks (console, file, databases, external services).
+
+### 🛠️ Command Query Responsibility Segregation (CQRS)
+
+Why CQRS?
+CQRS separates commands (write operations) from queries (read operations), enhancing clarity, scalability, and performance.
+
+- How it works:
+
+    - Commands modify system state, managed separately from queries which retrieve data.
+
+    - Enables optimizations for reading (e.g., caching) and writing (e.g., validation and business logic isolation).
+
+
 ---
 
 ## 🛠️ Getting Started

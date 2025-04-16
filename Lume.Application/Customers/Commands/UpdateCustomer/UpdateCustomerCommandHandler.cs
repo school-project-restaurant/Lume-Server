@@ -10,7 +10,7 @@ public class UpdateCustomerCommandHandler(ILogger<UpdateCustomerCommandHandler> 
 {
     public async Task<bool> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation($"Update customer with id {request.Id}"); 
+        logger.LogInformation("Updating customer with id {CustomerId}", request.Id); 
         var customer = await customerRepository.GetCustomerById(request.Id);
         if (customer is null) return false;
         

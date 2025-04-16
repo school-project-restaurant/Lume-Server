@@ -14,16 +14,13 @@ Lume-Server is a RESTful API developed as part of a school project to manage res
 - **Backend**: C# with ASP.NET Core
 - **Database**: PostgreSQL
 - **Authentication**: JSON Web Tokens (JWT)
-- **Development Tools**: Visual Studio, JetBrains Rider
+- **Development Tools**: Visual Studio, JetBrains Rider, Zeditor
 
 ## Getting Started
 
 ### Prerequisites
 
 Before using Lume-Server, ensure you have the following installed:
-
-- [PostgreSQL](https://www.postgresql.org/)
-- [Visual Studio](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/)
 
 ### Installation
 
@@ -33,8 +30,7 @@ Before using Lume-Server, ensure you have the following installed:
    cd Lume-Server
    ```
 2. **Configure the database:**
-   - Ensure PostgreSQL is running.
-   - Update the `appsettings.json` file with your database connection details.
+   - Update the `SECRETS.env` file with your database connection details.
 3. **Build and run the project:**
    ```bash
    dotnet build
@@ -94,5 +90,5 @@ The database structure is outlined in the diagram below:
 
 ## License
 
-This project is licensed under the GNU£ License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU3 License. See the [LICENSE](LICENSE) file for details.
 

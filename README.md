@@ -78,14 +78,14 @@ The database structure is outlined in the diagram below:
     <img src="path/to/your/image.jpg" alt="Project Image" width="100" />
 
     <!-- Title -->
-    <h1>*** Project Title ***</h1>
+    <h1>Lume web</h1>
 
     <!-- Version -->
     <h2>Version: 1.0.0</h2>
 
     <!-- Description -->
     <p>
-        This is a brief description of the project. It explains what the project does, its purpose, and any other relevant information that users or contributors might need to know.
+       Lume-Server is a RESTful API developed as part of a school project to manage restaurant data. This guide helps users understand how to set up and interact with the API.
     </p>
 
 </body>
@@ -94,5 +94,5 @@ The database structure is outlined in the diagram below:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU£ License. See the [LICENSE](LICENSE) file for details.
 

@@ -3,7 +3,7 @@
 Lume-Server is a RESTful API developed as part of a school project to manage restaurant data. This guide helps users understand how to set up and interact with the API.
 <div align="center">
    
-⛩️ [**Features**](#-features) **|**🚩[**Updates**](#-updates) **|** ⚡[**Usage**](#-quick-inference) **|** 🔧[Install](#-dependencies-and-installation)  **|**❓[FAQ](docs/FAQ.md) **|** 🎨[Contribution](docs/CONTRIBUTING.md)
+⛩️ [**Features**](#-features) **|** 🚩[**Updates**](#-updates) **|** ⚡[**Usage**](#-quick-inference) **|** 🔧[Install](#-dependencies-and-installation)  **|** ❓[FAQ](docs/FAQ.md) **|** 🎨[Contribution](docs/CONTRIBUTING.md)
 
 </div>
 

@@ -12,10 +12,10 @@ Lume-Server is a RESTful API developed as part of a school project to manage res
 - **CRUD Operations**: Manage restaurant data, menus, orders, and reservations with the standard Create, Read, Update and Delete.
 - **Secure Authentication**: Endpoints secured using JWT-based authentication.
 - **Scalable & Modular**: Provides a scalable server that can be deployed both in verical and orizzontal scalability, all of this could be achived by having a both powerful and efficent backend:
-     •[PostgreSQL](https://www.postgresql.org/)
-     •[.NET 9.0 SDK](https://dotnet.microsoft.com/en-us/download)
-     •[BLAKE3 implementation](https://github.com/BLAKE3-team/BLAKE3)
-
+     - [PostgreSQL](https://www.postgresql.org/)
+     - [.NET 9.0 SDK](https://dotnet.microsoft.com/en-us/download)
+     - [BLAKE3 implementation](https://github.com/BLAKE3-team/BLAKE3)
+       
 - **Extensible**: Supports additional features like user management and order processing.
 - **Develoling-ready**: Proper implementation of [Swagger](https://swagger.io/) and [Serilog](https://serilog.net)
 ## Technologies Used
@@ -63,7 +63,7 @@ Lume-Server is a RESTful API developed as part of a school project to manage res
     ```
 
 3. **Configure the database:**
-   - Update the `SECRETS.env` file with your database connection details.
+   - Update the `Secrets.env` file with your database connection details.
 4. **Build and run the project:**
    ```bash
    dotnet build
@@ -82,8 +82,8 @@ There are usually two ways to interface with Lume-API
 ```bash
 curl -X POST your.domain.name/api ...
 curl -X GET your.domain.name/api
-curl -X DELETE your.domain.name/api
 curl -X UPDATE your.domain.name/api
+curl -X DELETE your.domain.name/api
 ```
 with [Postman](https://www.postman.com)
 or any other software you like

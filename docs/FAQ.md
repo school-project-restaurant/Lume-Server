@@ -23,7 +23,7 @@ Refer to [CONTRIBUTING.md]()
 Use the github issue/bug report
 
 ## 8. Where can I find the documentation?
-[Docs](docs/)
+[Docs](/docs/)
 
 ## 9. Is there a demo available?
 No.

@@ -12,7 +12,7 @@ public class RequestTimeLoggingMiddleware(ILogger<RequestTimeLoggingMiddleware> 
 
         stopwatch.Stop();
         if (stopwatch.ElapsedMilliseconds >= 100)
-            logger.LogInformation("[{Protocol}] [{Verb}] at {Path} responded {StatusCode}, {StatusName} took {Time}ms",
+            logger.LogInformation("[{Protocol}] [{Verb}] at {Path} responded {StatusCode} {StatusName} took {Time}ms",
                 context.Request.Protocol, context.Request.Method,
                 context.Request.Path, context.Response.StatusCode, GetStatusCodeName(context.Response.StatusCode),
                 stopwatch.ElapsedMilliseconds);

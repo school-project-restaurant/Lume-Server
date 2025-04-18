@@ -18,6 +18,9 @@ bld/
 .idea/
 *.sln.iml
 
+# Visual Studio project files
+.vs/
+
 # User-specific files
 *.rsuser
 *.suo

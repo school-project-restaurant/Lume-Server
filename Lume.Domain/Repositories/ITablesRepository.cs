@@ -4,9 +4,9 @@ namespace Lume.Domain.Repositories;
 
 public interface ITablesRepository
 {
-    Task<IEnumerable<ApplicationUser>> GetAllTables();
-    Task<int> GetTablesByNumber(Guid id);
-    Task<Guid> CreateTable(ApplicationUser table);
-    Task DeleteTable(ApplicationUser table);
+    Task<IEnumerable<Table>> GetAllTables();
+    Task<Table?> GetTableByNumber(int id);
+    Task<int> CreateTable(Table table);
+    Task DeleteTable(Table table);
     Task SaveChanges();
 }

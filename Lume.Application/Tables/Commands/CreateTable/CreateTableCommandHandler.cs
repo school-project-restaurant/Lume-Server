@@ -12,8 +12,8 @@ public class CreateTableCommandHandler(ILogger<CreateTableCommandHandler> logger
     public async Task<int> Handle(CreateTableCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Creating a new table {@Table}", request); // TODO exclude sensitive data from logs
-        var table = mapper.Map<ApplicationUser>(request);
-        int Number = await tablesRepository.CreateTable(table);
-        return Number;
+        var table = mapper.Map<Table>(request);
+        var number = await tablesRepository.CreateTable(table);
+        return number;
     }
 }

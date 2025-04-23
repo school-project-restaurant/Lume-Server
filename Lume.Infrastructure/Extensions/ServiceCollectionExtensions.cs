@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<RestaurantDbContext>(options =>
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<ITablesRepository, TableRepository>();
 
         services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeeder, UserSeeder>();

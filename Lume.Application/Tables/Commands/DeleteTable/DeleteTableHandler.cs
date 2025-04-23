@@ -13,7 +13,7 @@ public class DeleteTableCommandHandler(ILogger<DeleteTableCommandHandler> logger
         var table = await tablesRepository.GetTableByNumber(request.Number);
         if (table is null) return false;
 
-        await customerRepository.DeleteCustomer(table);
+        await tablesRepository.DeleteTable(table);
         return true;
     }
 }

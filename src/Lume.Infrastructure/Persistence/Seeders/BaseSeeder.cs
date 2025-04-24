@@ -7,7 +7,7 @@ namespace Lume.Infrastructure.Persistence.Seeders;
 internal abstract class BaseSeeder
 {
     private static readonly string SeedDataPath = Path.Combine(
-        AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "utility", "seeders.json");
+        AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "utility", "seeders.json");
     
     protected async Task<T> LoadSeedDataAsync<T>(JsonSerializerOptions? options = null) where T : class, new()
     {

@@ -27,6 +27,12 @@ public class GetAllCustomersQueryHandlerTest
         var mapperMock = new Mock<IMapper>();
         var customerRepositoryMock = new Mock<ICustomerRepository>();
         var query = new GetAllCustomersQuery();
+
+        var customers = new List<ApplicationUser>()
+        {
+            new ApplicationUser(),
+            new ApplicationUser()
+        };
         
         var expectedDtos = new List<CustomerDto>
         {
@@ -35,9 +41,9 @@ public class GetAllCustomersQueryHandlerTest
         };
         
         customerRepositoryMock.Setup(r => r.GetAllCustomers())
-            .ReturnsAsync(It.IsAny<IEnumerable<ApplicationUser>>());
+            .ReturnsAsync(customers);
         
-        mapperMock.Setup(m => m.Map<IEnumerable<CustomerDto>>(It.IsAny<IEnumerable<ApplicationUser>>()))
+        mapperMock.Setup(m => m.Map<IEnumerable<CustomerDto>>(customers))
             .Returns(expectedDtos);
 
         var queryHandler = new GetAllCustomersQueryHandler(loggerMock.Object, 

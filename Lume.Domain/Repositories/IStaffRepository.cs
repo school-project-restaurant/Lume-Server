@@ -7,7 +7,7 @@ namespace Lume.Domain.Repositories
         Task<IEnumerable<Staff>> GetAllStaff(); 
         Task<Staff?> GetStaffById(Guid id);
         Task<Guid> CreateStaff(Staff staff);
-        Task DeleteStaff(Guid id); 
+        Task DeleteStaff(Staff staff); 
         Task SaveChanges();
     }
 }

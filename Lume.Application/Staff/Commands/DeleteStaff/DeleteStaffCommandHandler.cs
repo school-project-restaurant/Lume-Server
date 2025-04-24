@@ -15,7 +15,7 @@ public class DeleteStaffCommandHandler(ILogger<DeleteStaffCommandHandler> logger
         var staff = await staffRepository.GetStaffById(request.Id);
         if (staff is null) return false;
         
-        await staffRepository.DeleteStaff(request.Id);
+        await staffRepository.DeleteStaff(staff);
         return true;
     }
 }

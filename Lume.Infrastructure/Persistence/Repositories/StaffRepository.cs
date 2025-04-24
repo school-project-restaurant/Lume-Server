@@ -25,9 +25,10 @@ internal class StaffRepository(RestaurantDbContext dbContext) : IStaffRepository
         return staff.Id;
     }
 
-    public async Task DeleteStaff(Guid id)
+    public async Task DeleteStaff(Staff staff)
     {
-        throw new NotImplementedException();
+        dbContext.Staffs.Remove(staff);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task SaveChanges()

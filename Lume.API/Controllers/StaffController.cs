@@ -55,9 +55,9 @@ public class StaffController(IMediator mediator) : ControllerBase
     {
         command.Id = id;
         var isUpdated = await mediator.Send(command);
-        if (!isUpdated)
-            return NotFound("Staff member not found");
-
-        return NoContent();
+        if (isUpdated)
+            return NoContent();
+        
+        return NotFound("Staff member not found");
     }
 }

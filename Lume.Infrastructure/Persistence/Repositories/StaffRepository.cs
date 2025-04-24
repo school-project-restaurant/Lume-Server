@@ -33,6 +33,6 @@ internal class StaffRepository(RestaurantDbContext dbContext) : IStaffRepository
 
     public async Task SaveChanges()
     {
-        throw new NotImplementedException();
+       await dbContext.SaveChangesAsync();
     }
 }

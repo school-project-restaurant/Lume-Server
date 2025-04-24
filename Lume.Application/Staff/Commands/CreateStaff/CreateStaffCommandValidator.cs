@@ -15,7 +15,8 @@ public class CreateStaffCommandValidator : AbstractValidator<CreateStaffCommand>
             .Length(2, 50);
         
         RuleFor(dto => dto.Salary)
-            .NotEmpty();
+            .NotEmpty()
+            .InclusiveBetween(1000, 3000);
 
         RuleFor(dto => dto.PhoneNumber)
            .Matches(@"^\+\d{13}$");

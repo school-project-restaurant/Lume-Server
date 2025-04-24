@@ -34,7 +34,8 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ITablesRepository, TableRepository>();
-
+        services.AddScoped<IStaffRepository, StaffRepository>();
+      
         services.AddTransient<ISeeder, RolesSeeder>();
         services.AddTransient<ISeeder, UserSeeder>();
         services.AddTransient<ISeeder, TableSeeder>();

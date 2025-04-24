@@ -7,47 +7,47 @@ using Lume.Infrastructure.Persistence.Seeders.Models;
 namespace Lume.Infrastructure.Persistence.Seeders;
 
 internal class UserSeeder(
-    UserManager<Customer> customerManager,
-    UserManager<Staff> staffManager,
+    UserManager<ApplicationUser> userManager,
     IMapper mapper,
     RestaurantDbContext dbContext)
     : BaseSeeder, ISeeder
 {
-
     public async Task SeedAsync()
     {
         var seedData = await LoadSeedDataAsync<SeedData>();
 
-        if (await dbContext.Database.CanConnectAsync() && !customerManager.Users.Any())
+        if (await dbContext.Database.CanConnectAsync() && !userManager.Users.Any())
         {
-            const string defaultPassword = "DefaultPassword123!";
-
             foreach (var customerData in seedData.Customers)
             {
-                var customer = mapper.Map<Customer>(customerData);
-                var result = await customerManager.CreateAsync(customer, defaultPassword);
-
-                if (!result.Succeeded)
-                {
-                    Console.WriteLine($"[UserSeeder] Failed to create customer {customer.Email}: " +
-                                      string.Join(", ", result.Errors.Select(e => e.Description)));
-                }
+                var customer = mapper.Map<ApplicationUser>(customerData);
+                // Set the discriminator or role for customer
+                await CreateUserWithRole(customer, customer.PasswordHash!, "Customer");
             }
 
             foreach (var staffData in seedData.Staff)
             {
-                var staff = mapper.Map<Staff>(staffData);
-
-                var result = await staffManager.CreateAsync(staff, defaultPassword);
-
-                if (!result.Succeeded)
-                {
-                    Console.WriteLine($"[UserSeeder] Failed to create staff {staff.Email}: " +
-                                      string.Join(", ", result.Errors.Select(e => e.Description)));
-                }
+                var staff = mapper.Map<ApplicationUser>(staffData);
+                // Set the discriminator or role for staff
+                await CreateUserWithRole(staff, staff.PasswordHash!, "Staff");
             }
 
             await dbContext.SaveChangesAsync();
+        }
+    }
+
+    private async Task CreateUserWithRole(ApplicationUser user, string password, string roleName)
+    {
+        var result = await userManager.CreateAsync(user, password);
+
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, roleName);
+        }
+        else
+        {
+            Console.WriteLine($"[UserSeeder] Failed to create {roleName.ToLower()} {user.Email}: " +
+                              string.Join(", ", result.Errors.Select(e => e.Description)));
         }
     }
 }

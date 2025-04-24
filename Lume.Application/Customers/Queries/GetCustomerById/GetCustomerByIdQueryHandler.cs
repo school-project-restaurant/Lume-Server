@@ -11,7 +11,7 @@ public class GetCustomerByIdQueryHandler(ILogger<GetCustomerByIdQueryHandler> lo
 {
     public async Task<CustomerDto?> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Get customer by id");
+        logger.LogInformation("Getting customer with id {@Id}", request.Id);
         var customer = await customerRepository.GetCustomerById(request.Id);
         
         var customerDto = mapper.Map<CustomerDto>(customer);

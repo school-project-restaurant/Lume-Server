@@ -8,13 +8,15 @@ internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepo
 {
     public async Task<IEnumerable<ApplicationUser>> GetAllCustomers()
     {
-        var customers = await dbContext.Users.ToListAsync();
+        var customers = await dbContext.Users.Where(u => 
+            u.UserType == "Customer").ToListAsync();
         return customers;
     }
 
     public async Task<ApplicationUser?> GetCustomerById(Guid id)
     {
-        var customer = await dbContext.Users.FirstOrDefaultAsync(c => c.Id == id);
+        var customer = await dbContext.Users.FirstOrDefaultAsync(u => 
+            u.UserType == "Customer" && u.Id == id);
         return customer;
     }
 

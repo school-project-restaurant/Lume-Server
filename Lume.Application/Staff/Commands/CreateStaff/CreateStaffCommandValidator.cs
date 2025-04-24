@@ -14,8 +14,8 @@ public class CreateStaffCommandValidator : AbstractValidator<CreateStaffCommand>
             .NotEmpty()
             .Length(2, 50);
         
-        RuleFor(dto => dto.Email)
-            .EmailAddress();
+        RuleFor(dto => dto.Salary)
+            .NotEmpty();
 
         RuleFor(dto => dto.PhoneNumber)
            .Matches(@"^\+\d{13}$");

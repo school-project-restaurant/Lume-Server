@@ -6,28 +6,30 @@ namespace Lume.Infrastructure.Persistence.Repositories;
 
 internal class StaffRepository(RestaurantDbContext dbContext) : IStaffRepository
 {
-    public async Task<IEnumerable<Staff>> GetAllStaff()
+    public async Task<IEnumerable<ApplicationUser>> GetAllStaff()
     {
-        var staff = await dbContext.Staffs.ToListAsync();
+        var staff = await dbContext.Users.Where(u => u.UserType == "Staff").ToListAsync();
         return staff;
     }
 
-    public async Task<Staff?> GetStaffById(Guid id)
+    public async Task<ApplicationUser?> GetStaffById(Guid id)
     {
-        var staff = await dbContext.Staffs.FirstOrDefaultAsync(x => x.Id == id);
+        var staff = await dbContext.Users.FirstOrDefaultAsync(x => 
+            x.Id == id && x.UserType == "Staff");
         return staff;
     }
 
-    public async Task<Guid> CreateStaff(Staff staff)
+    public async Task<Guid> CreateStaff(ApplicationUser staff)
     {
-        dbContext.Staffs.Add(staff);
+        staff.UserType = "Staff";
+        dbContext.Users.Add(staff);
         await dbContext.SaveChangesAsync();
         return staff.Id;
     }
 
-    public async Task DeleteStaff(Staff staff)
+    public async Task DeleteStaff(ApplicationUser staff)
     {
-        dbContext.Staffs.Remove(staff);
+        dbContext.Users.Remove(staff);
         await dbContext.SaveChangesAsync();
     }
 

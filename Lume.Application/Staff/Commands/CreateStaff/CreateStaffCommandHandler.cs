@@ -12,8 +12,8 @@ public class CreateStaffCommandHandler(ILogger<CreateStaffCommandHandler> logger
     public async Task<Guid> Handle(CreateStaffCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Creating a new staff");
-        var staff = mapper.Map<Domain.Entities.Staff>(request);
-        Guid id = await staffRepository.CreateStaff(staff);
+        var staff = mapper.Map<ApplicationUser>(request);
+        var id = await staffRepository.CreateStaff(staff);
         return id;
     }
 }

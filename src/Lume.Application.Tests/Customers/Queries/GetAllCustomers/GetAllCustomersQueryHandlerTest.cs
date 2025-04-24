@@ -56,4 +56,33 @@ public class GetAllCustomersQueryHandlerTest
         result.Should().BeEquivalentTo(expectedDtos);
         customerRepositoryMock.Verify(r => r.GetAllCustomers(), Times.Once);
     }
+    
+    [Fact]
+    public async Task Handle_WhenNoCustomersExist_ReturnEmptyList()
+    {
+        // arrange
+        var loggerMock = new Mock<ILogger<GetAllCustomersQueryHandler>>();
+        var mapperMock = new Mock<IMapper>();
+        var customerRepositoryMock = new Mock<ICustomerRepository>();
+        var query = new GetAllCustomersQuery();
+    
+        var emptyUsersList = new List<ApplicationUser>();
+        var emptyDtosList = new List<CustomerDto>();
+
+        customerRepositoryMock.Setup(r => r.GetAllCustomers())
+            .ReturnsAsync(emptyUsersList);
+
+        mapperMock.Setup(m => m.Map<IEnumerable<CustomerDto>>(emptyUsersList))
+            .Returns(emptyDtosList);
+
+        var queryHandler = new GetAllCustomersQueryHandler(loggerMock.Object,
+            mapperMock.Object, customerRepositoryMock.Object);
+    
+        // act
+        var result = await queryHandler.Handle(query, CancellationToken.None);
+
+        // assert
+        result.Should().BeEmpty();
+        customerRepositoryMock.Verify(r => r.GetAllCustomers(), Times.Once);
+    }
 }

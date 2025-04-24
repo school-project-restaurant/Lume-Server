@@ -20,7 +20,9 @@ internal class StaffRepository(RestaurantDbContext dbContext) : IStaffRepository
 
     public async Task<Guid> CreateStaff(Staff staff)
     {
-        throw new NotImplementedException();
+        dbContext.Staffs.Add(staff);
+        await dbContext.SaveChangesAsync();
+        return staff.Id;
     }
 
     public async Task DeleteStaff(Guid id)

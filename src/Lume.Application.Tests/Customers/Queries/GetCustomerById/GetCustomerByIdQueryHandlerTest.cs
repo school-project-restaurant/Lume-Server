@@ -51,4 +51,26 @@ public class GetCustomerByIdQueryHandlerTest
         result.Should().BeEquivalentTo(expectedCustomerDto);
         customerRepositoryMock.Verify(r => r.GetCustomerById(customerId), Times.Once);
     }
+    [Fact]
+    public async Task Handle_WhenIdIsInValid_ReturnNullCustomerDto()
+    {
+        // arrange
+        var loggerMock = new Mock<ILogger<GetCustomerByIdQueryHandler>>();
+        var mapperMock = new Mock<IMapper>();
+        var customerRepositoryMock = new Mock<ICustomerRepository>();
+        
+        Guid customerId = Guid.NewGuid(); 
+        var query = new GetCustomerByIdQuery(customerId);
+        
+        customerRepositoryMock.Setup(r => r.GetCustomerById(customerId)).ReturnsAsync((ApplicationUser)null);
+        
+        var handler = new GetCustomerByIdQueryHandler(loggerMock.Object, mapperMock.Object, customerRepositoryMock.Object);
+        
+        // act
+        var result = await handler.Handle(query, CancellationToken.None);
+        
+        // assert
+        result.Should().BeNull();
+        customerRepositoryMock.Verify(r => r.GetCustomerById(customerId), Times.Once);
+    }
 }

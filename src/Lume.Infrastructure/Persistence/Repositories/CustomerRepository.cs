@@ -22,6 +22,7 @@ internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepo
 
     public async Task<Guid> CreateCustomer(ApplicationUser customer)
     {
+        customer.UserType = "Customer";
         dbContext.Users.Add(customer);
         await dbContext.SaveChangesAsync();
         return customer.Id;

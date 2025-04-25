@@ -27,16 +27,18 @@ public class GetCustomerByIdQueryHandlerTest
         var customerRepositoryMock = new Mock<ICustomerRepository>();
         
         Guid customerId = Guid.NewGuid(); 
+        string phoneNumber = "+1234567890123";
         var query = new GetCustomerByIdQuery(customerId);
 
         var customer = new ApplicationUser
         {
             Id = customerId,
+            PhoneNumber = phoneNumber,
             UserType = "Customer"
         };
         var expectedCustomerDto = new CustomerDto
         {
-            Id = customerId,
+            PhoneNumber = phoneNumber
         };
         
         mapperMock.Setup(m => m.Map<CustomerDto>(customer)).Returns(expectedCustomerDto);

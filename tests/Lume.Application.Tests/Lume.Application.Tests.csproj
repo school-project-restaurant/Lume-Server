@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lume.Application\Lume.Application.csproj" />
+    <ProjectReference Include="..\..\src\Lume.Application\Lume.Application.csproj" />
   </ItemGroup>
   
 </Project>

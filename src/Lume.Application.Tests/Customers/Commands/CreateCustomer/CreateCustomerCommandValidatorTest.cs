@@ -34,4 +34,34 @@ public class CreateCustomerCommandValidatorTest
         result.ShouldNotHaveValidationErrorFor(nameof(command.PhoneNumber));
         result.ShouldNotHaveValidationErrorFor(nameof(command.PasswordHash));
     }
+
+    [Theory]
+    [InlineData("J", "D", "+123", "123")]
+    [InlineData("51chars00000000000000000000000000000000000000000000", 
+        "51chars00000000000000000000000000000000000000000000", "1234567890123", "33chars00000000000000000000000000")]
+    [InlineData("", "", "", "")]
+    public void Validator_ForInvalidCommand_ShouldHaveValidationErrors(string name, string surname, 
+        string phoneNumber, string passwordHash)
+    {
+        // arrange
+        var command = new CreateCustomerCommand
+        {
+            Name = name,
+            Surname = surname,
+            Email = "john.example.com",
+            PhoneNumber = phoneNumber,
+            PasswordHash = passwordHash
+        };
+        var validator = new CreateCustomerCommandValidator();
+        
+        // act
+        var result = validator.TestValidate(command);
+        
+        // assert
+        result.ShouldHaveValidationErrorFor(nameof(command.Name));
+        result.ShouldHaveValidationErrorFor(nameof(command.Surname));
+        result.ShouldHaveValidationErrorFor(nameof(command.Email));
+        result.ShouldHaveValidationErrorFor(nameof(command.PhoneNumber));
+        result.ShouldHaveValidationErrorFor(nameof(command.PasswordHash));
+    }
 }

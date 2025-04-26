@@ -93,10 +93,10 @@ public class ReservationsController(IMediator mediator) : ControllerBase
     {
         command.Id = id; // Set the ID from the route
         var isUpdated = await mediator.Send(command);
-        if (!isUpdated)
-            return NotFound("Reservation not found");
+        if (isUpdated)
+            return NoContent();
 
-        return NoContent();
+        return NotFound("Reservation not found");
     }
 
     // Future endpoints might include:

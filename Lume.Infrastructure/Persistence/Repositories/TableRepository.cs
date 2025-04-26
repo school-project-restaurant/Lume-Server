@@ -1,32 +1,38 @@
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lume.Infrastructure.Persistence.Repositories;
 
-public class TableRepository : ITablesRepository
+internal class TableRepository(RestaurantDbContext dbContext) : ITablesRepository
 {
-    public Task<IEnumerable<Table>> GetAllTables()
+    public async Task<IEnumerable<Table>> GetAllTables()
     {
-        throw new NotImplementedException();
+        return await dbContext.Tables.ToListAsync();
     }
 
-    public Task<Table?> GetTableByNumber(int id)
+    public async Task<Table?> GetTableByNumber(int id)
     {
-        throw new NotImplementedException();
+        return await dbContext.Tables.FirstOrDefaultAsync(t => t.Number == id);
     }
 
-    public Task<int> CreateTable(Table table)
+    public async Task<int> CreateTable(Table table)
     {
-        throw new NotImplementedException();
+        await dbContext.Tables.AddAsync(table);
+        await dbContext.SaveChangesAsync();
+        return table.Number;
     }
 
-    public Task DeleteTable(Table table)
+    public async Task DeleteTable(Table table)
     {
-        throw new NotImplementedException();
+        dbContext.Tables.Remove(table);
+        await dbContext.SaveChangesAsync();
     }
 
-    public Task SaveChanges()
+    public async Task SaveChanges()
     {
-        throw new NotImplementedException();
+        await dbContext.SaveChangesAsync();
     }
 }

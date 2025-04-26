@@ -10,7 +10,7 @@ public class TablesProfile : Profile
 {
     public TablesProfile()
     {
-        CreateMap<ApplicationUser, TablesDto>();
+        CreateMap<Table, TablesDto>();
         CreateMap<CreateTableCommand, ApplicationUser>();
         CreateMap<UpdateTableCommand, ApplicationUser>();
         CreateMap<DeleteTableCommand, ApplicationUser>();

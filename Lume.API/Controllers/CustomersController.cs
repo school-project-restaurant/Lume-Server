@@ -12,7 +12,7 @@ namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin,Staff,Customer")]
+[Authorize(Roles = "Admin,Customer")]
 public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
@@ -22,7 +22,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
-
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
@@ -33,6 +33,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
         return Ok(customer);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Post(CreateCustomerCommand command)
     {

@@ -70,4 +70,32 @@ public class UpdateCustomerCommandHandlerTest
         customer.Surname.Should().Be(request.Surname);
         customer.PhoneNumber.Should().Be(request.PhoneNumber);
     }
+    
+    [Fact]
+    public async Task Handle_WhenCustomerDoesNotExist_ShouldReturnFalse()
+    {
+        // arrange
+        var loggerMock = new Mock<ILogger<UpdateCustomerCommandHandler>>();
+        var mapperMock = new Mock<IMapper>();
+        var customerRepositoryMock = new Mock<ICustomerRepository>();
+        
+        Guid customerId = Guid.NewGuid();
+        var request = new UpdateCustomerCommand
+        {
+            Id = customerId
+        };
+
+        customerRepositoryMock.Setup(r => r.GetCustomerById(customerId))
+            .ReturnsAsync((ApplicationUser)null);
+        
+        var handler =
+            new UpdateCustomerCommandHandler(loggerMock.Object, mapperMock.Object, customerRepositoryMock.Object);
+        
+        // act
+        var result = await handler.Handle(request, CancellationToken.None);
+        
+        // assert
+        result.Should().Be(false);
+        customerRepositoryMock.Verify(r => r.SaveChanges(), Times.Never);
+    }
 }

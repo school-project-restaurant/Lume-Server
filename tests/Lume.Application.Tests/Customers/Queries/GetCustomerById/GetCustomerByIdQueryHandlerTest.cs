@@ -54,7 +54,7 @@ public class GetCustomerByIdQueryHandlerTest
         customerRepositoryMock.Verify(r => r.GetCustomerById(customerId), Times.Once);
     }
     [Fact]
-    public async Task Handle_WhenIdIsInValid_ReturnNullCustomerDto()
+    public async Task Handle_WhenIdIsInvalid_ReturnNullCustomerDto()
     {
         // arrange
         var loggerMock = new Mock<ILogger<GetCustomerByIdQueryHandler>>();

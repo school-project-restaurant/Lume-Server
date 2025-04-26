@@ -41,4 +41,26 @@ public class DeleteCustomerCommandHandlerTest
         result.Should().Be(true);
         customerRepositoryMock.Verify(r => r.DeleteCustomer(customer), Times.Once);
     }
+    
+    [Fact]
+    public async Task Handle_WhenCustomerDoesNotExist_ShouldReturnFalse()
+    {
+        // arrange
+        var loggerMock = new Mock<ILogger<DeleteCustomerCommandHandler>>();
+        var customerRepositoryMock = new Mock<ICustomerRepository>();
+        var customerId = Guid.NewGuid();
+        var request = new DeleteCustomerCommand(customerId);
+        var customer = new ApplicationUser();
+
+        customerRepositoryMock.Setup(r => r.GetCustomerById(customerId)).ReturnsAsync((ApplicationUser)null);
+
+        var handler = new DeleteCustomerCommandHandler(loggerMock.Object, customerRepositoryMock.Object);
+        
+        // act
+        var result = await handler.Handle(request, CancellationToken.None);
+        
+        // assert
+        result.Should().Be(false);
+        customerRepositoryMock.Verify(r => r.DeleteCustomer(customer), Times.Never);
+    }
 }

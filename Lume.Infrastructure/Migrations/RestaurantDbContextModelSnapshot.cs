@@ -114,7 +114,7 @@ namespace Lume.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Lume.Domain.Entities.Plate", b =>
+            modelBuilder.Entity("Lume.Domain.Entities.Dish", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,7 +132,7 @@ namespace Lume.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plates");
+                    b.ToTable("Dishes");
                 });
 
             modelBuilder.Entity("Lume.Domain.Entities.Reservation", b =>

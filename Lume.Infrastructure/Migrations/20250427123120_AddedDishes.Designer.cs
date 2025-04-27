@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Lume.Infrastructure.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    [Migration("20250427003251_AddPlatesTable")]
-    partial class AddPlatesTable
+    [Migration("20250427123120_AddedDishes")]
+    partial class AddedDishes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,7 +117,7 @@ namespace Lume.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Lume.Domain.Entities.Plate", b =>
+            modelBuilder.Entity("Lume.Domain.Entities.Dish", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,7 @@ namespace Lume.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plates");
+                    b.ToTable("Dishes");
                 });
 
             modelBuilder.Entity("Lume.Domain.Entities.Reservation", b =>

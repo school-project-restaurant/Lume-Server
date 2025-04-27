@@ -1,8 +1,6 @@
-using MediatR;
+namespace Lume.Application.Dishes.Dtos;
 
-namespace Lume.Application.Plates.Commands.UpdatePlate;
-
-public class UpdatePlateCommand : IRequest<bool>
+public class DishDto
 {
     public Guid Id { get; set; }
     public int Price { get; set; }

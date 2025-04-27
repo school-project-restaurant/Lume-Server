@@ -10,7 +10,7 @@ internal class RestaurantDbContext(DbContextOptions<RestaurantDbContext> options
 {
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<Table> Tables { get; set; }
-    public DbSet<Plate> Plates { get; set; }
+    public DbSet<Dish> Dishes { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +21,6 @@ internal class RestaurantDbContext(DbContextOptions<RestaurantDbContext> options
 
         modelBuilder.Entity<Table>().HasKey(t => t.Number);
         modelBuilder.Entity<Reservation>().HasKey(r => r.Id);
-        modelBuilder.Entity<Plate>().HasKey(r => r.Id);
+        modelBuilder.Entity<Dish>().HasKey(r => r.Id);
     }
 }

@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Lume.Application.Plates.Commands.UpdatePlate;
+namespace Lume.Application.Dishes.Commands.CreateDish;
 
-public class UpdatePlateCommandValidator : AbstractValidator<UpdatePlateCommand>
+public class CreateDishCommandValidator : AbstractValidator<CreateDishCommand>
 {
-    public UpdatePlateCommandValidator()
+    public CreateDishCommandValidator()
     {
         RuleFor(dto => dto.Price)
             .NotEmpty();

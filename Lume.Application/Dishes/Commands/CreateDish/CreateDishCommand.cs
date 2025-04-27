@@ -1,8 +1,8 @@
 using MediatR;
 
-namespace Lume.Application.Plates.Commands.CreatePlate;
+namespace Lume.Application.Dishes.Commands.CreateDish;
 
-public class CreatePlateCommand : IRequest<Guid>
+public class CreateDishCommand : IRequest<Guid>
 {
     public Guid Id { get; set; }
     public int Price { get; set; }

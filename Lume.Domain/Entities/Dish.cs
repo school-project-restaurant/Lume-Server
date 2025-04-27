@@ -1,11 +1,11 @@
 namespace Lume.Domain.Entities;
 
-public class Plate
+public class Dish
 {
     public Guid Id { get; set; }
     public int Price { get; set; }
     public int Calories { get; set; }
-    public List<string> Ingredients { get; set; } = null!; // "new List<string>();"?
+    public List<string> Ingredients { get; set; } = [];
 }
 // ## IMPORTANT ##
 // might add something that could help pepole

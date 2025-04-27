@@ -34,6 +34,7 @@ public static class ServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IPlateRepository, PlateRepository>();
         services.AddScoped<ITablesRepository, TableRepository>();
         services.AddScoped<IStaffRepository, StaffRepository>();
 

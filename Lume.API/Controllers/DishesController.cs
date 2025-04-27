@@ -18,7 +18,7 @@ namespace Lume.Controllers;
 // Read operations (GetAll, GetById) might be anonymous or restricted depending on requirements.
 // Let's make GetAll and GetById accessible to "Customer" too, or even AllowAnonymous if it's a public menu.
 // For management actions (POST, PATCH, DELETE), restrict to Admin, Chef.
-[Authorize(Roles = "Admin,Chef,Customer")] // Applied at controller level
+[Authorize(Roles = "Admin,Chef")] // Applied at controller level
 public class DishesController(IMediator mediator) : ControllerBase
 {
     /// <summary>
@@ -58,7 +58,6 @@ public class DishesController(IMediator mediator) : ControllerBase
     /// Requires Admin or Chef role.
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin,Chef")] // Explicitly require Admin or Chef
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)] // For validation errors
     public async Task<IActionResult> CreateDish([FromBody] CreateDishCommand command)
@@ -74,7 +73,6 @@ public class DishesController(IMediator mediator) : ControllerBase
     /// Requires Admin or Chef role.
     /// </summary>
     [HttpDelete("{id:guid}")] // Use :guid constraint
-    [Authorize(Roles = "Admin,Chef")] // Explicitly require Admin or Chef
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteDish([FromRoute] Guid id)
@@ -91,7 +89,6 @@ public class DishesController(IMediator mediator) : ControllerBase
     /// Requires Admin or Chef role.
     /// </summary>
     [HttpPatch("{id:guid}")] // Using PATCH as in CustomerController
-    [Authorize(Roles = "Admin,Chef")] // Explicitly require Admin or Chef
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)] // For validation errors

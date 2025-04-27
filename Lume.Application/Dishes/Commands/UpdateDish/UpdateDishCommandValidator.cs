@@ -13,6 +13,6 @@ public class UpdateDishCommandValidator : AbstractValidator<UpdateDishCommand>
             .NotEmpty();
 
         RuleFor(dto => dto.Ingredients)
-            .NotEmpty();
+            .NotEmpty(); // TODO add the list of possible ingredients
     }
 }

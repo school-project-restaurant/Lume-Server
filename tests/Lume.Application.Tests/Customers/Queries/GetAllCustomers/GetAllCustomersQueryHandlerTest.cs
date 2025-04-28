@@ -20,7 +20,7 @@ public class GetAllCustomersQueryHandlerTest
 {
 
     [Fact]
-    public async Task Handle_WhenRequestIsValid_ReturnRestaurantDtos()
+    public async Task Handle_WhenRequestIsValid_ReturnCustomerDtos()
     {
         // arrange
         var loggerMock = new Mock<ILogger<GetAllCustomersQueryHandler>>();

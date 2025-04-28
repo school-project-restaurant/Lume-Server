@@ -2,7 +2,6 @@ using Lume.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-
 namespace Lume.Application.Staff.Commands.DeleteStaff;
 
 public class DeleteStaffCommandHandler(ILogger<DeleteStaffCommandHandler> logger, 

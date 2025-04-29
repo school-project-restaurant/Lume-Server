@@ -2,7 +2,7 @@
 
 ### Get All Clients
 
-GET {{Lume_HostAddress}}/clients/
+GET {{Lume_HostAddress}}/api/Customers/
 
 ### Get Client By Id
 

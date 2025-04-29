@@ -45,6 +45,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.Configure<RequestTimeLoggingOptions>(options => {
+    options.MaxBodyLogSize = 500;
+    options.LogSuccessResponseBody = false;
+    options.LogErrorResponseBody = true;
+    options.ExcludePaths = ["/swagger"];
+});
 builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
 
 var app = builder.Build();
@@ -57,13 +63,11 @@ using (var scope = app.Services.CreateScope())
 
 app.UseMiddleware<RequestTimeLoggingMiddleware>();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseSerilogRequestLogging();
+//app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {

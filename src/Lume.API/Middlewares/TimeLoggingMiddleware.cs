@@ -1,24 +1,130 @@
 using System.Diagnostics;
+using Microsoft.Extensions.Options;
 
 namespace Lume.Middlewares;
 
-public class RequestTimeLoggingMiddleware(ILogger<RequestTimeLoggingMiddleware> logger) : IMiddleware
+public class RequestTimeLoggingOptions
 {
+    public int MaxBodyLogSize { get; set; } = 500;
+    public bool LogSuccessResponseBody { get; set; } = true;
+    public bool LogErrorResponseBody { get; set; } = true;
+    public string[] ExcludePaths { get; set; } = [];
+}
+
+public class RequestTimeLoggingMiddleware(
+    ILogger<RequestTimeLoggingMiddleware> logger,
+    IOptions<RequestTimeLoggingOptions>? options = null)
+    : IMiddleware
+{
+    private readonly RequestTimeLoggingOptions _options = options?.Value ?? new RequestTimeLoggingOptions();
+
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
+        // Skip logging for excluded paths
+        if (_options.ExcludePaths.Any(p => context.Request.Path.StartsWithSegments(p)))
+        {
+            await next(context);
+            return;
+        }
+
         var stopwatch = Stopwatch.StartNew();
+        var correlationId = context.TraceIdentifier;
+        var protocol = context.Request.Protocol;
+        var method = context.Request.Method;
+        var path = context.Request.Path;
 
-        await next.Invoke(context);
+        // Capture request body for POST, PUT, PATCH
+        var requestBody = string.Empty;
+        if (HttpMethods.IsPost(method) || HttpMethods.IsPut(method) || HttpMethods.IsPatch(method))
+        {
+            context.Request.EnableBuffering();
+            using var reader = new StreamReader(context.Request.Body, leaveOpen: true);
+            requestBody = await reader.ReadToEndAsync();
+            
+            // Truncate if needed
+            if (requestBody.Length > _options.MaxBodyLogSize)
+                requestBody = requestBody.Substring(0, _options.MaxBodyLogSize) + "... [truncated]";
+                
+            context.Request.Body.Position = 0;
+        }
 
-        stopwatch.Stop();
-        if (stopwatch.ElapsedMilliseconds >= 100)
-            logger.LogInformation("[{Protocol}] [{Verb}] at {Path} responded {StatusCode} {StatusName} took {Time}ms",
-                context.Request.Protocol, context.Request.Method,
-                context.Request.Path, context.Response.StatusCode, GetStatusCodeName(context.Response.StatusCode),
-                stopwatch.ElapsedMilliseconds);
+        // Replace response stream with buffered stream
+        var originalBodyStream = context.Response.Body;
+        using var responseBodyStream = new MemoryStream();
+        context.Response.Body = responseBodyStream;
+
+        try
+        {
+            await next(context);
+        }
+        catch (Exception ex)
+        {
+            stopwatch.Stop();
+            logger.LogError(ex,
+                "[UnhandledException] [{Protocol}] [{Method}] {Path} failed after {Elapsed}ms with CorrelationId {CorrelationId}",
+                protocol, method, path, stopwatch.ElapsedMilliseconds, correlationId);
+            throw;
+        }
+        finally
+        {
+            stopwatch.Stop();
+        }
+
+        var statusCode = context.Response.StatusCode;
+        var statusName = GetStatusCodeName(statusCode);
+        var statusClass = GetStatusClass(statusCode);
+        
+        // Capture response body for success or error responses if enabled
+        string responseBody = string.Empty;
+        if ((statusClass == "Success" && _options.LogSuccessResponseBody) || 
+            ((statusClass == "Client Error" || statusClass == "Server Error") && _options.LogErrorResponseBody))
+        {
+            responseBodyStream.Position = 0;
+            responseBody = await new StreamReader(responseBodyStream).ReadToEndAsync();
+            
+            // Truncate if needed
+            if (responseBody.Length > _options.MaxBodyLogSize)
+                responseBody = responseBody.Substring(0, _options.MaxBodyLogSize) + "... [truncated]";
+        }
+
+        // Copy the response to the original stream
+        responseBodyStream.Position = 0;
+        await responseBodyStream.CopyToAsync(originalBodyStream);
+        context.Response.Body = originalBodyStream;
+
+        logger.LogInformation(
+            "[{StatusClass:l}] [{Protocol}] [{Method:u}] {Path} responded {StatusCode} {StatusName:l} in {Elapsed}ms CorrelationId={CorrelationId} {RequestBody} {ResponseBody}",
+            statusClass, protocol, ColorizeMethod(method), path, statusCode, ColorizeStatusName(statusName, statusCode), stopwatch.ElapsedMilliseconds, correlationId,
+            string.IsNullOrWhiteSpace(requestBody) ? string.Empty : $"RequestBody={requestBody}",
+            string.IsNullOrWhiteSpace(responseBody) ? string.Empty : $"ResponseBody={responseBody}");
     }
 
-    private string GetStatusCodeName(int statusCode)
+    private static string GetStatusClass(int statusCode) =>
+        statusCode switch
+        {
+            >= 200 and < 300 => "\u001b[32mSuccess\u001b[0m",
+            >= 400 and < 500 => "\u001b[33mClient Error\u001b[0m",
+            >= 500 => "\u001b[31mServer Error\u001b[0m",
+            _ => "Other"
+        };
+    
+    private string ColorizeMethod(string method) => method switch
+    {
+        "GET" => $"\u001b[34m{method}\u001b[0m", // Blue
+        "POST" => $"\u001b[32m{method}\u001b[0m", // Green
+        "PUT" => $"\u001b[33m{method}\u001b[0m", // Yellow
+        "PATCH" => $"\u001b[35m{method}\u001b[0m", // Magenta
+        "DELETE" => $"\u001b[31m{method}\u001b[0m", // Red
+        _ => method
+    };
+    
+    private string ColorizeStatusName(string statusName, int statusCode) => 
+        GetStatusClass(statusCode).Contains("Success") ? $"\u001b[32m{statusName}\u001b[0m" : // Green for success
+        GetStatusClass(statusCode).Contains("Client Error") ? $"\u001b[33m{statusName}\u001b[0m" : // Yellow for client error
+        GetStatusClass(statusCode).Contains("Server Error") ? $"\u001b[31m{statusName}\u001b[0m" : // Red for server error
+        statusName;
+
+    private static string GetStatusCodeName(int statusCode)
     {
         return statusCode switch
         {
@@ -27,7 +133,7 @@ public class RequestTimeLoggingMiddleware(ILogger<RequestTimeLoggingMiddleware> 
             StatusCodes.Status200OK => "OK",
             StatusCodes.Status201Created => "Created",
             StatusCodes.Status202Accepted => "Accepted",
-            203 => "Non-Authoritative Information", //StatusCodes.Status203NonAuthoritativeInformation
+            203 => "Non-Authoritative Information",
             StatusCodes.Status204NoContent => "No Content",
             StatusCodes.Status205ResetContent => "Reset Content",
             StatusCodes.Status206PartialContent => "Partial Content",
@@ -64,8 +170,8 @@ public class RequestTimeLoggingMiddleware(ILogger<RequestTimeLoggingMiddleware> 
             StatusCodes.Status502BadGateway => "Bad Gateway",
             StatusCodes.Status503ServiceUnavailable => "Service Unavailable",
             StatusCodes.Status504GatewayTimeout => "Gateway Timeout",
-            505 => "HTTP Version Not Supported", // StatusCodes.Status505HttpVersionNotSupported
-            _ => "Unknown Status Code"
+            505 => "HTTP Version Not Supported",
+            _ => "Unknown"
         };
     }
 }

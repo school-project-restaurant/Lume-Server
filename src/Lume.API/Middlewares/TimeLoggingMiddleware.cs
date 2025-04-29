@@ -94,7 +94,7 @@ public class RequestTimeLoggingMiddleware(
 
         logger.LogInformation(
             "[{StatusClass:l}] [{Protocol}] [{Method:u}] {Path} responded {StatusCode} {StatusName:l} in {Elapsed}ms CorrelationId={CorrelationId} {RequestBody} {ResponseBody}",
-            statusClass, protocol, ColorizeMethod(method), path, statusCode, ColorizeStatusName(statusName, statusCode), stopwatch.ElapsedMilliseconds, correlationId,
+            statusClass, protocol, method, path, statusCode, statusName, stopwatch.ElapsedMilliseconds, correlationId,
             string.IsNullOrWhiteSpace(requestBody) ? string.Empty : $"RequestBody={requestBody}",
             string.IsNullOrWhiteSpace(responseBody) ? string.Empty : $"ResponseBody={responseBody}");
     }
@@ -102,27 +102,11 @@ public class RequestTimeLoggingMiddleware(
     private static string GetStatusClass(int statusCode) =>
         statusCode switch
         {
-            >= 200 and < 300 => "\u001b[32mSuccess\u001b[0m",
-            >= 400 and < 500 => "\u001b[33mClient Error\u001b[0m",
-            >= 500 => "\u001b[31mServer Error\u001b[0m",
+            >= 200 and < 300 => "Success",
+            >= 400 and < 500 => "Client Error",
+            >= 500 => "Server Error",
             _ => "Other"
         };
-    
-    private string ColorizeMethod(string method) => method switch
-    {
-        "GET" => $"\u001b[34m{method}\u001b[0m", // Blue
-        "POST" => $"\u001b[32m{method}\u001b[0m", // Green
-        "PUT" => $"\u001b[33m{method}\u001b[0m", // Yellow
-        "PATCH" => $"\u001b[35m{method}\u001b[0m", // Magenta
-        "DELETE" => $"\u001b[31m{method}\u001b[0m", // Red
-        _ => method
-    };
-    
-    private string ColorizeStatusName(string statusName, int statusCode) => 
-        GetStatusClass(statusCode).Contains("Success") ? $"\u001b[32m{statusName}\u001b[0m" : // Green for success
-        GetStatusClass(statusCode).Contains("Client Error") ? $"\u001b[33m{statusName}\u001b[0m" : // Yellow for client error
-        GetStatusClass(statusCode).Contains("Server Error") ? $"\u001b[31m{statusName}\u001b[0m" : // Red for server error
-        statusName;
 
     private static string GetStatusCodeName(int statusCode)
     {

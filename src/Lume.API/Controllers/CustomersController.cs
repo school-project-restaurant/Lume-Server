@@ -22,7 +22,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
@@ -60,10 +60,10 @@ public class CustomersController(IMediator mediator) : ControllerBase
     {
         command.Id = id;
         var isUpdated = await mediator.Send(command);
-        if (!isUpdated)
-            return NotFound("Customer not found");
+        if (isUpdated)
+            return NoContent();
 
-        return NoContent();
+        return NotFound("Customer not found");
     }
 
     /*[HttpGet("{id}/reservations")]

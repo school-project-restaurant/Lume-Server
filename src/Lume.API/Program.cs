@@ -65,6 +65,7 @@ app.UseMiddleware<RequestTimeLoggingMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 //app.UseSerilogRequestLogging();

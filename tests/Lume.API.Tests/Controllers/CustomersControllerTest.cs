@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using AutoMapper;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Lume.Application.Customers.Commands.CreateCustomer;
@@ -95,4 +96,61 @@ public class CustomersControllerTest : IClassFixture<WebApplicationFactory<Progr
         result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
+    [Fact]
+    public async Task Post_WhenRequestIsValid_Returns201Created()
+    {
+        // arrange
+        var client = _factory.CreateClient();
+        var expectedId = Guid.NewGuid();
+        var request = new CreateCustomerCommand
+        {
+            Email = "r@example.com",
+            Name = "Random Name",
+            Surname = "Random Surname",
+            PasswordHash = "Password123!",
+            PhoneNumber = "+1234567890123"
+        };
+        _customerRepositoryMock.Setup(r => r.CreateCustomer(It.IsAny<ApplicationUser>()))
+            .ReturnsAsync(expectedId);
+        
+        // act
+        var result = await client.PostAsync("/api/Customers", JsonContent.Create(request));
+        
+        // assert
+        result.StatusCode.Should().Be(HttpStatusCode.Created);
+        result.Headers.Location.Should().NotBeNull();
+        result.Headers.Location!.ToString().Should().EndWith($"/api/Customers/{expectedId}");
+    }
+    [Fact]
+    public async Task Post_WhenRequestIsInValid_Returns400BadRequest()
+    {
+        // arrange
+        var client = _factory.CreateClient();
+        var expectedId = Guid.NewGuid();
+        var request = new CreateCustomerCommand
+        {
+            Email = "r.example.com",
+            Name = "R",
+            Surname = "R",
+            PasswordHash = "a",
+            PhoneNumber = "+123"
+        };
+        var user = new ApplicationUser
+        {
+            Id = expectedId,
+            Email = request.Email,
+            Name = request.Name,
+            Surname = request.Surname,
+            PasswordHash = request.PasswordHash,
+            PhoneNumber = request.PhoneNumber
+        };
+        _customerRepositoryMock.Setup(r => r.CreateCustomer(user))
+            .ReturnsAsync(expectedId);
+        
+        // act
+        var result = await client.PostAsync("/api/Customers", JsonContent.Create(request));
+        
+        // assert
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
 }

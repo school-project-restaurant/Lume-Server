@@ -1,3 +1,4 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,8 +14,9 @@ public static class ServiceCollectionExtensions
         var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
         
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
-        services.AddAutoMapper(applicationAssembly)
-            .AddFluentValidationAutoValidation();
+        services.AddFluentValidationAutoValidation();
+        services.AddValidatorsFromAssembly(applicationAssembly);
+        services.AddAutoMapper(applicationAssembly);
         
     }
 }

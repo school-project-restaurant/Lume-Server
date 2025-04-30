@@ -1,6 +1,6 @@
 @Lume_HostAddress = http://localhost:5155
 
-### Get All Clients
+### Get All Customers
 
 GET {{Lume_HostAddress}}/api/Customers/
 

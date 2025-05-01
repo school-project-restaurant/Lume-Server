@@ -1,24 +1,28 @@
 using Lume.Application.Customers.Commands.CreateCustomer;
 using Lume.Application.Customers.Commands.DeleteCustomer;
 using Lume.Application.Customers.Commands.UpdateCustomer;
+using Lume.Application.Customers.Dtos;
 using Lume.Application.Customers.Queries.GetAllCustomers;
 using Lume.Application.Customers.Queries.GetCustomerById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lume.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin,Customer")]
 public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllCustomers()
+    [AllowAnonymous]
+    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllCustomers()
     {
         var customers = await mediator.Send(new GetAllCustomersQuery());
         return Ok(customers);
     }
-
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
@@ -29,6 +33,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
         return Ok(customer);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Post(CreateCustomerCommand command)
     {

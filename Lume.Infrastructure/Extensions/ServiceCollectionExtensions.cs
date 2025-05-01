@@ -1,6 +1,11 @@
+using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Lume.Infrastructure.Persistence.Seeders;
+using Lume.Infrastructure.Persistence.Seeders.Profiles;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,5 +33,29 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<RestaurantDbContext>(options =>
             options.UseNpgsql(connectionString));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IDishRepository, DishRepository>();
+        services.AddScoped<ITablesRepository, TableRepository>();
+        services.AddScoped<IStaffRepository, StaffRepository>();
+
+        services.AddTransient<ISeeder, RolesSeeder>();
+        services.AddTransient<ISeeder, UserSeeder>();
+        services.AddTransient<ISeeder, TableSeeder>();
+        services.AddTransient<ISeeder, ReservationSeeder>();
+        services.AddTransient<ISeederOrchestrator, SeederOrchestrator>();
+
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+        });
+
+        services.AddIdentityApiEndpoints<ApplicationUser>()
+            .AddRoles<IdentityRole<Guid>>()
+            .AddEntityFrameworkStores<RestaurantDbContext>();
+
+        services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
     }
 }

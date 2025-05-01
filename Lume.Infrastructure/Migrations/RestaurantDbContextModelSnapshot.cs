@@ -43,11 +43,17 @@ namespace Lume.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("MonthHours")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -72,6 +78,12 @@ namespace Lume.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.PrimitiveCollection<List<Guid>>("ReservationsId")
+                        .HasColumnType("uuid[]");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("integer");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -88,8 +100,7 @@ namespace Lume.Infrastructure.Migrations
 
                     b.Property<string>("UserType")
                         .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("character varying(21)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -101,10 +112,27 @@ namespace Lume.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
 
-                    b.HasDiscriminator<string>("UserType").HasValue("ApplicationUser");
+            modelBuilder.Entity("Lume.Domain.Entities.Dish", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.UseTphMappingStrategy();
+                    b.Property<int>("Calories")
+                        .HasColumnType("integer");
+
+                    b.PrimitiveCollection<List<string>>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dishes");
                 });
 
             modelBuilder.Entity("Lume.Domain.Entities.Reservation", b =>
@@ -125,12 +153,12 @@ namespace Lume.Infrastructure.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("text");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.PrimitiveCollection<List<int>>("TableNumber")
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("integer[]");
+                        .HasColumnType("text");
+
+                    b.Property<int>("TableNumber")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -145,8 +173,8 @@ namespace Lume.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Number"));
 
-                    b.PrimitiveCollection<List<int>>("ReservationsId")
-                        .HasColumnType("integer[]");
+                    b.PrimitiveCollection<string[]>("ReservationsId")
+                        .HasColumnType("text[]");
 
                     b.Property<int>("Seats")
                         .HasColumnType("integer");
@@ -284,32 +312,6 @@ namespace Lume.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Lume.Domain.Entities.Customer", b =>
-                {
-                    b.HasBaseType("Lume.Domain.Entities.ApplicationUser");
-
-                    b.PrimitiveCollection<List<Guid>>("ReservationsId")
-                        .HasColumnType("uuid[]");
-
-                    b.HasDiscriminator().HasValue("Customer");
-                });
-
-            modelBuilder.Entity("Lume.Domain.Entities.Staff", b =>
-                {
-                    b.HasBaseType("Lume.Domain.Entities.ApplicationUser");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("MonthHours")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("integer");
-
-                    b.HasDiscriminator().HasValue("Staff");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

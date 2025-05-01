@@ -6,7 +6,7 @@ namespace Lume.Domain.Entities;
 public class ApplicationUser : IdentityUser<Guid>
 {
     public override Guid Id { get; set; }
-    public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!; // TODO extract requirements from validator to constants file
     public string Surname { get; set; } = null!;
     [Required]
     public override string? PasswordHash { get; set; }

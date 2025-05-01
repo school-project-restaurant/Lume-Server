@@ -118,11 +118,14 @@ public class RequestTimeLoggingMiddleware(
         _ => method
     };
     
-    private string ColorizeStatusName(string statusName, int statusCode) => 
-        GetStatusClass(statusCode).Contains("Success") ? $"\u001b[32m{statusName}\u001b[0m" : // Green for success
-        GetStatusClass(statusCode).Contains("Client Error") ? $"\u001b[33m{statusName}\u001b[0m" : // Yellow for client error
-        GetStatusClass(statusCode).Contains("Server Error") ? $"\u001b[31m{statusName}\u001b[0m" : // Red for server error
-        statusName;
+    private string ColorizeStatusName(string statusName, int statusCode)
+    {
+        var statusClass = GetStatusClass(statusCode);
+        return statusClass.Contains("Success") ? $"\u001b[32m{statusName}\u001b[0m" : // Green for success
+               statusClass.Contains("Client Error") ? $"\u001b[33m{statusName}\u001b[0m" : // Yellow for client error
+               statusClass.Contains("Server Error") ? $"\u001b[31m{statusName}\u001b[0m" : // Red for server error
+               statusName;
+    }
 
     private static string GetStatusCodeName(int statusCode)
     {

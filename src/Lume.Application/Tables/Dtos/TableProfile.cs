@@ -11,7 +11,7 @@ public class TablesProfile : Profile
     public TablesProfile()
     {
         CreateMap<Table, TablesDto>();
-        CreateMap<CreateTableCommand, ApplicationUser>();
-        CreateMap<UpdateTableCommand, ApplicationUser>();
+        CreateMap<CreateTableCommand, Table>();
+        CreateMap<UpdateTableCommand, Table>();
     }
 }

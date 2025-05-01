@@ -65,20 +65,4 @@ public class CustomersController(IMediator mediator) : ControllerBase
 
         return NotFound("Customer not found");
     }
-
-    /*[HttpGet("{id}/reservations")]
-    public async Task<IActionResult> GetClientReservations([FromRoute] int id)
-    {
-        var reservations = await customerService.GetReservations(id);
-        return Ok(reservations);
-    }
-
-    [HttpPost("{id}/reservations")]
-    public async Task<IActionResult> PostReservation([FromRoute] int id, [FromBody] ReservationDto reservationDto)
-    {
-        var reservation = ReservationDto.FromDto(reservationDto);
-        await customerService.CreateReservation(id, reservation);
-
-        return Created(nameof(GetClientReservations), reservation);
-    }*/
 }

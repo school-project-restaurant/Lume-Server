@@ -6,20 +6,10 @@ public class ReservationDto
 {
     public Guid Id { get; set; }
     public DateTime Date { get; set; }
-    public int CustomersCount { get; set; }
-    public string CustomerId { get; set; } = null!;
+    public Guid CustomerId { get; set; }
+    public int TableNumber { get; set; }
+    public int GuestCount { get; set; }
     public string Status { get; set; }
     
     public string? Notes { get; set; }
-
-    public static Reservation FromDto(ReservationDto reservationDto)
-    {
-        return new Reservation
-        {
-            Id = reservationDto.Id,
-            Date = reservationDto.Date,
-            Status = reservationDto.Status,
-            Notes = reservationDto.Notes
-        };
-    }
 }

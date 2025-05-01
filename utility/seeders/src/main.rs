@@ -80,8 +80,7 @@ fn randomNotes() -> String {
     // Generate and print the random note
     if rng.gen() {
         format!("{} {}.", subject, food)
-    }
-    else {
+    } else {
         "".to_string()
     }
 }
@@ -157,8 +156,8 @@ fn main() {
     let mut reservations = Vec::new();
     let mut rng = rand::thread_rng();
 
-    // Generate 50 customers
-    for _ in 0..10 {
+    // Generate 10k customers
+    for _ in 0..10000 {
         let customer_name = generate_name();
         let customer_surname = generate_name();
         let customer_email = format!("{}{}@example.com", customer_name, customer_surname);
@@ -171,14 +170,14 @@ fn main() {
             email: customer_email,
             phoneNumber: customer_phone,
             reservationsId: Vec::new(),
-            passwordHash: generate_password_hash(&random_string())
+            passwordHash: generate_password_hash(&random_string()),
         };
 
         customers.push(customer);
     }
 
-    // Generate 20 staff members
-    for _ in 0..10 {
+    // Generate 100 staff members
+    for _ in 0..100 {
         let staff_name = generate_name();
         let staff_surname = generate_name();
         let staff_phone = generate_phone_number();
@@ -197,7 +196,7 @@ fn main() {
         staff_members.push(staff);
     }
 
-    // Generate 10 tables
+    // Generate 15 tables
     for i in 1..=15 {
         let table = Table {
             number: i,
@@ -208,8 +207,8 @@ fn main() {
         tables.push(table);
     }
 
-    // Generate 100 reservations
-    for _ in 0..30 {
+    // Generate 5000 reservations
+    for _ in 0..5000 {
         // Randomly pick a customer's index and a table index
         let customer_index = rng.gen_range(0..customers.len());
         let table_index = rng.gen_range(0..tables.len());

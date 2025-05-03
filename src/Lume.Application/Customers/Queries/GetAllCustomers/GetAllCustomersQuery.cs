@@ -1,6 +1,7 @@
 using Lume.Application.Common;
 using Lume.Application.Customers.Dtos;
 using Lume.Application.Reservations.Dtos;
+using Lume.Domain.Constants;
 using MediatR;
 
 namespace Lume.Application.Customers.Queries.GetAllCustomers;
@@ -15,4 +16,7 @@ public class GetAllCustomersQuery : IRequest<PagedResult<CustomerDto>>
 
     public int PageSize { get; set; }
     public int PageIndex { get; set; }
+    
+    public string? SortBy { get; set; }
+    public SortDirection? SortDirection { get; set; }
 }

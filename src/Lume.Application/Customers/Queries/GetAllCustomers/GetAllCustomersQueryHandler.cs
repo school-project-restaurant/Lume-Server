@@ -13,10 +13,12 @@ public class GetAllCustomersQueryHandler(ILogger<GetAllCustomersQueryHandler> lo
     public async Task<PagedResult<CustomerDto>> Handle(GetAllCustomersQuery request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Getting all customers from repository {OperationName}", nameof(customerRepository.GetAllCustomers));
-        var customers = await customerRepository.GetAllCustomers();
+        CustomerFilterOptions filterOptions = mapper.Map<CustomerFilterOptions>(request);
+        CustomerSortOptions sortOptions = mapper.Map<CustomerSortOptions>(request);
+        var (customers, totalCount) = await customerRepository.GetMatchingCustomers(filterOptions, sortOptions);
         
         var customersDtos = mapper.Map<IEnumerable<CustomerDto>>(customers);
-        var result = new PagedResult<CustomerDto>(customersDtos, 5, request.PageSize, request.PageIndex);
-        return customersDtos!;
+        var result = new PagedResult<CustomerDto>(customersDtos, totalCount, request.PageSize, request.PageIndex);
+        return result;
     }
 }

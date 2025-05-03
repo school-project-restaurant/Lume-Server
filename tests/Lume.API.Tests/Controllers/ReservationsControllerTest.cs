@@ -103,7 +103,6 @@ public class ReservationsControllerTest : IClassFixture<WebApplicationFactory<Pr
         // assert
         result.StatusCode.Should().Be(HttpStatusCode.OK);
         reservationDto.Should().NotBeNull();
-        reservationDto.Id.Should().Be(id);
         reservationDto.TableNumber.Should().Be(3);
         reservationDto.GuestCount.Should().Be(2);
         reservationDto.Status.Should().Be(ReservationStatus.Pending);

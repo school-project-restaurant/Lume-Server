@@ -12,6 +12,28 @@ internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepo
             u.UserType == "Customer").ToListAsync();
         return customers;
     }
+    
+    public async Task<(IEnumerable<ApplicationUser>, int)> GetMatchingCustomers(CustomerFilterOptions filterOptions)
+    {
+        var query = dbContext.Users.AsQueryable();
+        query = query.Where(u => u.UserType == "Customer");
+        query = ApplySearchFilters(query, filterOptions);
+        
+    }
+
+    private IQueryable<ApplicationUser> ApplySearchFilters(IQueryable<ApplicationUser> query,
+        CustomerFilterOptions options)
+    { // Consider use normalized fields
+        query = query.Where(u => u.Email != null && options.SearchEmail != null 
+                                                 && u.Email.Contains(options.SearchEmail));
+        query = query.Where(u => options.SearchName == null || u.Name.Contains(options.SearchName));
+        query = query.Where(u => options.SearchSurname == null || u.Surname.Contains(options.SearchSurname));
+        query = query.Where(u => options.ReservationId != null && u.ReservationsId != null 
+                                                               && u.ReservationsId.Any(id => id == options.ReservationId));
+        query = query.Where(u => options.SearchPhone != null && u.PhoneNumber != null 
+                                 && u.PhoneNumber.Contains(options.SearchPhone));
+        return query;
+    }
 
     public async Task<ApplicationUser?> GetCustomerById(Guid id)
     {

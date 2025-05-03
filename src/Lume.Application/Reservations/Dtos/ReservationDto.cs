@@ -4,7 +4,6 @@ namespace Lume.Application.Reservations.Dtos;
 
 public class ReservationDto
 {
-    public Guid Id { get; set; }
     public DateTime Date { get; set; }
     public Guid CustomerId { get; set; }
     public int TableNumber { get; set; }

@@ -6,7 +6,7 @@ namespace Lume.Domain.Repositories;
 public interface ICustomerRepository
 {
     Task<IEnumerable<ApplicationUser>> GetAllCustomers();
-    Task<(IEnumerable<ApplicationUser>, int)> GetMatchingCustomers(CustomerFilterOptions filterOptions);
+    Task<(IEnumerable<ApplicationUser>, int)> GetMatchingCustomers(CustomerFilterOptions filterOptions, CustomerSortOptions sortOptions);
     Task<ApplicationUser?> GetCustomerById(Guid id);
     Task<Guid> CreateCustomer(ApplicationUser customer);
     Task DeleteCustomer(ApplicationUser customer);
@@ -28,5 +28,5 @@ public class CustomerFilterOptions
 public class CustomerSortOptions
 {
     public string? SortBy { get; set; }
-    public SortDirection SortDirection { get; set; }
+    public SortDirection? SortDirection { get; set; }
 }

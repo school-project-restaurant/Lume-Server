@@ -18,13 +18,14 @@ public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<PagedResult<CustomerDto>>> GetAllCustomers([FromRoute] GetAllCustomersQuery query)
+    public async Task<ActionResult<PagedResult<CustomerDto>>> GetAllCustomers([FromQuery] GetAllCustomersQuery query)
     {
         var customers = await mediator.Send(query);
         return Ok(customers);
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
         var customer = await mediator.Send(new GetCustomerByIdQuery(id));

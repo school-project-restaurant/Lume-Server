@@ -2,9 +2,9 @@ namespace Lume.Application.Common;
 
 public class PagedResult<T>
 {
-    private IEnumerable<T> Items { get; set; }
-    private int TotalPages { get; set; }
-    private int TotalItemsCount { get; set; }
+    public IEnumerable<T> Items { get; set; }
+    public int TotalPages { get; set; }
+    public int TotalItemsCount { get; set; }
     public int ItemsFrom { get; set; }
     public int ItemsTo { get; set; }
     

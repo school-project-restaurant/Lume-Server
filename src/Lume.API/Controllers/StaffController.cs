@@ -1,8 +1,10 @@
-using Lume.Application.Staff.Queries.GetStaffById;
+using Lume.Application.Common;
 using Lume.Application.Staff.Commands.CreateStaff;
-using Lume.Application.Staff.Queries.GetAllStaff;
 using Lume.Application.Staff.Commands.DeleteStaff;
 using Lume.Application.Staff.Commands.UpdateStaff;
+using Lume.Application.Staff.Dtos;
+using Lume.Application.Staff.Queries.GetAllStaff;
+using Lume.Application.Staff.Queries.GetStaffById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +15,9 @@ namespace Lume.Controllers;
 public class StaffController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllStaff()
+    public async Task<ActionResult<PagedResult<StaffDto>>> GetAllStaff([FromQuery] GetAllStaffQuery query)
     {
-        var staff = await mediator.Send(new GetAllStaffQuery());
+        var staff = await mediator.Send(query);
         return Ok(staff);
     }
 

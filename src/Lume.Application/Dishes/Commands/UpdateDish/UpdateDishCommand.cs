@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Lume.Application.Dishes.Commands.UpdateDish;
 
-public class UpdateDishCommand : IRequest<bool>
+public class UpdateDishCommand : IRequest
 {
     public Guid Id { get; set; }
     public int Price { get; set; }

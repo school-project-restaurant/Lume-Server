@@ -19,11 +19,8 @@ public class TablesController(IMediator mediator) : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedResult<TablesDto>>> GetAllTables([FromQuery] GetAllTableQuery query)
-    {
-        var pagedTables = await mediator.Send(query);
-        return Ok(pagedTables);
-    }
+    public async Task<ActionResult<PagedResult<TablesDto>>> GetAllTables([FromQuery] GetAllTableQuery query) =>
+        Ok(await mediator.Send(query));
 
     [HttpGet("{number}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

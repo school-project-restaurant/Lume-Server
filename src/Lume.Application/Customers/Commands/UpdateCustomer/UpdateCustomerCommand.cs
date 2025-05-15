@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Lume.Application.Customers.Commands.UpdateCustomer;
 
-public class UpdateCustomerCommand : IRequest<bool>
+public class UpdateCustomerCommand : IRequest
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = null!;

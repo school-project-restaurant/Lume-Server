@@ -48,5 +48,6 @@ public static class ServiceCollectionExtensions
             options.ExcludePaths = ["/swagger"];
         });
         builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
+        builder.Services.AddScoped<ExceptionHandlerMiddleware>();
     }
 }

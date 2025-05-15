@@ -22,6 +22,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<RequestTimeLoggingMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

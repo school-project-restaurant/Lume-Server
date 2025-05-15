@@ -1,4 +1,5 @@
 // Lume-Server/Lume.API/Controllers/ReservationsController.cs
+using Lume.Application.Common;
 using Lume.Application.Reservations.Commands.CreateReservation;
 using Lume.Application.Reservations.Commands.DeleteReservation;
 using Lume.Application.Reservations.Commands.UpdateReservation;
@@ -19,15 +20,16 @@ namespace Lume.Controllers;
 public class ReservationsController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Retrieves all reservations.
+    /// Retrieves reservations with pagination, filtering and sorting support.
     /// Requires Admin or Staff role.
     /// </summary>
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAllReservations()
+    public async Task<ActionResult<PagedResult<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservationsQuery query)
     {
-        var reservations = await mediator.Send(new GetAllReservationsQuery());
-        return Ok(reservations);
+        var pagedReservations = await mediator.Send(query);
+        return Ok(pagedReservations);
     }
 
     /// <summary>

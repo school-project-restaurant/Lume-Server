@@ -1,5 +1,6 @@
 // Lume-Server/Lume.API/Controllers/PlatesController.cs
 
+using Lume.Application.Common;
 using Lume.Application.Dishes.Commands.CreateDish;
 using Lume.Application.Dishes.Commands.DeleteDish;
 using Lume.Application.Dishes.Commands.UpdateDish;
@@ -22,17 +23,17 @@ namespace Lume.Controllers;
 public class DishesController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Retrieves all plates from the menu.
+    /// Retrieves all plates from the menu with pagination support.
     /// Accessible to anyone (Anonymous).
     /// </summary>
     [HttpGet]
     [AllowAnonymous] // Allows access without authentication
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<DishDto>>> GetAllDishes()
+    public async Task<ActionResult<PagedResult<DishDto>>> GetAllDishes([FromQuery] GetAllDishesQuery query)
     {
         // No authorization check needed here due to [AllowAnonymous]
-        var plates = await mediator.Send(new GetAllDishesQuery());
-        return Ok(plates);
+        var pagedDishes = await mediator.Send(query);
+        return Ok(pagedDishes);
     }
 
     /// <summary>

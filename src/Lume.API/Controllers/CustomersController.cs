@@ -1,3 +1,4 @@
+using Lume.Application.Common;
 using Lume.Application.Customers.Commands.CreateCustomer;
 using Lume.Application.Customers.Commands.DeleteCustomer;
 using Lume.Application.Customers.Commands.UpdateCustomer;
@@ -17,13 +18,14 @@ public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllCustomers()
+    public async Task<ActionResult<PagedResult<CustomerDto>>> GetAllCustomers([FromQuery] GetAllCustomersQuery query)
     {
-        var customers = await mediator.Send(new GetAllCustomersQuery());
+        var customers = await mediator.Send(query);
         return Ok(customers);
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
         var customer = await mediator.Send(new GetCustomerByIdQuery(id));
@@ -65,20 +67,4 @@ public class CustomersController(IMediator mediator) : ControllerBase
 
         return NotFound("Customer not found");
     }
-
-    /*[HttpGet("{id}/reservations")]
-    public async Task<IActionResult> GetClientReservations([FromRoute] int id)
-    {
-        var reservations = await customerService.GetReservations(id);
-        return Ok(reservations);
-    }
-
-    [HttpPost("{id}/reservations")]
-    public async Task<IActionResult> PostReservation([FromRoute] int id, [FromBody] ReservationDto reservationDto)
-    {
-        var reservation = ReservationDto.FromDto(reservationDto);
-        await customerService.CreateReservation(id, reservation);
-
-        return Created(nameof(GetClientReservations), reservation);
-    }*/
 }

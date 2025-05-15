@@ -1,3 +1,4 @@
+using Lume.Application.Common;
 using Lume.Application.Tables.Commands.CreateTable;
 using Lume.Application.Tables.Commands.DeleteTable;
 using Lume.Application.Tables.Commands.UpdateTable;
@@ -13,25 +14,33 @@ namespace Lume.Controllers;
 [Route("api/[controller]")]
 public class TablesController(IMediator mediator) : ControllerBase
 {
+    /// <summary>
+    /// Retrieves tables with pagination, filtering and sorting support.
+    /// </summary>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TablesDto>>> GetAllTables()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedResult<TablesDto>>> GetAllTables([FromQuery] GetAllTableQuery query)
     {
-        var tables = await mediator.Send(new GetAllTableQuery());
-        return Ok(tables);
+        var pagedTables = await mediator.Send(query);
+        return Ok(pagedTables);
     }
 
     [HttpGet("{number}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<TablesDto>> GetTableByNumber(int number)
     {
         var table = await mediator.Send(new GetTableByNumberQuery(number));
         
         if (table == null)
-            return NotFound();
+            return NotFound("Table not found");
             
         return Ok(table);
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<int>> CreateTable([FromBody] CreateTableCommand command)
     {
         var tableNumber = await mediator.Send(command);
@@ -39,23 +48,27 @@ public class TablesController(IMediator mediator) : ControllerBase
     }
 
     [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<bool>> UpdateTable([FromBody] UpdateTableCommand command)
     {
         var result = await mediator.Send(command);
         
         if (!result)
-            return NotFound();
+            return NotFound("Table not found");
             
         return Ok(result);
     }
 
     [HttpDelete("{number}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<bool>> DeleteTable(int number)
     {
         var result = await mediator.Send(new DeleteTableCommand(number));
         
         if (!result)
-            return NotFound();
+            return NotFound("Table not found");
             
         return Ok(result);
     }

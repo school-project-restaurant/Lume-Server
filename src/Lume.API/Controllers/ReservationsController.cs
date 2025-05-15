@@ -26,11 +26,8 @@ public class ReservationsController(IMediator mediator) : ControllerBase
     [HttpGet]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedResult<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservationsQuery query)
-    {
-        var pagedReservations = await mediator.Send(query);
-        return Ok(pagedReservations);
-    }
+    public async Task<ActionResult<PagedResult<ReservationDto>>> GetAllReservations([FromQuery] GetAllReservationsQuery query) =>
+        Ok(await mediator.Send(query));
 
     /// <summary>
     /// Retrieves a specific reservation by its ID.

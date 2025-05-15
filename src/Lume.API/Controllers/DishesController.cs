@@ -29,12 +29,8 @@ public class DishesController(IMediator mediator) : ControllerBase
     [HttpGet]
     [AllowAnonymous] // Allows access without authentication
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedResult<DishDto>>> GetAllDishes([FromQuery] GetAllDishesQuery query)
-    {
-        // No authorization check needed here due to [AllowAnonymous]
-        var pagedDishes = await mediator.Send(query);
-        return Ok(pagedDishes);
-    }
+    public async Task<ActionResult<PagedResult<DishDto>>> GetAllDishes([FromQuery] GetAllDishesQuery query) =>
+        Ok(await mediator.Send(query));
 
     /// <summary>
     /// Retrieves a specific plate by its ID.

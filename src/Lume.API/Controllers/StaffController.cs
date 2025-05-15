@@ -15,11 +15,8 @@ namespace Lume.Controllers;
 public class StaffController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<PagedResult<StaffDto>>> GetAllStaff([FromQuery] GetAllStaffQuery query)
-    {
-        var staff = await mediator.Send(query);
-        return Ok(staff);
-    }
+    public async Task<ActionResult<PagedResult<StaffDto>>> GetAllStaff([FromQuery] GetAllStaffQuery query) =>
+        Ok(await mediator.Send(query));
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetStaffById([FromRoute] Guid id)

@@ -1,3 +1,4 @@
+using Lume.Domain.Constants;
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,53 @@ internal class StaffRepository(RestaurantDbContext dbContext) : IStaffRepository
     {
         var staff = await dbContext.Users.Where(u => u.UserType == "Staff").ToListAsync();
         return staff;
+    }
+
+    public async Task<(IEnumerable<ApplicationUser>, int)> GetMatchingStaff(StaffFilterOptions filterOptions, StaffSortOptions sortOptions)
+    {
+        var query = dbContext.Users.Where(u => u.UserType == "Staff");
+        query = ApplySearchFilters(query, filterOptions);
+        query = sortOptions.SortBy is not null 
+            ? ApplySorting(query, sortOptions.SortBy, sortOptions.SortDirection) 
+            : query.OrderBy(u => u.Id);
+
+        int totalCount = await query.CountAsync();
+        var staff = await query
+            .Skip(filterOptions.PageSize * (filterOptions.PageIndex - 1))
+            .Take(filterOptions.PageSize)
+            .ToListAsync();
+
+        return (staff, totalCount);
+    }
+
+    private IQueryable<ApplicationUser> ApplySearchFilters(IQueryable<ApplicationUser> query,
+        StaffFilterOptions options)
+    {
+        if (options.SearchName != null)
+            query = query.Where(u => u.Name.Contains(options.SearchName));
+    
+        if (options.SearchSurname != null)
+            query = query.Where(u => u.Surname.Contains(options.SearchSurname));
+    
+        if (options.SearchPhone != null)
+            query = query.Where(u => u.PhoneNumber != null && u.PhoneNumber.Contains(options.SearchPhone));
+    
+        return query;
+    }
+    
+    private IQueryable<ApplicationUser> ApplySorting(IQueryable<ApplicationUser> query, string sortBy, SortDirection? direction)
+    {
+        bool isDescending = direction == SortDirection.Descending;
+    
+        return sortBy.ToLower() switch
+        {
+            "id" => isDescending ? query.OrderByDescending(u => u.Id) : query.OrderBy(u => u.Id),
+            "name" => isDescending ? query.OrderByDescending(u => u.Name) : query.OrderBy(u => u.Name),
+            "surname" => isDescending ? query.OrderByDescending(u => u.Surname) : query.OrderBy(u => u.Surname),
+            "email" => isDescending ? query.OrderByDescending(u => u.Email) : query.OrderBy(u => u.Email),
+            "phonenumber" => isDescending ? query.OrderByDescending(u => u.PhoneNumber) : query.OrderBy(u => u.PhoneNumber),
+            _ => throw new KeyNotFoundException($"Property {sortBy} not found or not sortable")
+        };
     }
 
     public async Task<ApplicationUser?> GetStaffById(Guid id)

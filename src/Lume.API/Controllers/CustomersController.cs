@@ -23,14 +23,8 @@ public class CustomersController(IMediator mediator) : ControllerBase
 
     [HttpGet("{id}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
-    {
-        var customer = await mediator.Send(new GetCustomerByIdQuery(id));
-        if (customer is null)
-            return NotFound("Customer not found");
-
-        return Ok(customer);
-    }
+    public async Task<IActionResult> GetCustomerById([FromRoute] Guid id) =>
+        Ok(await mediator.Send(new GetCustomerByIdQuery(id)));
 
     [Authorize(Roles = "Admin")]
     [HttpPost]
@@ -45,11 +39,8 @@ public class CustomersController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteCustomer([FromRoute] Guid id)
     {
-        var isDeleted = await mediator.Send(new DeleteCustomerCommand(id));
-        if (isDeleted)
-            return NoContent();
-
-        return NotFound("Customer not found");
+        await mediator.Send(new DeleteCustomerCommand(id)); 
+        return NoContent();
     }
 
     [HttpPatch("{id}")]
@@ -58,10 +49,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> UpdateCustomer([FromRoute] Guid id, [FromBody] UpdateCustomerCommand command)
     {
         command.Id = id;
-        var isUpdated = await mediator.Send(command);
-        if (isUpdated)
-            return NoContent();
-
-        return NotFound("Customer not found");
+        await mediator.Send(command);
+        return NoContent();
     }
 }

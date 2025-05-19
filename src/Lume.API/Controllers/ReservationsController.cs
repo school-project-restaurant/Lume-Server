@@ -26,14 +26,8 @@ public class ReservationsController(IMediator mediator) : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetReservationById([FromRoute] Guid id)
-    {
-        var reservation = await mediator.Send(new GetReservationByIdQuery(id));
-        if (reservation is null)
-            return NotFound("Reservation not found");
-
-        return Ok(reservation);
-    }
+    public async Task<IActionResult> GetReservationById([FromRoute] Guid id) =>
+        Ok(await mediator.Send(new GetReservationByIdQuery(id)));
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -54,11 +48,8 @@ public class ReservationsController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteReservation([FromRoute] Guid id)
     {
-        var isDeleted = await mediator.Send(new DeleteReservationCommand(id));
-        if (isDeleted)
-            return NoContent();
-
-        return NotFound("Reservation not found");
+        await mediator.Send(new DeleteReservationCommand(id));
+        return NoContent();
     }
 
     [HttpPatch("{id}")]
@@ -67,11 +58,8 @@ public class ReservationsController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> UpdateReservation([FromRoute] Guid id, [FromBody] UpdateReservationCommand command)
     {
         command.Id = id;
-        var isUpdated = await mediator.Send(command);
-        if (isUpdated)
-            return NoContent();
-
-        return NotFound("Reservation not found");
+        await mediator.Send(command);
+        return NoContent();
     }
 
     // Future endpoints might include:

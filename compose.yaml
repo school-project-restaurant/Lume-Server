@@ -8,38 +8,11 @@ services:
     init: true
     ports:
       - "5155:5155"  # Expose API on localhost:5155
-    depends_on:
-      postgres-db:
-        condition: service_healthy
     networks:
       - lume-net
     env_file: ./src/Lume.API/Secrets.env
     # If you need to customize secrets, edit src/Lume.API/Secrets.env
 
-  postgres-db:
-    image: postgres:latest
-    container_name: postgres-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: lume
-      POSTGRES_PASSWORD: lume
-      POSTGRES_DB: lume
-    ports:
-      - "5432:5432"  # Expose PostgreSQL on localhost:5432
-    volumes:
-      - lume-db-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U lume"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - lume-net
-
 networks:
   lume-net:
     driver: bridge
-
-volumes:
-  lume-db-data:
-    # Persistent storage for PostgreSQL data

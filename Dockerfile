@@ -30,7 +30,7 @@ WORKDIR /app
 # Create data directory with proper permissions
 RUN mkdir -p /data && \
     chown -R 1000:1000 /data && \
-    chmod 777 /data # 700
+    chmod 700 /data # 700
 
 RUN mkdir -p /utility
 COPY --from=builder /app/utility /utility

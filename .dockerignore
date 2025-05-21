@@ -1,0 +1,82 @@
+# Version control
+.git/
+.gitignore
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build outputs (C#)
+**/bin/
+**/obj/
+
+# Rust build outputs
+target/
+
+# Python (not detected, but for completeness)
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# Node.js (not detected, but for completeness)
+node_modules/
+npm-debug.log
+yarn-debug.log
+
+# Go (not detected, but for completeness)
+/vendor/
+*.test
+.go-cache/
+
+# Java (not detected, but for completeness)
+target/
+*.class
+.gradle/
+
+# Test directories and files
+test/
+tests/
+**/test/
+**/tests/
+
+# Documentation and markdown
+README*
+*.md
+docs/
+
+# Docker and Compose files
+Dockerfile*
+docker-compose*
+compose.yaml
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+
+# Temporary and local files
+tmp/
+temp/
+*.tmp
+.local/
+local/
+
+# Backup files
+*.bak
+
+# Project-specific: asset and utility outputs
+assets/
+
+# Exclude Cargo.lock (Rust) from ignore, as per instructions
+# (do not add *.lock)
+
+# Exclude .mvnw, .gradlew, .mvn, .gradle (not present, but as per instructions)
+# (do not add these patterns)

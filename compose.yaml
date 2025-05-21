@@ -1,0 +1,18 @@
+services:
+  csharp-lume_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: csharp-lume_api
+    restart: unless-stopped
+    init: true
+    ports:
+      - "5155:5155"  # Expose API on localhost:5155
+    networks:
+      - lume-net
+    env_file: ./src/Lume.API/Secrets.env
+    # If you need to customize secrets, edit src/Lume.API/Secrets.env
+
+networks:
+  lume-net:
+    driver: bridge

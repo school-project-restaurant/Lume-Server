@@ -13,6 +13,15 @@ builder.AddPresentation();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.Configure<RequestTimeLoggingOptions>(options =>
+{
+    options.MaxBodyLogSize = 500;
+    options.LogSuccessResponseBody = false;
+    options.LogErrorResponseBody = true;
+    options.ExcludePaths = ["/swagger"];
+});
+builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -31,13 +40,14 @@ app.UseAuthorization();
 
 //app.UseSerilogRequestLogging();
 
-if (app.Environment.IsDevelopment())
+/*if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+}*/
+// TODO add a check for production
+app.UseSwagger();
+app.UseSwaggerUI();
 
-    app.Map("/", () => Results.Redirect("/swagger"));
-}
+app.Map("/", () => Results.Redirect("/swagger"));
 
 app.MapGroup("api/identity")
     .WithTags("Identity")

@@ -15,21 +15,12 @@ namespace Lume.Controllers;
 public class StaffController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<PagedResult<StaffDto>>> GetAllStaff([FromQuery] GetAllStaffQuery query)
-    {
-        var staff = await mediator.Send(query);
-        return Ok(staff);
-    }
+    public async Task<ActionResult<PagedResult<StaffDto>>> GetAllStaff([FromQuery] GetAllStaffQuery query) =>
+        Ok(await mediator.Send(query));
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetStaffById([FromRoute] Guid id)
-    {
-        var staffMember = await mediator.Send(new GetStaffByIdQuery(id));
-        if (staffMember == null)
-            return NotFound("Staff member not found");
-
-        return Ok(staffMember);
-    }
+    public async Task<IActionResult> GetStaffById([FromRoute] Guid id) =>
+        Ok(await mediator.Send(new GetStaffByIdQuery(id)));
 
     [HttpPost]
     public async Task<IActionResult> Post(CreateStaffCommand command)
@@ -43,11 +34,8 @@ public class StaffController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteStaff([FromRoute] Guid id)
     {
-        var isDeleted = await mediator.Send(new DeleteStaffCommand(id));
-        if (isDeleted)
-            return NoContent();
-
-        return NotFound("Staff member not found");
+        await mediator.Send(new DeleteStaffCommand(id));
+        return NoContent();
     }
 
     [HttpPatch("{id}")]
@@ -56,10 +44,7 @@ public class StaffController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> UpdateStaff([FromRoute] Guid id, [FromBody] UpdateStaffCommand command)
     {
         command.Id = id;
-        var isUpdated = await mediator.Send(command);
-        if (isUpdated)
-            return NoContent();
-        
-        return NotFound("Staff member not found");
+        await mediator.Send(command);
+        return NoContent();
     }
 }

@@ -53,22 +53,9 @@ public class RequestTimeLoggingMiddleware(
         using var responseBodyStream = new MemoryStream();
         context.Response.Body = responseBodyStream;
 
-        try
-        {
-            await next(context);
-        }
-        catch (Exception ex)
-        {
-            stopwatch.Stop();
-            logger.LogError(ex,
-                "[UnhandledException] [{Protocol}] [{Method}] {Path} failed after {Elapsed}ms with CorrelationId {CorrelationId}",
-                protocol, method, path, stopwatch.ElapsedMilliseconds, correlationId);
-            throw;
-        }
-        finally
-        {
-            stopwatch.Stop();
-        }
+        await next(context);
+        
+        stopwatch.Stop();
 
         var statusCode = context.Response.StatusCode;
         var statusName = GetStatusCodeName(statusCode);
@@ -92,11 +79,24 @@ public class RequestTimeLoggingMiddleware(
         await responseBodyStream.CopyToAsync(originalBodyStream);
         context.Response.Body = originalBodyStream;
 
-        logger.LogInformation(
-            "[{StatusClass:l}] [{Protocol}] [{Method:u}] {Path} responded {StatusCode} {StatusName:l} in {Elapsed}ms CorrelationId={CorrelationId} {RequestBody} {ResponseBody}",
-            statusClass, protocol, ColorizeMethod(method), path, statusCode, ColorizeStatusName(statusName, statusCode), stopwatch.ElapsedMilliseconds, correlationId,
-            string.IsNullOrWhiteSpace(requestBody) ? string.Empty : $"RequestBody={requestBody}",
-            string.IsNullOrWhiteSpace(responseBody) ? string.Empty : $"ResponseBody={responseBody}");
+        switch(statusCode)
+        {
+            case >= 200 and < 300:
+                logger.LogInformation(
+                    "[{StatusClass:l}] [{Protocol}] [{Method:u}] {Path} responded {StatusCode} {StatusName:l} in {Elapsed}ms CorrelationId={CorrelationId} {RequestBody}",
+                    statusClass, protocol, ColorizeMethod(method), path, statusCode,
+                    ColorizeStatusName(statusName, statusCode), stopwatch.ElapsedMilliseconds, correlationId,
+                    string.IsNullOrWhiteSpace(requestBody) ? string.Empty : $"RequestBody={requestBody}");
+                break;
+            default:
+                logger.LogWarning(
+                    "[{StatusClass:l}] [{Protocol}] [{Method:u}] {Path} responded {StatusCode} {StatusName:l} in {Elapsed}ms CorrelationId={CorrelationId} {RequestBody} {ResponseBody}",
+                    statusClass, protocol, ColorizeMethod(method), path, statusCode,
+                    ColorizeStatusName(statusName, statusCode), stopwatch.ElapsedMilliseconds, correlationId,
+                    string.IsNullOrWhiteSpace(requestBody) ? string.Empty : $"RequestBody={requestBody}",
+                    string.IsNullOrWhiteSpace(responseBody) ? string.Empty : $"ResponseBody={responseBody}");
+                break;
+        };
     }
 
     private static string GetStatusClass(int statusCode) =>

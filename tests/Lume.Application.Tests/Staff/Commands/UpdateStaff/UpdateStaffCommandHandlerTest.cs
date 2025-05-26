@@ -6,6 +6,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Lume.Application.Staff.Commands.UpdateStaff;
 using Lume.Domain.Entities;
+using Lume.Domain.Exceptions;
 using Lume.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -16,9 +17,8 @@ namespace Lume.Application.Tests.Staff.Commands.UpdateStaff;
 [TestSubject(typeof(UpdateStaffCommandHandler))]
 public class UpdateStaffCommandHandlerTest
 {
-
     [Fact]
-    public async Task Handle_WhenRequestIsValid_ShouldReturnTrue()
+    public async Task Handle_WhenRequestIsValid_ShouldUpdateStaff()
     {
         // arrange
         var loggerMock = new Mock<ILogger<UpdateStaffCommandHandler>>();
@@ -55,10 +55,9 @@ public class UpdateStaffCommandHandlerTest
             new UpdateStaffCommandHandler(loggerMock.Object, mapperMock.Object, staffRepositoryMock.Object);
         
         // act
-        var result = await handler.Handle(request, CancellationToken.None);
+        await handler.Handle(request, CancellationToken.None);
         
         // assert
-        result.Should().Be(true);
         mapperMock.Verify(m => m.Map(request, staff), Times.Once);
         staffRepositoryMock.Verify(r => r.SaveChanges(), Times.Once);
         
@@ -68,7 +67,7 @@ public class UpdateStaffCommandHandlerTest
     }
     
     [Fact]
-    public async Task Handle_WhenStaffDoesNotExist_ShouldReturnFalse()
+    public async Task Handle_WhenStaffDoesNotExist_ShouldThrowNotFoundException()
     {
         // arrange
         var loggerMock = new Mock<ILogger<UpdateStaffCommandHandler>>();
@@ -87,11 +86,10 @@ public class UpdateStaffCommandHandlerTest
         var handler =
             new UpdateStaffCommandHandler(loggerMock.Object, mapperMock.Object, staffRepositoryMock.Object);
         
-        // act
-        var result = await handler.Handle(request, CancellationToken.None);
+        // act & assert
+        await Assert.ThrowsAsync<NotFoundException>(() => 
+            handler.Handle(request, CancellationToken.None));
         
-        // assert
-        result.Should().Be(false);
         staffRepositoryMock.Verify(r => r.SaveChanges(), Times.Never);
     }
 }

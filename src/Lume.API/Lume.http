@@ -1,0 +1,33 @@
+@Lume_HostAddress = http://localhost:5155
+
+### Get All Customers
+
+GET {{Lume_HostAddress}}/api/Customers/
+
+### Get Client By Id
+
+GET {{Lume_HostAddress}}/clients/1
+
+### Create Client
+
+POST {{Lume_HostAddress}}/clients/
+Content-Type: application/json
+
+{
+  "Name": "John",
+  "Surname": "Doe",
+  "Email": "ex@gmail.com",
+  "PhoneNumber": "+1234567890",
+  "PasswordHash": "123456"
+}
+
+### Update Client
+
+PATCH {{Lume_HostAddress}}/clients/1
+Content-Type: application/json
+
+{
+  "Name": "Jane",
+  "Surname": "Doe",
+  "PhoneNumber": "+0987654321"
+}

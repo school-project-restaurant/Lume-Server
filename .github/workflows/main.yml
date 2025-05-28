@@ -46,3 +46,5 @@ jobs:
           # These cache settings should now work correctly
           cache-from: type=gha
           cache-to: type=gha,mode=max # 'mode=max' includes all layers, good for GHA cache
+          build-args: |
+            DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}

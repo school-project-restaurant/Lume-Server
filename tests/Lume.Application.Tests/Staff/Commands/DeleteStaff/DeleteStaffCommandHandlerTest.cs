@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 using JetBrains.Annotations;
 using Lume.Application.Staff.Commands.DeleteStaff;
 using Lume.Domain.Entities;

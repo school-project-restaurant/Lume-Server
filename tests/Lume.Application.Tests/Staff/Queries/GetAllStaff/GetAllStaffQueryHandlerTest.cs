@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using JetBrains.Annotations;
-using Lume.Application.Common;
 using Lume.Application.Staff.Dtos;
 using Lume.Application.Staff.Queries.GetAllStaff;
 using Lume.Domain.Entities;

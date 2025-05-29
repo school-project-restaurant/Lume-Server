@@ -1,5 +1,3 @@
-using Lume.Domain.Entities;
-
 namespace Lume.Application.Reservations.Dtos;
 
 public class ReservationDto

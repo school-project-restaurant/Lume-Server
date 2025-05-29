@@ -24,5 +24,5 @@ public class TableFilterOptions
 public class TableSortOptions
 {
     public string? SortBy { get; set; }
-    public Domain.Constants.SortDirection? SortDirection { get; set; }
+    public Constants.SortDirection? SortDirection { get; set; }
 }

@@ -2,10 +2,8 @@ using Lume.Application.Extensions;
 using Lume.Domain.Entities;
 using Lume.Extensions;
 using Lume.Infrastructure.Extensions;
-using Microsoft.OpenApi.Models;
 using Lume.Infrastructure.Persistence.Seeders;
 using Lume.Middlewares;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

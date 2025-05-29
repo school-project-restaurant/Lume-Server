@@ -96,7 +96,7 @@ public class RequestTimeLoggingMiddleware(
                     string.IsNullOrWhiteSpace(requestBody) ? string.Empty : $"RequestBody={requestBody}",
                     string.IsNullOrWhiteSpace(responseBody) ? string.Empty : $"ResponseBody={responseBody}");
                 break;
-        };
+        }
     }
 
     private static string GetStatusClass(int statusCode) =>

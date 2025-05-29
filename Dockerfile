@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
 
 ARG DOTNET_VERSION=9.0
-ARG DB_CONNECTION_STRING
 
 # --- Build Stage ---
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION} AS builder
@@ -39,9 +38,6 @@ COPY --from=builder /app/publish .
 
 # Environment variables
 ENV ASPNETCORE_URLS=http://+:5155
-ENV DB_CONNECTION_STRING=$DB_CONNECTION_STRING
-
-RUN echo "DB_CONNECTION_STRING=$DB_CONNECTION_STRING" > /app/src/Lume.API/Secrets.env
 
 EXPOSE 5155
 

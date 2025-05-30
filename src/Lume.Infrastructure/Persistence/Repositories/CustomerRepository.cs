@@ -2,10 +2,11 @@ using Lume.Domain.Constants;
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Lume.Infrastructure.Persistence.Repositories;
 
-internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepository
+internal class CustomerRepository(RestaurantDbContext dbContext, IMemoryCache memoryCache) : ICustomerRepository
 {
     public async Task<IEnumerable<ApplicationUser>> GetAllCustomers()
     {
@@ -71,9 +72,15 @@ internal class CustomerRepository(RestaurantDbContext dbContext) : ICustomerRepo
 
     public async Task<ApplicationUser?> GetCustomerById(Guid id)
     {
-        var customer = await dbContext.Users.FirstOrDefaultAsync(u => 
-            u.UserType == "Customer" && u.Id == id);
-        return customer;
+        var key = $"member-{id}";
+        return await memoryCache.GetOrCreateAsync<ApplicationUser?>(
+            key,
+            async entry =>
+            {
+                entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(2));
+                return await dbContext.Users.FirstOrDefaultAsync(u =>
+                    u.UserType == "Customer" && u.Id == id);
+            });
     }
 
     public async Task<Guid> CreateCustomer(ApplicationUser customer)

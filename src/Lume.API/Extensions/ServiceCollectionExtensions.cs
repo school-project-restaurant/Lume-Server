@@ -49,5 +49,7 @@ public static class ServiceCollectionExtensions
         });
         builder.Services.AddScoped<RequestTimeLoggingMiddleware>();
         builder.Services.AddScoped<ExceptionHandlerMiddleware>();
+
+        builder.Services.AddMemoryCache();
     }
 }

@@ -5,6 +5,8 @@ using Microsoft.OpenApi.Models;
 using Lume.Infrastructure.Persistence.Seeders;
 using Lume.Middlewares;
 using Serilog;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication();
+
+// here is Graphana part
+
+// add prometheus exporter
+builder.Services.AddOpenTelemetry()
+    .WithMetrics(opt =>
+
+        opt
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Lume.API"))
+            .AddMeter(builder.Configuration.GetValue<string>("LumeMeter"))
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddProcessInstrumentation()
+            .AddOtlpExporter(opts =>
+            {
+                opts.Endpoint = new Uri(builder.Configuration["Otel:Endpoint"]);
+            })
+    );
 
 builder.Services.AddSwaggerGen(c =>
 {

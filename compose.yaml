@@ -5,6 +5,8 @@ version: "3.8"
 networks:
   monitoring:
     driver: bridge
+  lume-net:
+    driver: bridge
 
 volumes:
   prometheus-data:
@@ -46,7 +48,7 @@ services:
       - monitoring
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
+    container_name: prometheu
     ports:
       - 9090:9090
     command:

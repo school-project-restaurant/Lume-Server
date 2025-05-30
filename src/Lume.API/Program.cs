@@ -19,20 +19,28 @@ builder.Services.AddAuthentication();
 // here is Graphana part
 
 // add prometheus exporter
+// Replace the current OpenTelemetry configuration with this:
 builder.Services.AddOpenTelemetry()
     .WithMetrics(opt =>
-
-        opt
+    {
+        var metricsBuilder = opt
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Lume.API"))
-            .AddMeter(builder.Configuration.GetValue<string>("LumeMeter"))
+            .AddMeter(builder.Configuration.GetValue<string>("LumeMeter") ?? "Lume.Metrics")
             .AddAspNetCoreInstrumentation()
             .AddRuntimeInstrumentation()
             .AddProcessInstrumentation()
-            .AddOtlpExporter(opts =>
+            .AddPrometheusExporter();
+
+        // Only add OTLP exporter if endpoint is configured
+        var otlpEndpoint = builder.Configuration["Otel:Endpoint"];
+        if (!string.IsNullOrEmpty(otlpEndpoint))
+        {
+            metricsBuilder.AddOtlpExporter(opts =>
             {
-                opts.Endpoint = new Uri(builder.Configuration["Otel:Endpoint"]);
-            })
-    );
+                opts.Endpoint = new Uri(otlpEndpoint);
+            });
+        }
+    });
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -80,7 +88,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<RequestTimeLoggingMiddleware>();
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
+app.UseHttpsRedirection();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

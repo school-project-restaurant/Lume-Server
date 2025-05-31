@@ -4,8 +4,22 @@ using Lume.Extensions;
 using Lume.Infrastructure.Extensions;
 using Lume.Infrastructure.Persistence.Seeders;
 using Lume.Middlewares;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+
+builder.Services.AddAuthentication();
+builder.Host.UseSerilog((context, configuration) => { configuration.ReadFrom.Configuration(context.Configuration); });
+
+
+builder.Services.AddEndpointsApiExplorer();
 
 builder.AddPresentation();
 builder.Services.AddApplication();
@@ -29,6 +43,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<RequestTimeLoggingMiddleware>();
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();

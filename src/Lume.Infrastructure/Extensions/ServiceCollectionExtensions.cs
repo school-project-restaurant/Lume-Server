@@ -56,5 +56,15 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<RestaurantDbContext>();
 
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
+        services.AddStackExchangeRedisCache(options =>
+        {
+            var redisConnection = configuration.GetConnectionString("Redis") ?? "redis:6379";
+            options.Configuration = redisConnection;
+            options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions()
+            {
+                AbortOnConnectFail = true,
+                EndPoints = { options.Configuration }
+            };
+        });
     }
 }

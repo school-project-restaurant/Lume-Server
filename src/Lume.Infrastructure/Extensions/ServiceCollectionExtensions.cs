@@ -58,7 +58,8 @@ public static class ServiceCollectionExtensions
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
         services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = "localhost";
+            var redisConnection = configuration.GetConnectionString("Redis") ?? "redis:6379";
+            options.Configuration = redisConnection;
             options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions()
             {
                 AbortOnConnectFail = true,

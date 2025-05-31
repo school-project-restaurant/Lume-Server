@@ -56,5 +56,14 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<RestaurantDbContext>();
 
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = "localhost";
+            options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions()
+            {
+                AbortOnConnectFail = true,
+                EndPoints = { options.Configuration }
+            };
+        });
     }
 }

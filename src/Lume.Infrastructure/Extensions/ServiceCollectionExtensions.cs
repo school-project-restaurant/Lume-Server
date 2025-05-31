@@ -1,5 +1,6 @@
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
+using Lume.Infrastructure.Identity;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -54,6 +55,9 @@ public static class ServiceCollectionExtensions
         services.AddIdentityApiEndpoints<ApplicationUser>()
             .AddRoles<IdentityRole<Guid>>()
             .AddEntityFrameworkStores<RestaurantDbContext>();
+
+        // Register the custom Blake3 password hasher
+        services.AddScoped<IPasswordHasher<ApplicationUser>, Blake3PasswordHasher>();
 
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
         services.AddStackExchangeRedisCache(options =>

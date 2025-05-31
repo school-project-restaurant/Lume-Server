@@ -12,7 +12,23 @@ services:
       - lume-net
     env_file: ./src/Lume.API/Secrets.env
     # If you need to customize secrets, edit src/Lume.API/Secrets.env
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    container_name: lume-redis
+    restart: unless-stopped
+    command: ["redis-server"]
+    networks:
+      - lume-net
+    ports:
+      - "6379:6379"
 
 networks:
   lume-net:
+    driver: bridge
+
+volumes:
+  redis-data:
     driver: bridge

@@ -1,5 +1,3 @@
-using Lume.Domain.Entities;
-
 namespace Lume.Infrastructure.Persistence.Seeders.Models;
 
 public class ReservationSeedDataModel

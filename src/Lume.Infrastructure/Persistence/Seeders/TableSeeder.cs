@@ -1,4 +1,3 @@
-using System.Text.Json;
 using AutoMapper;
 using Lume.Domain.Entities;
 using Lume.Infrastructure.Persistence.Seeders.Models;

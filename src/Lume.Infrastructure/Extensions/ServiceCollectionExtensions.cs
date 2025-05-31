@@ -5,7 +5,6 @@ using Lume.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Lume.Infrastructure.Persistence.Seeders;
 using Lume.Infrastructure.Persistence.Seeders.Profiles;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

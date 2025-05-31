@@ -1,6 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using Lume.Domain.Entities;
 
 namespace Lume.Infrastructure.Persistence.Seeders;
 

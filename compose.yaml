@@ -13,11 +13,14 @@ volumes:
     driver: local
   grafana-data:
     driver: local
+  redis-data:
+    driver: bridge
 
 services:
   csharp-lume_api:
     depends_on:
       - otel-collector
+      - redis
     build:
       context: .
       dockerfile: Dockerfile
@@ -81,3 +84,13 @@ services:
       - /:/rootfs:ro
     networks:
       - monitoring
+  
+  redis:
+    image: redis:latest
+    container_name: lume-redis
+    restart: unless-stopped
+    command: ["redis-server"]
+    networks:
+      - lume-net
+    ports:
+      - "6379:6379"

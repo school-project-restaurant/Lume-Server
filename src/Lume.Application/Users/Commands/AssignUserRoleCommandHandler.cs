@@ -1,4 +1,5 @@
 using Lume.Domain.Entities;
+using Lume.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -15,10 +16,10 @@ public class AssignUserRoleCommandHandler(
         logger.LogInformation("Assigning user role: {@Request}", request);
         
         var user = await userManager.FindByEmailAsync(request.UserEmail)
-                   ?? throw new KeyNotFoundException(nameof(ApplicationUser)); // TODO create NotFoundException 
+                   ?? throw new NotFoundException(nameof(ApplicationUser), request.UserEmail);
 
         var role = await roleManager.FindByNameAsync(request.RoleName)
-                   ?? throw new KeyNotFoundException(nameof(IdentityRole<Guid>)); // TODO create NotFoundException
+                   ?? throw new NotFoundException(nameof(IdentityRole<Guid>), request.RoleName);
 
         await userManager.AddToRoleAsync(user, role.Name!);
     }

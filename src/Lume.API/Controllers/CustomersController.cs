@@ -8,6 +8,7 @@ using Lume.Application.Customers.Queries.GetCustomerById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Lume.Controllers;
 
@@ -18,6 +19,7 @@ public class CustomersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [AllowAnonymous]
+    [EnableRateLimiting("FixedPolicy")]
     public async Task<ActionResult<PagedResult<CustomerDto>>> GetAllCustomers([FromQuery] GetAllCustomersQuery query) =>
         Ok(await mediator.Send(query));
 

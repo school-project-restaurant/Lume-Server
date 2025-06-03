@@ -1,7 +1,6 @@
 using AutoMapper;
 using Lume.Application.Tables.Commands.CreateTable;
 using Lume.Application.Tables.Commands.UpdateTable;
-using Lume.Application.Tables.Commands.DeleteTable;
 using Lume.Application.Tables.Queries.GetAllTables;
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;

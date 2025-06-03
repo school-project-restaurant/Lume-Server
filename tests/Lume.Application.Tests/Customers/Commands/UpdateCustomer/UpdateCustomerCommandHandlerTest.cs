@@ -6,6 +6,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Lume.Application.Customers.Commands.UpdateCustomer;
 using Lume.Domain.Entities;
+using Lume.Domain.Exceptions;
 using Lume.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -16,9 +17,8 @@ namespace Lume.Application.Tests.Customers.Commands.UpdateCustomer;
 [TestSubject(typeof(UpdateCustomerCommandHandler))]
 public class UpdateCustomerCommandHandlerTest
 {
-
     [Fact]
-    public async Task Handle_WhenRequestIsValid_ShouldReturnTrue()
+    public async Task Handle_WhenRequestIsValid_ShouldUpdateCustomer()
     {
         // arrange
         var loggerMock = new Mock<ILogger<UpdateCustomerCommandHandler>>();
@@ -58,10 +58,9 @@ public class UpdateCustomerCommandHandlerTest
             new UpdateCustomerCommandHandler(loggerMock.Object, mapperMock.Object, customerRepositoryMock.Object);
         
         // act
-        var result = await handler.Handle(request, CancellationToken.None);
+        await handler.Handle(request, CancellationToken.None);
         
         // assert
-        result.Should().Be(true);
         mapperMock.Verify(m => m.Map(request, customer), Times.Once);
         customerRepositoryMock.Verify(r => r.SaveChanges(), Times.Once);
         
@@ -72,7 +71,7 @@ public class UpdateCustomerCommandHandlerTest
     }
     
     [Fact]
-    public async Task Handle_WhenCustomerDoesNotExist_ShouldReturnFalse()
+    public async Task Handle_WhenCustomerDoesNotExist_ShouldThrowNotFoundException()
     {
         // arrange
         var loggerMock = new Mock<ILogger<UpdateCustomerCommandHandler>>();
@@ -92,10 +91,12 @@ public class UpdateCustomerCommandHandlerTest
             new UpdateCustomerCommandHandler(loggerMock.Object, mapperMock.Object, customerRepositoryMock.Object);
         
         // act
-        var result = await handler.Handle(request, CancellationToken.None);
+        Func<Task> act = async () => await handler.Handle(request, CancellationToken.None);
         
         // assert
-        result.Should().Be(false);
+        await act.Should().ThrowAsync<NotFoundException>()
+            .WithMessage($"Entity \"customer\" ({customerId}) was not found.");
         customerRepositoryMock.Verify(r => r.SaveChanges(), Times.Never);
+        mapperMock.Verify(m => m.Map(It.IsAny<UpdateCustomerCommand>(), It.IsAny<ApplicationUser>()), Times.Never);
     }
 }

@@ -1,11 +1,11 @@
 using Lume.Domain.Entities;
 using Lume.Domain.Repositories;
+using Lume.Infrastructure.Identity;
 using Lume.Infrastructure.Persistence;
 using Lume.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Lume.Infrastructure.Persistence.Seeders;
 using Lume.Infrastructure.Persistence.Seeders.Profiles;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,6 +56,19 @@ public static class ServiceCollectionExtensions
             .AddRoles<IdentityRole<Guid>>()
             .AddEntityFrameworkStores<RestaurantDbContext>();
 
+        // Register the custom Blake3 password hasher
+        services.AddScoped<IPasswordHasher<ApplicationUser>, Blake3PasswordHasher>();
+
         services.AddAutoMapper(typeof(SeedDataProfile).Assembly);
+        services.AddStackExchangeRedisCache(options =>
+        {
+            var redisConnection = configuration.GetConnectionString("Redis") ?? "redis:6379";
+            options.Configuration = redisConnection;
+            options.ConfigurationOptions = new StackExchange.Redis.ConfigurationOptions()
+            {
+                AbortOnConnectFail = true,
+                EndPoints = { options.Configuration }
+            };
+        });
     }
 }

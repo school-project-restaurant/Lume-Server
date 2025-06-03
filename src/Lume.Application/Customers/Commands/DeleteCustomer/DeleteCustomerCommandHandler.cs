@@ -1,3 +1,4 @@
+using Lume.Domain.Exceptions;
 using Lume.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -5,15 +6,15 @@ using Microsoft.Extensions.Logging;
 namespace Lume.Application.Customers.Commands.DeleteCustomer;
 
 public class DeleteCustomerCommandHandler(ILogger<DeleteCustomerCommandHandler> logger, 
-    ICustomerRepository customerRepository) : IRequestHandler<DeleteCustomerCommand, bool>
+    ICustomerRepository customerRepository) : IRequestHandler<DeleteCustomerCommand>
 {
-    public async Task<bool> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Deleting customer with id {CustomerId}", request.Id);
         var customer = await customerRepository.GetCustomerById(request.Id);
-        if (customer is null) return false;
+        if (customer is null)
+            throw new NotFoundException(nameof(customer), request.Id);
         
         await customerRepository.DeleteCustomer(customer);
-        return true;
     }
 }

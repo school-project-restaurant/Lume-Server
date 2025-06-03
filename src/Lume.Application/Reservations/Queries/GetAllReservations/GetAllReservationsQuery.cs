@@ -2,7 +2,6 @@ using Lume.Application.Common;
 using Lume.Application.Reservations.Dtos;
 using Lume.Domain.Constants;
 using MediatR;
-using System;
 
 namespace Lume.Application.Reservations.Queries.GetAllReservations;
 

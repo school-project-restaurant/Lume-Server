@@ -1,5 +1,3 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using AutoMapper;
 using Lume.Domain.Entities;
 using Lume.Infrastructure.Persistence.Seeders.Models;

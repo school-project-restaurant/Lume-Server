@@ -19,14 +19,17 @@ public class GetAllStaffQueryHandlerTest
 {
 
     [Fact]
-    public async Task Handle_WhenRequestIsValid_ReturnStaffDtos()
+    public async Task Handle_WhenRequestIsValid_ReturnPagedStaffDtos()
     {
         // arrange
         var loggerMock = new Mock<ILogger<GetAllStaffQueryHandler>>();
         var mapperMock = new Mock<IMapper>();
         var staffRepositoryMock = new Mock<IStaffRepository>();
-        var query = new GetAllStaffQuery();
+        var query = new GetAllStaffQuery { PageSize = 10, PageIndex = 0 };
 
+        var staffFilterOptions = new StaffFilterOptions();
+        var staffSortOptions = new StaffSortOptions();
+        
         var staffs = new List<ApplicationUser>()
         {
             new ApplicationUser(),
@@ -39,8 +42,16 @@ public class GetAllStaffQueryHandlerTest
             new StaffDto { }
         };
         
-        staffRepositoryMock.Setup(r => r.GetAllStaff())
-            .ReturnsAsync(staffs);
+        var totalCount = 2;
+        
+        mapperMock.Setup(m => m.Map<StaffFilterOptions>(query))
+            .Returns(staffFilterOptions);
+            
+        mapperMock.Setup(m => m.Map<StaffSortOptions>(query))
+            .Returns(staffSortOptions);
+        
+        staffRepositoryMock.Setup(r => r.GetMatchingStaff(staffFilterOptions, staffSortOptions))
+            .ReturnsAsync((staffs, totalCount));
         
         mapperMock.Setup(m => m.Map<IEnumerable<StaffDto>>(staffs))
             .Returns(expectedDtos);
@@ -52,24 +63,35 @@ public class GetAllStaffQueryHandlerTest
         var result = await queryHandler.Handle(query, CancellationToken.None);
         
         // assert
-        result.Should().BeEquivalentTo(expectedDtos);
-        staffRepositoryMock.Verify(r => r.GetAllStaff(), Times.Once);
+        result.Items.Should().BeEquivalentTo(expectedDtos);
+        result.TotalItemsCount.Should().Be(totalCount);
+        staffRepositoryMock.Verify(r => r.GetMatchingStaff(staffFilterOptions, staffSortOptions), Times.Once);
     }
     
     [Fact]
-    public async Task Handle_WhenNoStaffExist_ReturnEmptyList()
+    public async Task Handle_WhenNoStaffExist_ReturnEmptyPagedResult()
     {
         // arrange
         var loggerMock = new Mock<ILogger<GetAllStaffQueryHandler>>();
         var mapperMock = new Mock<IMapper>();
         var staffRepositoryMock = new Mock<IStaffRepository>();
-        var query = new GetAllStaffQuery();
+        var query = new GetAllStaffQuery { PageSize = 10, PageIndex = 0 };
     
+        var staffFilterOptions = new StaffFilterOptions();
+        var staffSortOptions = new StaffSortOptions();
+        
         var emptyUsersList = new List<ApplicationUser>();
         var emptyDtosList = new List<StaffDto>();
+        var totalCount = 0;
 
-        staffRepositoryMock.Setup(r => r.GetAllStaff())
-            .ReturnsAsync(emptyUsersList);
+        mapperMock.Setup(m => m.Map<StaffFilterOptions>(query))
+            .Returns(staffFilterOptions);
+            
+        mapperMock.Setup(m => m.Map<StaffSortOptions>(query))
+            .Returns(staffSortOptions);
+        
+        staffRepositoryMock.Setup(r => r.GetMatchingStaff(staffFilterOptions, staffSortOptions))
+            .ReturnsAsync((emptyUsersList, totalCount));
 
         mapperMock.Setup(m => m.Map<IEnumerable<StaffDto>>(emptyUsersList))
             .Returns(emptyDtosList);
@@ -81,7 +103,9 @@ public class GetAllStaffQueryHandlerTest
         var result = await queryHandler.Handle(query, CancellationToken.None);
 
         // assert
-        result.Should().BeEmpty();
-        staffRepositoryMock.Verify(r => r.GetAllStaff(), Times.Once);
+        result.Items.Should().BeEmpty();
+        result.TotalItemsCount.Should().Be(0);
+        staffRepositoryMock.Verify(r => r.GetMatchingStaff(staffFilterOptions, staffSortOptions), Times.Once);
     }
 }
+

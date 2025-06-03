@@ -19,24 +19,14 @@ public class TablesController(IMediator mediator) : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<PagedResult<TablesDto>>> GetAllTables([FromQuery] GetAllTableQuery query)
-    {
-        var pagedTables = await mediator.Send(query);
-        return Ok(pagedTables);
-    }
+    public async Task<ActionResult<PagedResult<TablesDto>>> GetAllTables([FromQuery] GetAllTableQuery query) =>
+        Ok(await mediator.Send(query));
 
     [HttpGet("{number}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<TablesDto>> GetTableByNumber(int number)
-    {
-        var table = await mediator.Send(new GetTableByNumberQuery(number));
-        
-        if (table == null)
-            return NotFound("Table not found");
-            
-        return Ok(table);
-    }
+    public async Task<ActionResult<TablesDto>> GetTableByNumber(int number) =>
+        Ok(await mediator.Send(new GetTableByNumberQuery(number)));
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -52,12 +42,8 @@ public class TablesController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<bool>> UpdateTable([FromBody] UpdateTableCommand command)
     {
-        var result = await mediator.Send(command);
-        
-        if (!result)
-            return NotFound("Table not found");
-            
-        return Ok(result);
+        await mediator.Send(command);
+        return NoContent();
     }
 
     [HttpDelete("{number}")]
@@ -65,11 +51,7 @@ public class TablesController(IMediator mediator) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<bool>> DeleteTable(int number)
     {
-        var result = await mediator.Send(new DeleteTableCommand(number));
-        
-        if (!result)
-            return NotFound("Table not found");
-            
-        return Ok(result);
+        await mediator.Send(new DeleteTableCommand(number));
+        return NoContent();
     }
 }

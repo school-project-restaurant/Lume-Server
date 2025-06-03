@@ -1,4 +1,6 @@
+using System.Threading.RateLimiting;
 using Lume.Middlewares;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -75,5 +77,17 @@ public static class ServiceCollectionExtensions
         builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
         builder.Services.AddMemoryCache();
+        
+        builder.Services.AddRateLimiter(options =>
+        {
+            options.AddFixedWindowLimiter("FixedPolicy", opt =>
+            {
+                opt.Window = TimeSpan.FromSeconds(30);
+                opt.PermitLimit = 2;
+                opt.QueueLimit = 0;
+                opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            });
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+        });
     }
 }

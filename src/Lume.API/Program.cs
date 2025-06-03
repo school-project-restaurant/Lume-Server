@@ -66,6 +66,8 @@ app.MapGroup("api/identity")
     .WithTags("Identity")
     .MapIdentityApi<ApplicationUser>();
 
+app.UseRateLimiter();
+
 app.MapControllers();
 
 app.Run();
